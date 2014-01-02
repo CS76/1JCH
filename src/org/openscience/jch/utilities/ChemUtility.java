@@ -1383,10 +1383,8 @@ public class ChemUtility {
 
     public static IAtomContainer getIAtomContainerFromSmiles(String smiles) {
         IAtomContainer mol = new AtomContainer();
-
         IChemObjectBuilder builder = SilentChemObjectBuilder.getInstance();
         SmilesParser sp = new SmilesParser(builder);
-        SmilesGenerator sg = new SmilesGenerator();
         try {
             mol = sp.parseSmiles(smiles);
         } catch (InvalidSmilesException ex) {
@@ -1399,7 +1397,6 @@ public class ChemUtility {
         IAtomContainer mol = new AtomContainer();
         IChemObjectBuilder builder = SilentChemObjectBuilder.getInstance();
         SmilesParser sp = new SmilesParser(builder);
-        SmilesGenerator sg = new SmilesGenerator();
         try {
             mol = sp.parseSmiles(smiles);
             AtomContainerManipulator.percieveAtomTypesAndConfigureAtoms(mol);
