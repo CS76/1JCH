@@ -37,6 +37,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.vecmath.Point2d;
 import javax.vecmath.Point3d;
 import org.openscience.cdk.AtomContainer;
@@ -55,6 +57,7 @@ import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IAtomContainerSet;
 import org.openscience.cdk.interfaces.IBond;
 import org.openscience.cdk.interfaces.IChemFile;
+import org.openscience.cdk.interfaces.IChemObjectBuilder;
 import org.openscience.cdk.interfaces.IRingSet;
 import org.openscience.cdk.io.CMLReader;
 import org.openscience.cdk.io.CMLWriter;
@@ -62,10 +65,12 @@ import org.openscience.cdk.io.SDFWriter;
 import org.openscience.cdk.qsar.DescriptorEngine;
 import org.openscience.cdk.qsar.DescriptorValue;
 import org.openscience.cdk.ringsearch.SSSRFinder;
+import org.openscience.cdk.silent.SilentChemObjectBuilder;
 import org.openscience.cdk.smiles.SmilesGenerator;
 import org.openscience.cdk.smiles.SmilesParser;
 import org.openscience.cdk.smsd.Isomorphism;
 import org.openscience.cdk.smsd.interfaces.Algorithm;
+import org.openscience.cdk.tools.CDKHydrogenAdder;
 import org.openscience.cdk.tools.manipulator.AtomContainerManipulator;
 import org.openscience.cdk.tools.manipulator.ChemFileManipulator;
 
@@ -1378,10 +1383,29 @@ public class ChemUtility {
 
     public static IAtomContainer getIAtomContainerFromSmiles(String smiles) {
         IAtomContainer mol = new AtomContainer();
+
+        IChemObjectBuilder builder = SilentChemObjectBuilder.getInstance();
+        SmilesParser sp = new SmilesParser(builder);
+        SmilesGenerator sg = new SmilesGenerator();
         try {
-            SmilesParser sp = new SmilesParser(DefaultChemObjectBuilder.getInstance());
             mol = sp.parseSmiles(smiles);
-        } catch (InvalidSmilesException ise) {
+        } catch (InvalidSmilesException ex) {
+            Logger.getLogger(ChemUtility.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return mol;
+    }
+
+    public static IAtomContainer getIAtomContainerFromSmilesWAP(String smiles) throws CDKException {
+        IAtomContainer mol = new AtomContainer();
+        IChemObjectBuilder builder = SilentChemObjectBuilder.getInstance();
+        SmilesParser sp = new SmilesParser(builder);
+        SmilesGenerator sg = new SmilesGenerator();
+        try {
+            mol = sp.parseSmiles(smiles);
+            AtomContainerManipulator.percieveAtomTypesAndConfigureAtoms(mol);
+            CDKHydrogenAdder.getInstance(builder).addImplicitHydrogens(mol);
+        } catch (InvalidSmilesException ex) {
+            Logger.getLogger(ChemUtility.class.getName()).log(Level.SEVERE, null, ex);
         }
         return mol;
     }
