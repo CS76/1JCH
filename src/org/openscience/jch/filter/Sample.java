@@ -17,9 +17,9 @@ import java.io.IOException;
 public class Sample {
 
     public static void main(String[] args) throws FileNotFoundException, IOException, ClassNotFoundException {
-        ParameterEngine pe = new ParameterEngine("/Users/chandu/Desktop/filter", "/Users/chandu/Desktop/filter/parameter.txt", "/Users/chandu/Desktop/filter/SP.txt");
+        ParameterEngine pe = new ParameterEngine("/Users/chandu/Desktop/filter", "/Users/chandu/Desktop/filter/parameter.txt", "/Users/chandu/Desktop/filter/eMolecules/version.smi");
         //System.out.println(GeneralUtility.readLines("/Users/chandu/Desktop/filter/eMolecules/version.smi").size());
-        BufferedReader br = new BufferedReader(new FileReader("/Users/chandu/Desktop/filter/SP_screened.txt"));
+        BufferedReader br = new BufferedReader(new FileReader("/Users/chandu/Desktop/filter/newScreen.txt"));
         int count = 0;
         try {
             StringBuilder sb = new StringBuilder();

@@ -1,6 +1,6 @@
 package org.openscience.jch.descriptors.charges;
 
-import org.openscience.jch.diversity.Sqlite;
+import org.openscience.jch.diversity2222.Sqlite;
 
 
  public class EEMPartialChargeCalculator{

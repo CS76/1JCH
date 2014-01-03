@@ -173,7 +173,7 @@ public class ParameterEngine {
                     }
                 }
                 try {
-                    GeneralUtility.appendToFile(GeneralUtility.getStringFromList(this.passedSmiles), "/Users/chandu/Desktop/filter/SP_screened.txt");
+                    GeneralUtility.appendToFile(GeneralUtility.getStringFromList(this.passedSmiles), "/Users/chandu/Desktop/filter/newScreen.txt");
                    // GeneralUtility.appendToFile(GeneralUtility.getStringFromList(this.failedSmiles), "/Users/chandu/Desktop/filter/SP_SP2_failed.txt");
                 } catch (CDKException ex) {
                     Logger.getLogger(ParameterEngine.class.getName()).log(Level.SEVERE, null, ex);
