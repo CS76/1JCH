@@ -92,7 +92,6 @@ public class InitializeDatabase {
             System.out.println("Establishing connection: " + this.dataBasePath);
             this.connection = connectDb(this.database);
         }
-
         generateTables();
         updateMaster();
     }
@@ -122,11 +121,9 @@ public class InitializeDatabase {
 
     public void populateStructureData(String structureSmilesFilePath) throws FileNotFoundException, IOException, SQLException {
         System.out.println("In data importer");
-
         this.StructuresFilePath = structureSmilesFilePath;
         int ID = getRowCount("completeDataSet");
         int count = 0;
-
         BufferedReader br = new BufferedReader(new FileReader(this.StructuresFilePath));
         List<DataObject> tempDataHolder = new ArrayList<DataObject>();
         DataObject dO = new DataObject();
@@ -230,7 +227,6 @@ public class InitializeDatabase {
     }
 
     public DataObject[] getDataObject(String table) {
-
         DataObject[] tempObjArray = new DataObject[getRowCount(table)];
         Statement stmt = null;
         try {
@@ -296,7 +292,6 @@ public class InitializeDatabase {
             System.exit(0);
         }
         System.out.println("Records transferred successfully");
-
     }
 
     /**
