@@ -5,11 +5,12 @@
 package org.openscience.jch.diversity;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -18,10 +19,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ForkJoinPool;
 import org.openscience.cdk.DefaultChemObjectBuilder;
-import org.openscience.jch.filter.ParameterEngine;
+import org.openscience.cdk.exception.CDKException;
+import org.openscience.cdk.fingerprint.MACCSFingerprinter;
+import org.openscience.cdk.interfaces.IAtomContainer;
+import org.openscience.cdk.similarity.Tanimoto;
+import org.openscience.jch.utilities.ChemUtility;
+import org.openscience.jch.utilities.GeneralUtility;
 import org.openscience.jch.utilities.IteratingMolTableReader;
 
 /**
@@ -147,16 +155,150 @@ public class InitializeDatabase {
             tempDataHolder.clear();
         }
     }
-    
-    public void generateMACCSKey(){
-        
+
+    public void generateMACCSKey() throws SQLException {
+        int noOfRows = this.getRowCount("completeDataSet");
+        int batchCount = (int) Math.ceil(noOfRows / 1000.0);
+        int start, stop;
+        start = 1;
+        Statement stmt = this.connection.createStatement();
+        Map< Integer, String> map = new HashMap< Integer, String>();
+        ForkJoinPool fjPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors());
+        for (int k = 1; k <= 1000; k++) {
+            System.out.println(k);
+            stop = batchCount * k;
+            map.clear();
+            try (ResultSet rs = stmt.executeQuery("SELECT * FROM completeDataSet WHERE ID>=" + start + " and ID<=" + stop + ";")) {
+                while (rs.next()) {
+                    int id = rs.getInt("ID");
+                    String smi = rs.getString("SMILES");
+                    map.put(id, smi);
+                }
+            } catch (Exception e) {
+                System.err.println(e.getClass().getName() + ": " + e.getMessage());
+                System.exit(0);
+            }
+            updateMACCSEntries(fjPool.invoke(new MACCSKeyGenerator(map)));
+            start = stop;
+            map.clear();
+            System.out.println("Done");
+        }
     }
-    
-    
-    
-    
-    
-    
+
+    private void updateMACCSEntries(Map<Integer, byte[]> mp) throws SQLException {
+        String sql = "UPDATE completeDataSet SET FINGERPRINT = ? WHERE ID = ?";
+        PreparedStatement psUpdateRecord = this.connection.prepareStatement(sql);
+        int[] iNoRows = null;
+        for (int a : mp.keySet()) {
+            psUpdateRecord.setBytes(1, mp.get(a));
+            psUpdateRecord.setInt(2, a);
+            psUpdateRecord.addBatch();
+        }
+        iNoRows = psUpdateRecord.executeBatch();
+        this.connection.commit();
+    }
+
+    public double getDiversity(byte[] mol1, byte[] mol2) throws CDKException {
+        double diversity = 0.0;
+        diversity = 1.0 - (Tanimoto.calculate(GeneralUtility.fromByteArray(mol1), GeneralUtility.fromByteArray(mol2)));
+        return diversity;
+    }
+
+    public double getMaxSum(int molID) throws CDKException {
+        double maxSum = 0.0;
+        DataObject tempQuery = getDataObject(molID, "completeDataSet");
+        DataObject[] dsHolder = getDataObject("diverseSubSet");
+        int number = dsHolder.length;
+        for (DataObject obj : dsHolder) {
+            maxSum += getDiversity(tempQuery.getFp(), obj.getFp());
+        }
+        return maxSum / number;
+    }
+
+    public double getMaxMin(int molID) throws CDKException {
+        double maxMin = Double.MAX_VALUE;
+        DataObject tempQuery = getDataObject(molID, "completeDataSet");
+        DataObject[] dsHolder = getDataObject("diverseSubSet");
+        int number = dsHolder.length;
+        for (DataObject obj : dsHolder) {
+            double div = getDiversity(tempQuery.getFp(), obj.getFp());
+            if (maxMin > div) {
+                maxMin = div;
+            }
+        }
+        return maxMin;
+    }
+
+    public DataObject[] getDataObject(String table) {
+
+        DataObject[] tempObjArray = new DataObject[getRowCount(table)];
+        Statement stmt = null;
+        try {
+            int f = 0;
+            stmt = this.connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM " + table + ";");
+            while (rs.next()) {
+                DataObject tempObj = new DataObject(rs.getInt("ID"), rs.getString("SMILES"), rs.getBytes("FINGERPRINT"));
+                tempObjArray[f] = tempObj;
+                f += 1;
+            }
+            rs.close();
+            stmt.close();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        return tempObjArray;
+    }
+
+    public DataObject getDataObject(int id, String table) {
+        DataObject tempObj = null;
+        Statement stmt = null;
+        try {
+            stmt = this.connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM " + table + " WHERE `ID` =" + id);
+            while (rs.next()) {
+                tempObj = new DataObject(rs.getInt("ID"), rs.getString("SMILES"), rs.getBytes("FINGERPRINT"));
+            }
+            rs.close();
+            stmt.close();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        return tempObj;
+    }
+
+    public void copyRow(String fromTable, String toTable, int orderID) {
+        String sqlQuery = "INSERT INTO " + toTable + " SELECT * FROM " + fromTable + " WHERE ID = " + orderID + ";";
+        try {
+            Statement stmt = this.connection.createStatement();
+            stmt.executeUpdate(sqlQuery);
+            stmt.close();
+            this.connection.commit();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        System.out.println("Records transferred successfully");
+    }
+
+    public void copyRows(String fromTable, String toTable, int[] orderID) {
+        String listOfID = GeneralUtility.conCat(orderID);
+        String sqlQuery = "INSERT INTO " + toTable + " SELECT * FROM " + fromTable + " WHERE IN " + listOfID + ";";
+        try {
+            Statement stmt = this.connection.createStatement();
+            stmt.executeUpdate(sqlQuery);
+            stmt.close();
+            this.connection.commit();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        System.out.println("Records transferred successfully");
+
+    }
+
     /**
      * **
      * Utility methods * * *
@@ -354,4 +496,7 @@ public class InitializeDatabase {
         }
         System.out.println("Records transferred successfully");
     }
+    /**
+     *
+     */
 }

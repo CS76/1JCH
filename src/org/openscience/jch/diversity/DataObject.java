@@ -20,7 +20,12 @@ public class DataObject {
 
     DataObject() {
     }
-
+    
+     DataObject(int molID,String Smiles, byte[] fp) {
+        this.ID = molID;
+        this.MACCSKEYS = fp;
+        this.smiles = Smiles;
+    }
     DataObject(int molID, String connecTable, String Smiles, byte[] fp) {
         this.ID = molID;
         this.MACCSKEYS = fp;

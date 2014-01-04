@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.*;
+import org.openscience.jch.diversity2222.Initialize;
+import org.openscience.jch.diversity2222.Task;
 
 public class FPCalculator {
     public static Initialize in;

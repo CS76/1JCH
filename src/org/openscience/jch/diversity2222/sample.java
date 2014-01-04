@@ -2,10 +2,7 @@ package org.openscience.jch.diversity2222;
 
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
 import org.openscience.cdk.exception.CDKException;
-import org.openscience.jch.utilities.GeneralUtility;
 
 public class sample {
 

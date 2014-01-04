@@ -1400,7 +1400,7 @@ public class ChemUtility {
         try {
             mol = sp.parseSmiles(smiles);
             AtomContainerManipulator.percieveAtomTypesAndConfigureAtoms(mol);
-            CDKHydrogenAdder.getInstance(builder).addImplicitHydrogens(mol);
+            //CDKHydrogenAdder.getInstance(builder).addImplicitHydrogens(mol);
         } catch (InvalidSmilesException ex) {
             Logger.getLogger(ChemUtility.class.getName()).log(Level.SEVERE, null, ex);
         }
