@@ -5,12 +5,10 @@
 package org.openscience.jch.diversity;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -23,14 +21,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ForkJoinPool;
-import org.openscience.cdk.DefaultChemObjectBuilder;
 import org.openscience.cdk.exception.CDKException;
-import org.openscience.cdk.fingerprint.MACCSFingerprinter;
-import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.similarity.Tanimoto;
-import org.openscience.jch.utilities.ChemUtility;
 import org.openscience.jch.utilities.GeneralUtility;
-import org.openscience.jch.utilities.IteratingMolTableReader;
 
 /**
  *
@@ -44,7 +37,7 @@ public class InitializeDatabase {
     private String StructuresFilePath;
     private Connection connection = null;
     private boolean clearContent = false;
-    private final String[] tableNames = {"completeDataSet", "kSubSet", "recycleSet", "diverseSubSet"};
+    private final String[] tableNames = {"completeDataSet", "kSubSet", "recycleSet", "diverseSubSet", "randomCompleteDataSet"};
 
     /**
      * Constructor 1
@@ -122,7 +115,7 @@ public class InitializeDatabase {
     public void populateStructureData(String structureSmilesFilePath) throws FileNotFoundException, IOException, SQLException {
         System.out.println("In data importer");
         this.StructuresFilePath = structureSmilesFilePath;
-        int ID = getRowCount("completeDataSet");
+        int ID = 0;
         int count = 0;
         BufferedReader br = new BufferedReader(new FileReader(this.StructuresFilePath));
         List<DataObject> tempDataHolder = new ArrayList<DataObject>();
@@ -137,17 +130,17 @@ public class InitializeDatabase {
             dO.setID(ID);
             dO.setSmiles(line.split(" ")[0]);
             tempDataHolder.add(dO);
-            if (count == 10000) {
+            if (count == 1000) {
                 System.out.println(ID);
                 // code to execute the screening
-                ID = insertSMILESInToTable(tempDataHolder, ID);
+                insertSMILESInToTable(tempDataHolder);
                 count = 0;
                 tempDataHolder.clear();
             }
             line = br.readLine();
         }
         if (count != 0) {
-            ID = insertSMILESInToTable(tempDataHolder, ID);
+            insertSMILESInToTable(tempDataHolder);
             count = 0;
             tempDataHolder.clear();
         }
@@ -155,13 +148,13 @@ public class InitializeDatabase {
 
     public void generateMACCSKey() throws SQLException {
         int noOfRows = this.getRowCount("completeDataSet");
-        int batchCount = (int) Math.ceil(noOfRows / 1000.0);
+        int batchCount = (int) Math.ceil(noOfRows / 10.0);
         int start, stop;
         start = 1;
         Statement stmt = this.connection.createStatement();
         Map< Integer, String> map = new HashMap< Integer, String>();
         ForkJoinPool fjPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors());
-        for (int k = 1; k <= 1000; k++) {
+        for (int k = 1; k <= 10; k++) {
             System.out.println(k);
             stop = batchCount * k;
             map.clear();
@@ -195,26 +188,132 @@ public class InitializeDatabase {
         this.connection.commit();
     }
 
+    public void OptiSim() throws CDKException {
+        int presentCount = 1;
+        int kSubsetSize = 10;
+        double diversityThreshold = 0.80;
+        int diverseSetSize = 500;
+
+        // data Set counts
+        int randomCompleteDataSetCount = getRowCount("randomCompleteDataSet");
+        int kSubSetCount = getRowCount("kSubSet");
+        int diverseSubSetCount = getRowCount("diverseSubSet");
+        System.out.println("randomCompleteDataSet Count:" + randomCompleteDataSetCount);
+        System.out.println("kSubSet Count:" + kSubSetCount);
+        System.out.println("diverse SubSet Count:" + diverseSubSetCount);
+
+//in.copyRow("completeDataSet","scrap", initialSeed);        
+//        int[] num = new int[completeDataSetCount];
+//        for (int k = 1; k < completeDataSetCount; k++) {
+//            num[k] = k;
+//        }
+
+        // initialize the sub set
+        copyRow("randomCompleteDataSet", "diverseSubSet", 1);
+        deleteRow("randomCompleteDataSet", 1);
+        presentCount += 1;
+        System.out.println("intialized");
+
+        while (presentCount <= randomCompleteDataSetCount) {
+            System.out.println(presentCount+","+randomCompleteDataSetCount+","+diverseSubSetCount+"±±±±±±±±±±±±±±±±±±±±±±±±±±±±±");
+            if (diverseSubSetCount >= diverseSetSize) {
+                System.out.println("cond1");
+                break;
+            }
+            if ((randomCompleteDataSetCount == presentCount)) {
+                System.out.println("cond2");
+                copyTable("recycleSet", "randomCompleteDataSet");
+                presentCount = 1;
+                deleteAllRows("recycleSet");
+                randomCompleteDataSetCount = getRowCount("randomCompleteDataSet");
+                System.out.println("completeDataSet exhausted");
+            }
+            double[] diversityData = new double[2];
+            Map<Integer, Double> map = new HashMap<Integer, Double>();
+            while (map.size() < kSubsetSize) {
+                System.out.println(presentCount+","+randomCompleteDataSetCount+","+diverseSubSetCount+"**********************");
+                if (presentCount < randomCompleteDataSetCount) {
+                    
+                    try {
+                        //System.out.println(map.size() + "," + kSubsetSize + "," + presentCount);
+                        //System.out.println("innerloop:" + presentCount + "," + 0);
+                        double tempDiversity = 0.0;
+                        diversityData = getMaxSum(presentCount);
+                        tempDiversity = diversityData[0];
+                        //System.out.println("tempDiv: " + tempDiversity);
+                        if (tempDiversity <= diversityThreshold) {
+                            System.out.println("deleting original");
+                            deleteRow("randomCompleteDataSet", (int) diversityData[1]);
+                            presentCount += 1;
+                        } else {
+
+                            map.put((int) diversityData[1], tempDiversity);
+                            System.out.println(tempDiversity + "," + (int) diversityData[1]);
+                            System.out.println("going to kSubSet," + (int) diversityData[1]);
+                            copyRow("randomCompleteDataSet", "kSubSet", (int) diversityData[1]);
+                            deleteRow("randomCompleteDataSet", (int) diversityData[1]);
+                            presentCount += 1;
+                        }
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                        System.out.println("error processing the mol: FP Not Generated");
+                        presentCount += 1;
+                    }
+                } else {
+                    System.out.println("exiting");
+                    break;
+                }
+            }
+            //System.out.println("map:" + map.size() + "======" + kSubsetSize);
+            double largestDiversity = Double.MIN_VALUE;
+            int largeDivID = 0;
+            for (int id : map.keySet()) {
+                if (map.get(id) > largestDiversity) {
+                    largestDiversity = map.get(id);
+                    largeDivID = id;
+                }
+            }
+            copyRow("kSubSet", "diverseSubSet", largeDivID);
+            ++diverseSubSetCount;
+            map.remove(largeDivID);
+            for (int div : map.keySet()) {
+                copyRow("kSubSet", "recycleSet", div);
+            }
+            deleteAllRows("kSubSet");
+            map.clear();
+        }
+    }
+
     public double getDiversity(byte[] mol1, byte[] mol2) throws CDKException {
         double diversity = 0.0;
+        // System.out.println(GeneralUtility.fromByteArray(mol1).cardinality()+","+GeneralUtility.fromByteArray(mol2).cardinality());
         diversity = 1.0 - (Tanimoto.calculate(GeneralUtility.fromByteArray(mol1), GeneralUtility.fromByteArray(mol2)));
         return diversity;
     }
 
-    public double getMaxSum(int molID) throws CDKException {
+    public double[] getMaxSum(int molID) throws CDKException {
+        double[] divData = {0.0, 0.0};
         double maxSum = 0.0;
-        DataObject tempQuery = getDataObject(molID, "completeDataSet");
+
+        DataObject tempQuery = getDataObject(molID, "randomCompleteDataSet");
+
         DataObject[] dsHolder = getDataObject("diverseSubSet");
+
         int number = dsHolder.length;
         for (DataObject obj : dsHolder) {
             maxSum += getDiversity(tempQuery.getFp(), obj.getFp());
         }
-        return maxSum / number;
+        //System.out.println(maxSum);
+
+        divData[0] = maxSum / number;
+        divData[1] = tempQuery.getID();
+        return divData;
     }
 
     public double getMaxMin(int molID) throws CDKException {
         double maxMin = Double.MAX_VALUE;
-        DataObject tempQuery = getDataObject(molID, "completeDataSet");
+        DataObject tempQuery = getDataObject(molID, "randomCompleteDataSet");
+        System.out.println(tempQuery.getID() + "=====");
         DataObject[] dsHolder = getDataObject("diverseSubSet");
         int number = dsHolder.length;
         for (DataObject obj : dsHolder) {
@@ -248,12 +347,14 @@ public class InitializeDatabase {
     }
 
     public DataObject getDataObject(int id, String table) {
+        //System.out.println("in data Object1,"+ id+","+table);
         DataObject tempObj = null;
         Statement stmt = null;
         try {
             stmt = this.connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM " + table + " WHERE `ID` =" + id);
+            ResultSet rs = stmt.executeQuery("SELECT * FROM " + table + " ORDER BY `rowid` ASC LIMIT 1;");
             while (rs.next()) {
+                //System.out.println(rs.getInt("ID") + "," + rs.getString("SMILES"));
                 tempObj = new DataObject(rs.getInt("ID"), rs.getString("SMILES"), rs.getBytes("FINGERPRINT"));
             }
             rs.close();
@@ -456,21 +557,18 @@ public class InitializeDatabase {
      * @return
      * @throws SQLException
      */
-    public int insertSMILESInToTable(List<DataObject> co, int count) throws SQLException {
+    public void insertSMILESInToTable(List<DataObject> co) throws SQLException {
         String sqlInsertRecord = "INSERT INTO completeDataSet(ID, SMILES) values(?,?)";
-        int i = count;
         PreparedStatement psInsertRecord = connection.prepareStatement(sqlInsertRecord);
         int[] iNoRows = null;
 
         for (DataObject obj : co) {
-            psInsertRecord.setInt(1, i);
+            psInsertRecord.setInt(1, obj.getID());
             psInsertRecord.setString(2, obj.getSmiles());
             psInsertRecord.addBatch();
-            i++;
         }
         iNoRows = psInsertRecord.executeBatch();
         connection.commit();
-        return i;
     }
 
     /**
@@ -491,7 +589,51 @@ public class InitializeDatabase {
         }
         System.out.println("Records transferred successfully");
     }
+
     /**
      *
      */
+    public void randomizeTable(String Table) {
+        System.out.println("random");
+        String randomTable = "random" + Table;
+        String sqlQuery = "INSERT INTO randomcompleteDataSet SELECT * FROM  completeDataSet ORDER BY RANDOM();";
+        try {
+            Statement stmt = this.connection.createStatement();
+            stmt.executeUpdate(sqlQuery);
+            stmt.close();
+            this.connection.commit();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        System.out.println("Records transferred successfully");
+    }
+
+    public void deleteAllRows(String fromTable) {
+        String sqlQuery = "DELETE FROM " + fromTable + ";";
+        try {
+            Statement stmt = this.connection.createStatement();
+            stmt.executeUpdate(sqlQuery);
+            stmt.close();
+            this.connection.commit();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        System.out.println("Records removed successfully ========================================");
+    }
+
+    public void deleteRow(String fromTable, int i) {
+        String sqlQuery = "DELETE FROM " + fromTable + " WHERE `ID` =" + i + ";";
+        try {
+            Statement stmt = this.connection.createStatement();
+            stmt.executeUpdate(sqlQuery);
+            stmt.close();
+            this.connection.commit();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        //System.out.println("Records removed successfully ========================================");
+    }
 }
