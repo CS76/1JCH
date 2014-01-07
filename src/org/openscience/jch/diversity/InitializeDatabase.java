@@ -310,16 +310,17 @@ public class InitializeDatabase {
         return divData;
     }
 
-    public double getMaxMin(int molID) throws CDKException {
-        double maxMin = Double.MAX_VALUE;
+    public double[] getMaxMin(int molID) throws CDKException {
+        double maxMin[] = {0.0,0.0};
+        double diversity = Double.MAX_VALUE;
         DataObject tempQuery = getDataObject(molID, "randomCompleteDataSet");
         System.out.println(tempQuery.getID() + "=====");
         DataObject[] dsHolder = getDataObject("diverseSubSet");
         int number = dsHolder.length;
         for (DataObject obj : dsHolder) {
             double div = getDiversity(tempQuery.getFp(), obj.getFp());
-            if (maxMin > div) {
-                maxMin = div;
+            if (diversity > div) {
+                diversity = div;
             }
         }
         return maxMin;

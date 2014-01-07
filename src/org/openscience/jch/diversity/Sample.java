@@ -20,6 +20,5 @@ public class Sample {
         id.generateMACCSKey();
         id.randomizeTable("completeDataSet");
         id.OptiSim();
-        
     }
 }
