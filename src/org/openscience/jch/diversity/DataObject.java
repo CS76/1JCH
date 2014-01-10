@@ -16,7 +16,9 @@ public class DataObject {
     private IAtomContainer mol = null;
     private String smiles = "";
     private byte[] MACCSKEYS = null;
-    private String molTable = "";
+    private int customID1 = 0;
+    private int customID2 = 0;
+    private String UserData = "";
 
     DataObject() {
     }
@@ -26,11 +28,12 @@ public class DataObject {
         this.MACCSKEYS = fp;
         this.smiles = Smiles;
     }
-    DataObject(int molID, String connecTable, String Smiles, byte[] fp) {
+
+    DataObject(int molID, String Smiles, byte[] fp, String UserData) {
         this.ID = molID;
         this.MACCSKEYS = fp;
         this.smiles = Smiles;
-        this.molTable = connecTable;
+        this.UserData = UserData;
     }
 
     public int getID() {
@@ -65,11 +68,28 @@ public class DataObject {
         this.mol = molecule;
     }
 
-    public String getMolTable() {
-        return this.molTable;
+    public void setCustomID1(int id){
+        this.customID1 = id;
     }
-
-    public void setMolTable(String molT) {
-        this.molTable = molT;
+    
+     public void setCustomID2(int id){
+        this.customID2 = id;
     }
+    
+     public int getCustomID1(){
+         return this.customID1;
+     }
+    
+     
+     public int getCustomID2(){
+         return this.customID2;
+     }
+     
+     public void setUserData(String data){
+         this.UserData = data;
+     }
+     
+     public String getUserData(){
+         return this.UserData;
+     }
 }

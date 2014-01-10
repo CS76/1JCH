@@ -110,6 +110,7 @@ public class ParameterEngine {
                 fjPool.invoke(new screenSmiles(tempSmilesHolder, parameterList));
                 count = 0;
                 tempSmilesHolder.clear();
+                
             }
         } finally {
             br.close();
@@ -143,12 +144,12 @@ public class ParameterEngine {
                         boolean pass = true;
                         for (Parameter pa : parameterList) {
                             if (pa.getCategory() == 1) {
-                                if (!pa.test(ChemUtility.getAtomsListFromSmiles(mol))) {
+                                if (!pa.test(ChemUtility.getIAtomContainerFromSmilesWAP(mol))) {
                                     pass = false;
                                     break;
                                 }
                             } else if (pa.getCategory() == 2) {
-                                if (!pa.test(ChemUtility.getIAtomContainerFromSmiles(mol))) {
+                                if (!pa.test(ChemUtility.getIAtomContainerFromSmilesWAP(mol))) {
                                     pass = false;
                                     break;
                                 }
@@ -166,14 +167,12 @@ public class ParameterEngine {
                         }
                     } catch (IllegalArgumentException ex) {
                         Logger.getLogger(ParameterEngine.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (NoSuchFieldException ex) {
-                        Logger.getLogger(ParameterEngine.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (IllegalAccessException ex) {
+                    }  catch (CDKException ex) {
                         Logger.getLogger(ParameterEngine.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
                 try {
-                    GeneralUtility.appendToFile(GeneralUtility.getStringFromList(this.passedSmiles), "/Users/chandu/Desktop/filter/newScreen.txt");
+                    GeneralUtility.appendToFile(GeneralUtility.getStringFromList(this.passedSmiles), "/Users/chandu/Desktop/filter/SP_ulti.txt");
                    // GeneralUtility.appendToFile(GeneralUtility.getStringFromList(this.failedSmiles), "/Users/chandu/Desktop/filter/SP_SP2_failed.txt");
                 } catch (CDKException ex) {
                     Logger.getLogger(ParameterEngine.class.getName()).log(Level.SEVERE, null, ex);

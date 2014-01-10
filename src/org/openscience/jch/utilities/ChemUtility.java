@@ -1363,6 +1363,8 @@ public class ChemUtility {
         sg.setUseAromaticityFlag(true);
         String smiles = sg.create(mol);
         return smiles;
+
+
     }
 
     public static Map<Integer, List<IAtom>> getEquivalentAtoms(IAtomContainer mol) throws NoSuchAtomException {
@@ -1400,10 +1402,34 @@ public class ChemUtility {
         try {
             mol = sp.parseSmiles(smiles);
             AtomContainerManipulator.percieveAtomTypesAndConfigureAtoms(mol);
-            //CDKHydrogenAdder.getInstance(builder).addImplicitHydrogens(mol);
+            CDKHydrogenAdder.getInstance(builder).addImplicitHydrogens(mol);
         } catch (InvalidSmilesException ex) {
             Logger.getLogger(ChemUtility.class.getName()).log(Level.SEVERE, null, ex);
         }
         return mol;
+    }
+    
+    
+    public static String[] execOBgen(String smiles) throws IOException {
+        String smi = "-:"+smiles;
+        System.out.println(smi);
+        String[] parameters = {"/usr/local/bin/obabel","-i","smi",smi,"-osdf","--gen3d"};
+        Process p = Runtime.getRuntime().exec(parameters);
+        BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+        BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+        String molecule = "";
+        String line;
+        String methodDetails = "";
+        while ((line = input.readLine()) != null) {
+            molecule = molecule + line + "\n";
+        }
+        line = "";
+        while ((line = stdError.readLine()) != null) {
+            methodDetails = methodDetails + line + "\n";
+        }
+        System.out.println(methodDetails);
+        String[] abc = {molecule, methodDetails};
+        input.close();
+        return abc;
     }
 }

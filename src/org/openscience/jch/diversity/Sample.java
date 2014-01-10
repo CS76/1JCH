@@ -7,18 +7,35 @@ package org.openscience.jch.diversity;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 import org.openscience.cdk.exception.CDKException;
+import org.openscience.cdk.exception.NoSuchAtomTypeException;
+import org.openscience.jch.utilities.ChemUtility;
+import org.openscience.jch.utilities.GeneralUtility;
 
 /**
  *
  * @author Chandrasekkhar < mailcs76[at]gmail.com / www.cs76.org>
  */
 public class Sample {
-    public static void main(String[] args) throws SQLException, FileNotFoundException, IOException, CDKException {
-        InitializeDatabase id = new InitializeDatabase("");
-        id.populateStructureData("/Users/chandu/Desktop/filter/SP_screened.txt");
-        id.generateMACCSKey();
-        id.randomizeTable("completeDataSet");
-        id.OptiSim();
+
+    public static void main(String[] args) throws SQLException, FileNotFoundException, IOException, CDKException, NoSuchAtomTypeException, CloneNotSupportedException {
+//         InitializeDatabase id = new InitializeDatabase("");
+//         id.populateStructureData("/Users/chandu/Desktop/filter/SP_ulti.txt");
+//         id.generateMACCSKey();
+//         id.randomizeTable("completeDataSet");
+//         id.OptiSim();
+//         id.exportData("diverseSubSet", "/Users/chandu/Desktop/filter/SP_diverseSubset.txt");
+
+        List<String> smilesList = GeneralUtility.readLines("/Users/chandu/Desktop/filter/SP_diverseSubset.smi");
+        final long startTime = System.currentTimeMillis();
+        int count = 0;
+        for (String s : smilesList) {
+            count++;
+            GeneralUtility.appendToFile(ChemUtility.execOBgen(s)[0],"/Users/chandu/Desktop/filter/SP_diverseSubSet.sdf");
+        }
+        final long endTime = System.currentTimeMillis();
+
+        System.out.println("total exec time for "+count+"molecules:"+ (endTime - startTime));
     }
 }

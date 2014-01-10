@@ -123,12 +123,15 @@ public class InitializeDatabase {
 
         String line = br.readLine();
         while (line != null) {
-            //System.out.println(line);
+            String[] molData = line.split(" ");
             ID++;
             count += 1;
             dO = new DataObject();
             dO.setID(ID);
-            dO.setSmiles(line.split(" ")[0]);
+            dO.setCustomID1(Integer.valueOf(molData[1]));
+            dO.setCustomID2(Integer.valueOf(molData[2]));
+            dO.setUserData(line);
+            dO.setSmiles(molData[0]);
             tempDataHolder.add(dO);
             if (count == 1000) {
                 System.out.println(ID);
@@ -190,12 +193,13 @@ public class InitializeDatabase {
 
     public void OptiSim() throws CDKException {
         int presentCount = 1;
-        int kSubsetSize = 10;
+        
         double diversityThreshold = 0.80;
         int diverseSetSize = 500;
 
         // data Set counts
         int randomCompleteDataSetCount = getRowCount("randomCompleteDataSet");
+        int kSubsetSize = 100;
         int kSubSetCount = getRowCount("kSubSet");
         int diverseSubSetCount = getRowCount("diverseSubSet");
         System.out.println("randomCompleteDataSet Count:" + randomCompleteDataSetCount);
@@ -238,22 +242,17 @@ public class InitializeDatabase {
                         //System.out.println(map.size() + "," + kSubsetSize + "," + presentCount);
                         //System.out.println("innerloop:" + presentCount + "," + 0);
                         double tempDiversity = 0.0;
-                        diversityData = getMaxSum(presentCount);
+                        diversityData = getMaxMin(presentCount);
                         tempDiversity = diversityData[0];
                         //System.out.println("tempDiv: " + tempDiversity);
-                        if (tempDiversity <= diversityThreshold) {
-                            System.out.println("deleting original");
-                            deleteRow("randomCompleteDataSet", (int) diversityData[1]);
-                            presentCount += 1;
-                        } else {
-
+                     
                             map.put((int) diversityData[1], tempDiversity);
                             System.out.println(tempDiversity + "," + (int) diversityData[1]);
                             System.out.println("going to kSubSet," + (int) diversityData[1]);
                             copyRow("randomCompleteDataSet", "kSubSet", (int) diversityData[1]);
                             deleteRow("randomCompleteDataSet", (int) diversityData[1]);
                             presentCount += 1;
-                        }
+                       
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                         System.out.println("error processing the mol: FP Not Generated");
@@ -314,15 +313,16 @@ public class InitializeDatabase {
         double maxMin[] = {0.0,0.0};
         double diversity = Double.MAX_VALUE;
         DataObject tempQuery = getDataObject(molID, "randomCompleteDataSet");
-        System.out.println(tempQuery.getID() + "=====");
         DataObject[] dsHolder = getDataObject("diverseSubSet");
-        int number = dsHolder.length;
+        double id = 0.0;
         for (DataObject obj : dsHolder) {
             double div = getDiversity(tempQuery.getFp(), obj.getFp());
-            if (diversity > div) {
+            if (div < diversity) {
                 diversity = div;
             }
         }
+        maxMin[0]=diversity;
+        maxMin[1]=tempQuery.getID();
         return maxMin;
     }
 
@@ -334,7 +334,7 @@ public class InitializeDatabase {
             stmt = this.connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM " + table + ";");
             while (rs.next()) {
-                DataObject tempObj = new DataObject(rs.getInt("ID"), rs.getString("SMILES"), rs.getBytes("FINGERPRINT"));
+                DataObject tempObj = new DataObject(rs.getInt("ID"), rs.getString("SMILES"), rs.getBytes("FINGERPRINT"), rs.getString("USERDATA"));
                 tempObjArray[f] = tempObj;
                 f += 1;
             }
@@ -453,7 +453,10 @@ public class InitializeDatabase {
                     + "(ID INT PRIMARY KEY     NOT NULL,"
                     + " STRUCTURE    CLOB, "
                     + " SMILES      CLOB,"
-                    + "FINGERPRINT   BLOB)";
+                    + "FINGERPRINT   BLOB,"
+                    + "CUSTOMID1 INT,"
+                    + "CUSTOMID2 INT,"
+                    + "USERDATA CLOB)";
         }
         try {
             stmt = this.connection.createStatement();
@@ -559,13 +562,16 @@ public class InitializeDatabase {
      * @throws SQLException
      */
     public void insertSMILESInToTable(List<DataObject> co) throws SQLException {
-        String sqlInsertRecord = "INSERT INTO completeDataSet(ID, SMILES) values(?,?)";
+        String sqlInsertRecord = "INSERT INTO completeDataSet(ID, SMILES, CUSTOMID1, CUSTOMID2, USERDATA) values(?,?,?,?,?)";
         PreparedStatement psInsertRecord = connection.prepareStatement(sqlInsertRecord);
         int[] iNoRows = null;
 
         for (DataObject obj : co) {
             psInsertRecord.setInt(1, obj.getID());
             psInsertRecord.setString(2, obj.getSmiles());
+            psInsertRecord.setInt(3, obj.getCustomID1());
+            psInsertRecord.setInt(4, obj.getCustomID2());
+            psInsertRecord.setString(5, obj.getUserData());
             psInsertRecord.addBatch();
         }
         iNoRows = psInsertRecord.executeBatch();
@@ -636,5 +642,23 @@ public class InitializeDatabase {
             System.exit(0);
         }
         //System.out.println("Records removed successfully ========================================");
+    }
+    
+    public void exportData(String fromTable,String filePath) throws CDKException, IOException{
+        DataObject[] doArray = getDataObject(fromTable);
+        System.out.println("enetered export data,"+doArray.length);
+        List<String> as = new ArrayList<String>();
+        for (DataObject d: doArray){
+            as.add(d.getUserData());
+            System.out.println(d.getUserData());
+            if (as.size() == 10000){
+                GeneralUtility.writeToTxtFile(GeneralUtility.getStringFromList(as),filePath);
+                as.clear();
+            }
+        }
+        if (as.size() != 0){
+            GeneralUtility.writeToTxtFile(GeneralUtility.getStringFromList(as),filePath);
+                as.clear();
+        }   
     }
 }
