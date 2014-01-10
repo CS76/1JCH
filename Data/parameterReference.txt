@@ -1,0 +1,23 @@
+Initial Screen - 6661801
+IncludeCharged	false
+IncludeOnlyElements	H C N O F Al Si P S Cl Ar
+MolecularWeight	10 500
+==> 3666273
+
+	SP - 35143
+	IncludeElements	#
+	ExcludeElements	=
+		IncludeSMARTS	C#C C#C)	
+		==> 2363		
+
+	SP2_SP - 129951
+	IncludeElements	= #
+
+	SP2 - 3136910
+	IncludeElements	=
+	ExcludeElements	#
+
+	SP3 - 364269
+	ExcludeElements	# =
+
+
