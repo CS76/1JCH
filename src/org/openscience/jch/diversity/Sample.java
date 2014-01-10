@@ -19,23 +19,30 @@ import org.openscience.jch.utilities.GeneralUtility;
  */
 public class Sample {
 
-    public static void main(String[] args) throws SQLException, FileNotFoundException, IOException, CDKException, NoSuchAtomTypeException, CloneNotSupportedException {
+    public static void main(String[] args) throws SQLException, FileNotFoundException, IOException, CDKException, NoSuchAtomTypeException, CloneNotSupportedException, NoSuchFieldException, NoSuchFieldException, NoSuchFieldException, NoSuchFieldException, NoSuchFieldException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+            // Diverse subset selection
 //         InitializeDatabase id = new InitializeDatabase("");
 //         id.populateStructureData("/Users/chandu/Desktop/filter/SP_ulti.txt");
 //         id.generateMACCSKey();
 //         id.randomizeTable("completeDataSet");
 //         id.OptiSim();
 //         id.exportData("diverseSubSet", "/Users/chandu/Desktop/filter/SP_diverseSubset.txt");
-
-        List<String> smilesList = GeneralUtility.readLines("/Users/chandu/Desktop/filter/SP_diverseSubset.smi");
-        final long startTime = System.currentTimeMillis();
-        int count = 0;
-        for (String s : smilesList) {
-            count++;
-            GeneralUtility.appendToFile(ChemUtility.execOBgen(s)[0],"/Users/chandu/Desktop/filter/SP_diverseSubSet.sdf");
-        }
-        final long endTime = System.currentTimeMillis();
-
-        System.out.println("total exec time for "+count+"molecules:"+ (endTime - startTime));
+        
+            // Openbabel 3d coordinates(SDF) generation
+//        List<String> smilesList = GeneralUtility.readLines("/Users/chandu/Desktop/filter/SP_diverseSubset.smi");
+//        final long startTime = System.currentTimeMillis();
+//        int count = 0;
+//        for (String s : smilesList) {
+//            count++;
+//            GeneralUtility.appendToFile(ChemUtility.execOBgen(s)[0],"/Users/chandu/Desktop/filter/SP_diverseSubSet.sdf");
+//        }
+//        final long endTime = System.currentTimeMillis();
+//
+//        System.out.println("total exec time for "+count+"molecules:"+ (endTime - startTime));
+            
+          // Diverse subset diversity analysis
+//        DiversityAnalyser da= new DiversityAnalyser();
+//        da.getMaximumSimilarity("/Users/chandu/Desktop/filter/SP_diverseSubSet.smi", true);
+       
     }
 }

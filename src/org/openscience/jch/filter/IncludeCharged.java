@@ -15,7 +15,7 @@ public class IncludeCharged extends BooleanParameter {
     
     public IncludeCharged(String values){
         this.setName("IncludeCharged");
-        this.setCategory(1);
+        this.setCategory(3);
         this.setStatus( Boolean.valueOf(values));
     }
     

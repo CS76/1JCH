@@ -208,10 +208,10 @@ public class GeneralUtility {
             e.printStackTrace();
         }
     }
-    
-     public static void appendToFile(String contentToWrite, String filePath) throws CDKException, IOException {
+
+    public static void appendToFile(String contentToWrite, String filePath) throws CDKException, IOException {
         try {
-            FileWriter fw = new FileWriter(filePath,true);
+            FileWriter fw = new FileWriter(filePath, true);
             BufferedWriter bw = new BufferedWriter(fw);
             bw.write(contentToWrite);
             bw.close();
@@ -288,68 +288,110 @@ public class GeneralUtility {
             return 0;
         }
     }
-    
-    public static String arrayToString(int[] array){
+
+    public static String arrayToString(int[] array) {
         String arrayString = "";
-        for (int t = 0 ; t < array.length ; t++ ){
-            arrayString += array[t]+",";
+        for (int t = 0; t < array.length; t++) {
+            arrayString += array[t] + ",";
         }
         return arrayString;
     }
-    public static String arrayToString(String[] array){
+
+    public static String arrayToString(String[] array) {
         String arrayString = "";
-        for (int t = 0 ; t < array.length ; t++ ){
-            arrayString += array[t]+",";
+        for (int t = 0; t < array.length; t++) {
+            arrayString += array[t] + ",";
         }
         return arrayString;
     }
-    public static String twoDimArrayToString(double[][] twoDimArray){
+
+    public static String arrayToString(double[] array) {
+        String arrayString = "";
+        for (int t = 0; t < array.length; t++) {
+            arrayString += array[t] + ",";
+        }
+        return arrayString;
+    }
+
+    public static String twoDimArrayToString(double[][] twoDimArray) {
         String twoDimArrayString = "";
-        for (int i =0; i < twoDimArray.length; i++){
-            for (int j=0 ; j < twoDimArray[i].length;j++){
+        for (int i = 0; i < twoDimArray.length; i++) {
+            for (int j = 0; j < twoDimArray[i].length; j++) {
                 twoDimArrayString += twoDimArray[i][j] + " ";
             }
             twoDimArrayString += "\n";
         }
         return twoDimArrayString;
     }
-    public static String twoDimArrayToString(int[][] twoDimArray){
+
+    public static String twoDimArrayToString(int[][] twoDimArray) {
         String twoDimArrayString = "";
-        for (int i =0; i < twoDimArray.length; i++){
-            for (int j=0 ; j < twoDimArray[i].length;j++){
+        for (int i = 0; i < twoDimArray.length; i++) {
+            for (int j = 0; j < twoDimArray[i].length; j++) {
                 twoDimArrayString += twoDimArray[i][j] + " ";
             }
             twoDimArrayString += "\n";
         }
         return twoDimArrayString;
     }
-    
-    public static boolean isAllElementsEqual(String[] arraytoCheck){
+
+    public static boolean isAllElementsEqual(String[] arraytoCheck) {
         String initial = arraytoCheck[0];
         boolean isEqual = true;
-        for(int i= 0; i<arraytoCheck.length;i++){
-            if (!arraytoCheck[i].equalsIgnoreCase(initial)){
+        for (int i = 0; i < arraytoCheck.length; i++) {
+            if (!arraytoCheck[i].equalsIgnoreCase(initial)) {
                 isEqual = false;
                 break;
             }
         }
         return isEqual;
     }
-    
-    public static double getAverage(String[] propArray){
+
+    public static double getAverage(String[] propArray) {
         double total = 0.0;
-        for(int i= 0; i < propArray.length; i++){
-          total += Double.valueOf(propArray[i]);
+        for (int i = 0; i < propArray.length; i++) {
+            total += Double.valueOf(propArray[i]);
         }
-        return total/propArray.length;
+        return total / propArray.length;
     }
-    
-    public static String getStringFromList(List<String> toWrite){
+
+    public static String getStringFromList(List<String> toWrite) {
         String stringToWrite = "";
-        for (String s: toWrite){
+        for (String s : toWrite) {
             stringToWrite = stringToWrite + s + "\n";
         }
         return stringToWrite;
     }
-    
+
+    public static boolean hasNext() {
+        return false;
+    }
+
+    public static boolean isPolymer(String sdfFilePath) throws FileNotFoundException, IOException {
+        List<String> lines = GeneralUtility.readLines(sdfFilePath);
+        for (String s : lines) {
+            if (s.contains("M  STY")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static void extractPolymer(String sdfPath,String polymerSDFPath) throws FileNotFoundException, IOException, CDKException {
+        BufferedReader br = new BufferedReader(new FileReader(sdfPath));
+        String line = br.readLine();        
+        StringBuilder sb = new StringBuilder();
+        while (line != null) {
+            if (line.contains("$$$$")){
+                sb.append(line).append("\n");
+                if (sb.toString().contains("M  STY")){
+                GeneralUtility.appendToFile(sb.toString(), polymerSDFPath);
+                }
+                sb = new StringBuilder();
+            }else{
+                sb.append(line).append("\n");
+            }
+            line = br.readLine();
+        }
+    }
 }

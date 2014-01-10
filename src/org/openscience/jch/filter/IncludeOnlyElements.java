@@ -22,7 +22,7 @@ public class IncludeOnlyElements extends StringParameter {
         this.setName("IncludeOnlyElements");
         String[] tempStringHolder = values.split(" ");
         this.setStringList(Arrays.asList(tempStringHolder));
-        this.setCategory(1);
+        this.setCategory(3);
         
     }
 

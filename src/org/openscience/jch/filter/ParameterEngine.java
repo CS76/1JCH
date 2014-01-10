@@ -123,6 +123,7 @@ public class ParameterEngine {
         private List<Parameter> parameterList = new ArrayList<Parameter>();
         private List<String> passedSmiles = new ArrayList<String>();
         private List<String> failedSmiles = new ArrayList<String>();
+        private StringBuilder passeds = new StringBuilder();
 
         public screenSmiles(List<String> inputSmiles, List<Parameter> screeningParameters) {
             System.out.println("new job");
@@ -154,26 +155,31 @@ public class ParameterEngine {
                                     break;
                                 }
                             } else if (pa.getCategory() == 3) {
-                                if (!pa.test(mol)) {
+                                if (!pa.test(ChemUtility.getAtomsListFromSmiles(mol))) {
                                     pass = false;
                                     break;
                                 }
                             }
                         }
                         if (pass) {
-                            this.passedSmiles.add(s);
+                            this.passeds.append(s).append("\n");
                         } else {
-                            this.failedSmiles.add(s);
+                            //this.failedSmiles.add(s);
                         }
                     } catch (IllegalArgumentException ex) {
                         Logger.getLogger(ParameterEngine.class.getName()).log(Level.SEVERE, null, ex);
-                    }  catch (CDKException ex) {
+                    } catch (NoSuchFieldException ex) {
+                        Logger.getLogger(ParameterEngine.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IllegalAccessException ex) {
+                        Logger.getLogger(ParameterEngine.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (CDKException ex) {
                         Logger.getLogger(ParameterEngine.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
                 try {
-                    GeneralUtility.appendToFile(GeneralUtility.getStringFromList(this.passedSmiles), "/Users/chandu/Desktop/filter/SP_ulti.txt");
-                   // GeneralUtility.appendToFile(GeneralUtility.getStringFromList(this.failedSmiles), "/Users/chandu/Desktop/filter/SP_SP2_failed.txt");
+                    GeneralUtility.appendToFile(this.passeds.toString(), "/Users/chandu/Desktop/filter/SP_inin.txt");
+                   
+                    // GeneralUtility.appendToFile(GeneralUtility.getStringFromList(this.failedSmiles), "/Users/chandu/Desktop/filter/SP_SP2_failed.txt");
                 } catch (CDKException ex) {
                     Logger.getLogger(ParameterEngine.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (Exception ex) {

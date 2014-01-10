@@ -1,12 +1,13 @@
 package org.openscience.jch.utilities;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.exception.NoSuchAtomException;
 
 public class sample2 {
 
-    public static void main(String[] args) throws NoSuchAtomException, FileNotFoundException, CDKException {
+    public static void main(String[] args) throws NoSuchAtomException, FileNotFoundException, CDKException, IOException {
         
         
         
@@ -68,5 +69,8 @@ public class sample2 {
 //                System.out.println(as+"::::"+elementCompoundCount.get(as));
 //            }
 //        }
+        
+        GeneralUtility.extractPolymer("/Users/chandu/Desktop/ChEBI_complete_3star.sdf","/Users/chandu/Desktop/polymer.sdf");
+ 
     }
 }
