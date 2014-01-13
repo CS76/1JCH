@@ -19,7 +19,8 @@ public class IncludeElements extends StringParameter {
         this.setName("IncludeOnlyElements");
         List<String> temp = new ArrayList<String>();
         this.setStringList(Arrays.asList(values.split(" ")));
-        this.setCategory(1);
+        this.setCategory(3);
+        this.setPriority(1);
     }
 
     @Override

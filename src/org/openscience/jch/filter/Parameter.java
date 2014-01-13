@@ -18,6 +18,7 @@ public abstract class Parameter {
     private String userSpec;
     private boolean CDKBased = false;
     private int category = 0;
+    private int priority = 0;
 
     public void setUserSpec(String spec) {
         this.userSpec = spec;
@@ -49,6 +50,13 @@ public abstract class Parameter {
 
     public int getCategory() {
         return this.category;
+    }
+    public void setPriority(int pri) {
+        this.priority = pri;
+    }
+
+    public int getPriority() {
+        return this.priority;
     }
 
     public abstract boolean test(IAtomContainer mol);

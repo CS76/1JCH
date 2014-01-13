@@ -4,7 +4,6 @@
  */
 package org.openscience.jch.filter;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.openscience.cdk.interfaces.IAtomContainer;
@@ -14,16 +13,16 @@ import org.openscience.cdk.interfaces.IAtomContainer;
  * @author Chandrasekkhar < mailcs76[at]gmail.com / www.cs76.org>
  */
 public class IncludeOnlyElements extends StringParameter {
-    String[] nonElement = {"0","1","2","3","4","5","6","7","8","9","-","%","(",")","*",".","/","@","[","]","+","H"};
-    private String condition = ""; 
+
+    String[] nonElement = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "-", "%", "(", ")", "*", ".", "/", "\\", "@", "[", "]", "+", "H", "#", "="};
     private List<String> nonElementSmilesSymbols = Arrays.asList(nonElement);
-    
+
     public IncludeOnlyElements(String values) {
         this.setName("IncludeOnlyElements");
         String[] tempStringHolder = values.split(" ");
         this.setStringList(Arrays.asList(tempStringHolder));
         this.setCategory(3);
-        
+        this.setPriority(1);
     }
 
     @Override
@@ -34,6 +33,7 @@ public class IncludeOnlyElements extends StringParameter {
     @Override
     public boolean test(List<String> elements) {
         elements.removeAll(this.nonElementSmilesSymbols);
+
         if (this.getStringList().containsAll(elements)) {
             return true;
         }

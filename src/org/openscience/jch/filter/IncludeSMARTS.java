@@ -17,7 +17,8 @@ public class IncludeSMARTS extends StringParameter {
     public IncludeSMARTS(String values) {
         this.setName("IncludeOnlyElements");
         this.setStringList(Arrays.asList(values.split(" ")));
-        this.setCategory(3);
+        this.setCategory(4);
+        this.setPriority(1);
     }
 
     @Override
@@ -33,14 +34,14 @@ public class IncludeSMARTS extends StringParameter {
     public boolean test(String smiles) {
         for (String s : this.getStringList()) {
             if (smiles.contains(s)) {
-//                if (s.equalsIgnoreCase("C#C")) {
-//                    int index = smiles.indexOf(s);
-//                    if (index == 0 || index == smiles.length() - 3) {
-//                        return true;
-//                    }
-//                } else if (s.equalsIgnoreCase("C#C)")) {
-//                    return true;
-//                }
+                if (s.equalsIgnoreCase("C#C")) {
+                    int index = smiles.indexOf(s);
+                    if (index == 0 || index == smiles.length() - 3) {
+                        return true;
+                    }
+                } else if (s.equalsIgnoreCase("C#C)")) {
+                    return true;
+                }
                 return true;
             }
         }

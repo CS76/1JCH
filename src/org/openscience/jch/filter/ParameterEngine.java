@@ -21,6 +21,7 @@ import java.util.concurrent.RecursiveTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.openscience.cdk.exception.CDKException;
+import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.jch.utilities.ChemUtility;
 import org.openscience.jch.utilities.GeneralUtility;
 
@@ -34,7 +35,7 @@ public class ParameterEngine {
     private String smilesFile = "";
     private String parameterFile = "";
 
-    public ParameterEngine(String workingDirectory, String pathToParameterFile, String pathToSmilesFile) throws FileNotFoundException, IOException, ClassNotFoundException {
+    public ParameterEngine(String workingDirectory, String pathToParameterFile, String pathToSmilesFile) throws FileNotFoundException, IOException, ClassNotFoundException, CDKException {
         this.parameterFile = pathToParameterFile;
         this.smilesFile = pathToSmilesFile;
         this.workingDirectory = workingDirectory;
@@ -71,6 +72,8 @@ public class ParameterEngine {
                 System.out.println(exception.getMessage() + "," + "3");
             }
         }
+        Collections.sort(paramterz, new ParameterComparator());
+        System.out.println(paramterz.toString());
         return paramterz;
     }
 
@@ -87,12 +90,13 @@ public class ParameterEngine {
         throw new IllegalStateException("Parameter " + c.getSimpleName() + " has no usable constructors");
     }
 
-    private void submitSmilesJob(String pathToSmilesFile, List<Parameter> parameterList) throws FileNotFoundException, IOException {
+    private void submitSmilesJob(String pathToSmilesFile, List<Parameter> parameterList) throws FileNotFoundException, IOException, CDKException {
         BufferedReader br = new BufferedReader(new FileReader(pathToSmilesFile));
         int count = 0;
         List<String> tempSmilesHolder = new ArrayList<String>();
+
         try {
-            ForkJoinPool fjPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors());
+            ForkJoinPool fjPool = new ForkJoinPool(10);
             String line = br.readLine();
             while (line != null) {
                 count += 1;
@@ -100,62 +104,70 @@ public class ParameterEngine {
 
                 if (count == 100000) {
                     // code to execute the screening
-                    fjPool.invoke(new screenSmiles(tempSmilesHolder, parameterList));
+                    screenSmiles ssm = new screenSmiles(tempSmilesHolder, parameterList);
+                    fjPool.invoke(ssm);
                     count = 0;
                     tempSmilesHolder.clear();
                 }
                 line = br.readLine();
             }
             if (tempSmilesHolder.size() != 0) {
-                fjPool.invoke(new screenSmiles(tempSmilesHolder, parameterList));
+                screenSmiles ssm = new screenSmiles(tempSmilesHolder, parameterList);
+                fjPool.invoke(ssm);
                 count = 0;
                 tempSmilesHolder.clear();
-                
             }
         } finally {
             br.close();
         }
     }
 
-    class screenSmiles extends RecursiveTask<List<String>> {
+    class screenSmiles extends RecursiveTask<String> {
 
         private List<String> smilesToScreen = new ArrayList<String>();
         private List<Parameter> parameterList = new ArrayList<Parameter>();
-        private List<String> passedSmiles = new ArrayList<String>();
-        private List<String> failedSmiles = new ArrayList<String>();
-        private StringBuilder passeds = new StringBuilder();
+        private StringBuilder passeds ;
+        private StringBuilder faileds ;
 
         public screenSmiles(List<String> inputSmiles, List<Parameter> screeningParameters) {
             System.out.println("new job");
             this.parameterList = screeningParameters;
             this.smilesToScreen = inputSmiles;
+            this.passeds = new StringBuilder();
+            this.faileds = new StringBuilder();
         }
 
         @Override
-        protected List<String> compute() {
-
+        protected String compute() {
             int size = this.smilesToScreen.size();
             if (size > 10000) {
                 int cutoff = (int) Math.ceil(size / 2);
-                invokeAll(new screenSmiles(this.smilesToScreen.subList(0, cutoff), this.parameterList), new screenSmiles(this.smilesToScreen.subList(cutoff, size), this.parameterList));
+                screenSmiles ssm1 = new screenSmiles(this.smilesToScreen.subList(0, cutoff), this.parameterList);
+                screenSmiles ssm2 = new screenSmiles(this.smilesToScreen.subList(cutoff, size), this.parameterList);
+                this.passeds.append(ssm1.invoke());
+                return (ssm2.compute() + "\n" + ssm1.join());
             } else {
                 for (String s : this.smilesToScreen) {
                     try {
                         String mol = s.split(" ")[0];
                         boolean pass = true;
                         for (Parameter pa : parameterList) {
+                            
                             if (pa.getCategory() == 1) {
                                 if (!pa.test(ChemUtility.getIAtomContainerFromSmilesWAP(mol))) {
                                     pass = false;
                                     break;
                                 }
-                            } else if (pa.getCategory() == 2) {
-                                if (!pa.test(ChemUtility.getIAtomContainerFromSmilesWAP(mol))) {
+                            } else if (pa.getCategory() == 3) {
+                                // System.out.println(pa.getName()+"--"+ChemUtility.getAtomsListFromSmiles(mol).toString()+":::"+mol);
+                                if (!pa.test(ChemUtility.getAtomsListFromSmiles(mol))) {
                                     pass = false;
+
                                     break;
                                 }
-                            } else if (pa.getCategory() == 3) {
-                                if (!pa.test(ChemUtility.getAtomsListFromSmiles(mol))) {
+                            } else if (pa.getCategory() == 4) {
+                                // System.out.println(pa.getName()+"--"+ChemUtility.getAtomsListFromSmiles(mol).toString()+":::"+mol);
+                                if (!pa.test(mol)) {
                                     pass = false;
                                     break;
                                 }
@@ -164,7 +176,7 @@ public class ParameterEngine {
                         if (pass) {
                             this.passeds.append(s).append("\n");
                         } else {
-                            //this.failedSmiles.add(s);
+                            this.faileds.append(s).append("\n");
                         }
                     } catch (IllegalArgumentException ex) {
                         Logger.getLogger(ParameterEngine.class.getName()).log(Level.SEVERE, null, ex);
@@ -177,11 +189,9 @@ public class ParameterEngine {
                     }
                 }
                 try {
-                    GeneralUtility.appendToFile(this.passeds.toString(), "/Users/chandu/Desktop/filter/SP_inin.txt");
-                   
-                    // GeneralUtility.appendToFile(GeneralUtility.getStringFromList(this.failedSmiles), "/Users/chandu/Desktop/filter/SP_SP2_failed.txt");
-                } catch (CDKException ex) {
-                    Logger.getLogger(ParameterEngine.class.getName()).log(Level.SEVERE, null, ex);
+                    GeneralUtility.appendToFile(this.passeds.toString(), "/Users/chandu/Desktop/diversity/SP2_SPPassed.smi");
+                    GeneralUtility.appendToFile(this.faileds.toString(), "/Users/chandu/Desktop/diversity/SP2_SPFailed.smi");
+                    
                 } catch (Exception ex) {
                     Logger.getLogger(ParameterEngine.class.getName()).log(Level.SEVERE, null, ex);
                 }

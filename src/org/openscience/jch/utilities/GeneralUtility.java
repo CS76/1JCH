@@ -296,6 +296,13 @@ public class GeneralUtility {
         }
         return arrayString;
     }
+    public static String arrayToString(char[] array) {
+        String arrayString = "";
+        for (int t = 0; t < array.length; t++) {
+            arrayString += array[t] + ",";
+        }
+        return arrayString;
+    }
 
     public static String arrayToString(String[] array) {
         String arrayString = "";
@@ -377,21 +384,37 @@ public class GeneralUtility {
         return false;
     }
 
-    public static void extractPolymer(String sdfPath,String polymerSDFPath) throws FileNotFoundException, IOException, CDKException {
+    public static void extractPolymer(String sdfPath, String polymerSDFPath) throws FileNotFoundException, IOException, CDKException {
         BufferedReader br = new BufferedReader(new FileReader(sdfPath));
-        String line = br.readLine();        
+        String line = br.readLine();
         StringBuilder sb = new StringBuilder();
         while (line != null) {
-            if (line.contains("$$$$")){
+            if (line.contains("$$$$")) {
                 sb.append(line).append("\n");
-                if (sb.toString().contains("M  STY")){
-                GeneralUtility.appendToFile(sb.toString(), polymerSDFPath);
+                if (sb.toString().contains("M  STY")) {
+                    GeneralUtility.appendToFile(sb.toString(), polymerSDFPath);
                 }
                 sb = new StringBuilder();
-            }else{
+            } else {
                 sb.append(line).append("\n");
             }
             line = br.readLine();
         }
+    }
+
+    public static int getRowCount(String filePath) throws FileNotFoundException, IOException {
+        BufferedReader br = new BufferedReader(new FileReader(filePath));
+        int count = 0;
+        try {
+            String line = br.readLine();
+            while (line != null) {
+                count += 1;
+                line = br.readLine();
+            }
+        } finally {
+            
+            br.close();
+        }
+        return count;
     }
 }

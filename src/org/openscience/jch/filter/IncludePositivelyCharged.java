@@ -15,6 +15,7 @@ public class IncludePositivelyCharged extends BooleanParameter {
     
     public IncludePositivelyCharged(){
         this.setCategory(1);
+        this.setPriority(1);
     }
 
     @Override

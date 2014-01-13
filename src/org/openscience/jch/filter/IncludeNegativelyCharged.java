@@ -14,7 +14,8 @@ import org.openscience.cdk.interfaces.IAtomContainer;
 public class IncludeNegativelyCharged extends BooleanParameter {
     
     public IncludeNegativelyCharged(){
-        this.setCategory(1);
+        this.setCategory(3);
+        this.setPriority(1);
     }
     
     @Override

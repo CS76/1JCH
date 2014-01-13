@@ -815,21 +815,17 @@ public class ChemUtility {
         char[] chars = (char[]) field.get(Smiles);
         int len = chars.length;
         int i = 0;
+
         while (i < len) {
             char tempContainer = chars[i];
 
-            if (Character.isUpperCase(tempContainer)) {
-                tempContainer = Character.toLowerCase(tempContainer);
-            }
-
-            //System.out.println(tempContainer);
             switch (tempContainer) {
-                case 'z':
-                    if (getNextChar(chars, i + 1) == 'r') {
+                case 'Z':
+                    if (getNextChar(chars, i) == 'r') {
                         addToList(atomsList, "Zr");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'n') {
+                    } else if (getNextChar(chars, i) == 'n') {
                         addToList(atomsList, "Zn");
                         i++;
                         break;
@@ -837,8 +833,8 @@ public class ChemUtility {
                         addToList(atomsList, "Z");
                         break;
                     }
-                case 'y':
-                    if (getNextChar(chars, i + 1) == 'b') {
+                case 'Y':
+                    if (getNextChar(chars, i) == 'b') {
                         addToList(atomsList, "Yb");
                         i++;
                         break;
@@ -846,8 +842,8 @@ public class ChemUtility {
                         addToList(atomsList, "Y");
                         break;
                     }
-                case 'x':
-                    if (getNextChar(chars, i + 1) == 'e') {
+                case 'X':
+                    if (getNextChar(chars, i) == 'e') {
                         addToList(atomsList, "Xe");
                         i++;
                         break;
@@ -856,85 +852,85 @@ public class ChemUtility {
                         break;
                     }
 
-                case 'w':
+                case 'W':
                     addToList(atomsList, "W");
                     break;
 
-                case 'v':
+                case 'V':
                     addToList(atomsList, "V");
                     break;
 
-                case 'u':
+                case 'U':
                     addToList(atomsList, "U");
                     break;
 
-                case 't':
-                    if (getNextChar(chars, i + 1) == 'm') {
+                case 'T':
+                    if (getNextChar(chars, i) == 'm') {
                         addToList(atomsList, "Tm");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'l') {
+                    } else if (getNextChar(chars, i) == 'l') {
                         addToList(atomsList, "Tl");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'i') {
+                    } else if (getNextChar(chars, i) == 'i') {
                         addToList(atomsList, "Ti");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'h') {
+                    } else if (getNextChar(chars, i) == 'h') {
                         addToList(atomsList, "Th");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'e') {
+                    } else if (getNextChar(chars, i) == 'e') {
                         addToList(atomsList, "Te");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'c') {
+                    } else if (getNextChar(chars, i) == 'c') {
                         addToList(atomsList, "Tc");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'b') {
+                    } else if (getNextChar(chars, i) == 'b') {
                         addToList(atomsList, "Tb");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'a') {
+                    } else if (getNextChar(chars, i) == 'a') {
                         addToList(atomsList, "Ta");
                         i++;
                         break;
                     } else {
-                        addToList(atomsList, "Z");
+                        addToList(atomsList, "T");
                         break;
                     }
-                case 's':
-                    if (getNextChar(chars, i + 1) == 'r') {
+                case 'S':
+                    if (getNextChar(chars, i) == 'r') {
                         addToList(atomsList, "Sr");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'n') {
+                    } else if (getNextChar(chars, i) == 'n') {
                         addToList(atomsList, "Sn");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'm') {
+                    } else if (getNextChar(chars, i) == 'm') {
                         addToList(atomsList, "Sm");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'i') {
+                    } else if (getNextChar(chars, i) == 'i') {
                         addToList(atomsList, "Si");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'g') {
+                    } else if (getNextChar(chars, i) == 'g') {
                         addToList(atomsList, "Sg");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'e') {
+                    } else if (getNextChar(chars, i) == 'e') {
                         addToList(atomsList, "Se");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'c') {
+                    } else if (getNextChar(chars, i) == 'c') {
                         addToList(atomsList, "Sc");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'b') {
+                    } else if (getNextChar(chars, i) == 'b') {
                         addToList(atomsList, "Sb");
                         i++;
                         break;
@@ -942,68 +938,71 @@ public class ChemUtility {
                         addToList(atomsList, "S");
                         break;
                     }
+                case 's':
+                    addToList(atomsList, "s");
+                    break;
 
-                case 'r':
-                    if (getNextChar(chars, i + 1) == 'u') {
+                case 'R':
+                    if (getNextChar(chars, i) == 'u') {
                         addToList(atomsList, "Ru");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'n') {
+                    } else if (getNextChar(chars, i) == 'n') {
                         addToList(atomsList, "Rn");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'h') {
+                    } else if (getNextChar(chars, i) == 'h') {
                         addToList(atomsList, "Rh");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'f') {
+                    } else if (getNextChar(chars, i) == 'f') {
                         addToList(atomsList, "Rf");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'e') {
+                    } else if (getNextChar(chars, i) == 'e') {
                         addToList(atomsList, "Re");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'b') {
+                    } else if (getNextChar(chars, i) == 'b') {
                         addToList(atomsList, "Rb");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'a') {
+                    } else if (getNextChar(chars, i) == 'a') {
                         addToList(atomsList, "Ra");
                         i++;
                         break;
                     }
 
-                case 'p':
-                    if (getNextChar(chars, i + 1) == 'u') {
+                case 'P':
+                    if (getNextChar(chars, i) == 'u') {
                         addToList(atomsList, "Pu");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 't') {
+                    } else if (getNextChar(chars, i) == 't') {
                         addToList(atomsList, "Pt");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'r') {
+                    } else if (getNextChar(chars, i) == 'r') {
                         addToList(atomsList, "Pr");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'o') {
+                    } else if (getNextChar(chars, i) == 'o') {
                         addToList(atomsList, "Po");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'm') {
+                    } else if (getNextChar(chars, i) == 'm') {
                         addToList(atomsList, "Pm");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'd') {
+                    } else if (getNextChar(chars, i) == 'd') {
                         addToList(atomsList, "Pd");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'b') {
+                    } else if (getNextChar(chars, i) == 'b') {
                         addToList(atomsList, "Pb");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'a') {
+                    } else if (getNextChar(chars, i) == 'a') {
                         addToList(atomsList, "Pa");
                         i++;
                         break;
@@ -1012,8 +1011,8 @@ public class ChemUtility {
                         break;
                     }
 
-                case 'o':
-                    if (getNextChar(chars, i + 1) == 's') {
+                case 'O':
+                    if (getNextChar(chars, i) == 's') {
                         addToList(atomsList, "Os");
                         i++;
                         break;
@@ -1021,33 +1020,36 @@ public class ChemUtility {
                         addToList(atomsList, "O");
                         break;
                     }
+                case 'o':
+                    addToList(atomsList, "o");
+                    break;
 
-                case 'n':
-                    if (getNextChar(chars, i + 1) == 'p') {
+                case 'N':
+                    if (getNextChar(chars, i) == 'p') {
                         addToList(atomsList, "Np");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'o') {
+                    } else if (getNextChar(chars, i) == 'o') {
                         addToList(atomsList, "No");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'i') {
+                    } else if (getNextChar(chars, i) == 'i') {
                         addToList(atomsList, "Ni");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'e') {
+                    } else if (getNextChar(chars, i) == 'e') {
                         addToList(atomsList, "Ne");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'd') {
+                    } else if (getNextChar(chars, i) == 'd') {
                         addToList(atomsList, "Nd");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'b') {
+                    } else if (getNextChar(chars, i) == 'b') {
                         addToList(atomsList, "Nb");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'a') {
+                    } else if (getNextChar(chars, i) == 'a') {
                         addToList(atomsList, "Na");
                         i++;
                         break;
@@ -1055,44 +1057,46 @@ public class ChemUtility {
                         addToList(atomsList, "N");
                         break;
                     }
-
-                case 'm':
-                    if (getNextChar(chars, i + 1) == 't') {
+                case 'n':
+                    addToList(atomsList, "n");
+                    break;
+                case 'M':
+                    if (getNextChar(chars, i) == 't') {
                         addToList(atomsList, "Mt");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'o') {
+                    } else if (getNextChar(chars, i) == 'o') {
                         addToList(atomsList, "Mo");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'n') {
+                    } else if (getNextChar(chars, i) == 'n') {
                         addToList(atomsList, "Mn");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'g') {
+                    } else if (getNextChar(chars, i) == 'g') {
                         addToList(atomsList, "Mg");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'd') {
+                    } else if (getNextChar(chars, i) == 'd') {
                         addToList(atomsList, "Md");
                         i++;
                         break;
                     }
 
-                case 'l':
-                    if (getNextChar(chars, i + 1) == 'u') {
+                case 'L':
+                    if (getNextChar(chars, i) == 'u') {
                         addToList(atomsList, "Lu");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'r') {
+                    } else if (getNextChar(chars, i) == 'r') {
                         addToList(atomsList, "Lr");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'i') {
+                    } else if (getNextChar(chars, i) == 'i') {
                         addToList(atomsList, "Li");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'a') {
+                    } else if (getNextChar(chars, i) == 'a') {
                         addToList(atomsList, "La");
                         i++;
                         break;
@@ -1102,8 +1106,8 @@ public class ChemUtility {
                         break;
                     }
 
-                case 'k':
-                    if (getNextChar(chars, i + 1) == 'r') {
+                case 'K':
+                    if (getNextChar(chars, i) == 'r') {
                         addToList(atomsList, "Kr");
                         i++;
                         break;
@@ -1112,12 +1116,12 @@ public class ChemUtility {
                         break;
                     }
 
-                case 'i':
-                    if (getNextChar(chars, i + 1) == 'r') {
+                case 'I':
+                    if (getNextChar(chars, i) == 'r') {
                         addToList(atomsList, "Ir");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'n') {
+                    } else if (getNextChar(chars, i) == 'n') {
                         addToList(atomsList, "In");
                         i++;
                         break;
@@ -1126,24 +1130,24 @@ public class ChemUtility {
                         break;
                     }
 
-                case 'h':
-                    if (getNextChar(chars, i + 1) == 's') {
+                case 'H':
+                    if (getNextChar(chars, i) == 's') {
                         addToList(atomsList, "Hs");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'o') {
+                    } else if (getNextChar(chars, i) == 'o') {
                         addToList(atomsList, "Ho");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'g') {
+                    } else if (getNextChar(chars, i) == 'g') {
                         addToList(atomsList, "Hg");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'f') {
+                    } else if (getNextChar(chars, i) == 'f') {
                         addToList(atomsList, "Hf");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'e') {
+                    } else if (getNextChar(chars, i) == 'e') {
                         addToList(atomsList, "He");
                         i++;
                         break;
@@ -1152,16 +1156,16 @@ public class ChemUtility {
                         break;
                     }
 
-                case 'g':
-                    if (getNextChar(chars, i + 1) == 'e') {
+                case 'G':
+                    if (getNextChar(chars, i) == 'e') {
                         addToList(atomsList, "Ge");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'd') {
+                    } else if (getNextChar(chars, i) == 'd') {
                         addToList(atomsList, "Gd");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'a') {
+                    } else if (getNextChar(chars, i) == 'a') {
                         addToList(atomsList, "Ga");
                         i++;
                         break;
@@ -1170,16 +1174,16 @@ public class ChemUtility {
                         break;
                     }
 
-                case 'f':
-                    if (getNextChar(chars, i + 1) == 'r') {
+                case 'F':
+                    if (getNextChar(chars, i) == 'r') {
                         addToList(atomsList, "Fr");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'm') {
+                    } else if (getNextChar(chars, i) == 'm') {
                         addToList(atomsList, "Fm");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'e') {
+                    } else if (getNextChar(chars, i) == 'e') {
                         addToList(atomsList, "Fe");
                         i++;
                         break;
@@ -1188,16 +1192,16 @@ public class ChemUtility {
                         break;
                     }
 
-                case 'e':
-                    if (getNextChar(chars, i + 1) == 'u') {
+                case 'E':
+                    if (getNextChar(chars, i) == 'u') {
                         addToList(atomsList, "Eu");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 's') {
+                    } else if (getNextChar(chars, i) == 's') {
                         addToList(atomsList, "Es");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'r') {
+                    } else if (getNextChar(chars, i) == 'r') {
                         addToList(atomsList, "Er");
                         i++;
                         break;
@@ -1206,12 +1210,12 @@ public class ChemUtility {
                         break;
                     }
 
-                case 'd':
-                    if (getNextChar(chars, i + 1) == 'y') {
+                case 'D':
+                    if (getNextChar(chars, i) == 'y') {
                         addToList(atomsList, "Dy");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'b') {
+                    } else if (getNextChar(chars, i) == 'b') {
                         addToList(atomsList, "Db");
                         i++;
                         break;
@@ -1221,44 +1225,44 @@ public class ChemUtility {
                     }
 
 
-                case 'c':
-                    if (getNextChar(chars, i + 1) == 'u') {
+                case 'C':
+                    if (getNextChar(chars, i) == 'u') {
                         addToList(atomsList, "Cu");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 's') {
+                    } else if (getNextChar(chars, i) == 's') {
                         addToList(atomsList, "Cs");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'r') {
+                    } else if (getNextChar(chars, i) == 'r') {
                         addToList(atomsList, "Cr");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'o') {
+                    } else if (getNextChar(chars, i) == 'o') {
                         addToList(atomsList, "Co");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'm') {
+                    } else if (getNextChar(chars, i) == 'm') {
                         addToList(atomsList, "Cm");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'l') {
+                    } else if (getNextChar(chars, i) == 'l') {
                         addToList(atomsList, "Cl");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'f') {
+                    } else if (getNextChar(chars, i) == 'f') {
                         addToList(atomsList, "Cf");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'e') {
+                    } else if (getNextChar(chars, i) == 'e') {
                         addToList(atomsList, "Ce");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'd') {
+                    } else if (getNextChar(chars, i) == 'd') {
                         addToList(atomsList, "Cd");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'a') {
+                    } else if (getNextChar(chars, i) == 'a') {
                         addToList(atomsList, "Ca");
                         i++;
                         break;
@@ -1267,29 +1271,32 @@ public class ChemUtility {
                         break;
                     }
 
+                case 'c':
+                    addToList(atomsList, "c");
+                    break;
 
-                case 'b':
-                    if (getNextChar(chars, i + 1) == 'r') {
+                case 'B':
+                    if (getNextChar(chars, i) == 'r') {
                         addToList(atomsList, "Br");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'k') {
+                    } else if (getNextChar(chars, i) == 'k') {
                         addToList(atomsList, "Bk");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'i') {
+                    } else if (getNextChar(chars, i) == 'i') {
                         addToList(atomsList, "Bi");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'h') {
+                    } else if (getNextChar(chars, i) == 'h') {
                         addToList(atomsList, "Bh");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'e') {
+                    } else if (getNextChar(chars, i) == 'e') {
                         addToList(atomsList, "Be");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'a') {
+                    } else if (getNextChar(chars, i) == 'a') {
                         addToList(atomsList, "Ba");
                         i++;
                         break;
@@ -1298,36 +1305,36 @@ public class ChemUtility {
                         break;
                     }
 
-                case 'a':
-                    if (getNextChar(chars, i + 1) == 'u') {
+                case 'A':
+                    if (getNextChar(chars, i) == 'u') {
                         addToList(atomsList, "Au");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 't') {
+                    } else if (getNextChar(chars, i) == 't') {
                         addToList(atomsList, "At");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 's') {
+                    } else if (getNextChar(chars, i) == 's') {
                         addToList(atomsList, "As");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'r') {
+                    } else if (getNextChar(chars, i) == 'r') {
                         addToList(atomsList, "Ar");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'm') {
+                    } else if (getNextChar(chars, i) == 'm') {
                         addToList(atomsList, "Am");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'l') {
+                    } else if (getNextChar(chars, i) == 'l') {
                         addToList(atomsList, "Al");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'g') {
+                    } else if (getNextChar(chars, i) == 'g') {
                         addToList(atomsList, "Ag");
                         i++;
                         break;
-                    } else if (getNextChar(chars, i + 1) == 'c') {
+                    } else if (getNextChar(chars, i) == 'c') {
                         addToList(atomsList, "Ac");
                         i++;
                         break;
@@ -1353,7 +1360,7 @@ public class ChemUtility {
     public static char getNextChar(char[] charList, int i) {
         char tempChar = 0;
         if (i < (charList.length - 1)) {
-            tempChar = charList[i];
+            tempChar = charList[i + 1];
         }
         return tempChar;
     }
@@ -1396,24 +1403,38 @@ public class ChemUtility {
     }
 
     public static IAtomContainer getIAtomContainerFromSmilesWAP(String smiles) throws CDKException {
+        //System.out.println(smiles);
         IAtomContainer mol = new AtomContainer();
         IChemObjectBuilder builder = SilentChemObjectBuilder.getInstance();
         SmilesParser sp = new SmilesParser(builder);
         try {
             mol = sp.parseSmiles(smiles);
             AtomContainerManipulator.percieveAtomTypesAndConfigureAtoms(mol);
-            //CDKHydrogenAdder.getInstance(builder).addImplicitHydrogens(mol);
         } catch (InvalidSmilesException ex) {
             Logger.getLogger(ChemUtility.class.getName()).log(Level.SEVERE, null, ex);
         }
         return mol;
     }
-    
-    
+
+        public static IAtomContainer getIAtomContainerFromSmilesWAPHA(String smiles) throws CDKException {
+        System.out.println(smiles);
+        IAtomContainer mol = new AtomContainer();
+        IChemObjectBuilder builder = SilentChemObjectBuilder.getInstance();
+        SmilesParser sp = new SmilesParser(builder);
+        try {
+            mol = sp.parseSmiles(smiles);
+            AtomContainerManipulator.percieveAtomTypesAndConfigureAtoms(mol);
+            CDKHydrogenAdder.getInstance(builder).addImplicitHydrogens(mol);
+        } catch (InvalidSmilesException ex) {
+            Logger.getLogger(ChemUtility.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return mol;
+    }
+
     public static String[] execOBgen(String smiles) throws IOException {
-        String smi = "-:"+smiles;
+        String smi = "-:" + smiles;
         System.out.println(smi);
-        String[] parameters = {"/usr/local/bin/obabel","-i","smi",smi,"-osdf","--gen3d"};
+        String[] parameters = {"/usr/local/bin/obabel", "-i", "smi", smi, "-osdf", "--gen3d"};
         Process p = Runtime.getRuntime().exec(parameters);
         BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
         BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));

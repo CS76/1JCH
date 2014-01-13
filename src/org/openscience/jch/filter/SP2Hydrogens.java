@@ -7,31 +7,30 @@ package org.openscience.jch.filter;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.interfaces.IAtom;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IAtomType;
 import org.openscience.cdk.interfaces.IAtomType.Hybridization;
 import org.openscience.cdk.interfaces.IChemObjectBuilder;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;
-import org.openscience.cdk.smiles.SmilesGenerator;
 import org.openscience.cdk.tools.CDKHydrogenAdder;
 
 /**
  *
  * @author Chandrasekkhar < mailcs76[at]gmail.com / www.cs76.org>
  */
-public class SPHydrogens extends CDKBased {
+public class SP2Hydrogens extends CDKBased {
 
     private boolean status;
     private Hybridization hybridization;
 
-    public SPHydrogens(String values) {
+    public SP2Hydrogens(String values) {
         this.setName("SPHydrogens");
         this.setCategory(1);
         this.status = Boolean.valueOf(values);
-        this.hybridization = IAtomType.Hybridization.SP1;
+        this.hybridization = IAtomType.Hybridization.SP2;
         this.setPriority(2);
+
     }
 
     @Override
@@ -46,8 +45,9 @@ public class SPHydrogens extends CDKBased {
                     }
                 }
             }
-        } catch (CDKException ex) {
-            Logger.getLogger(SPHydrogens.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(SP2Hydrogens.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
 
         return false;

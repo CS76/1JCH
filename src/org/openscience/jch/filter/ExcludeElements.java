@@ -16,8 +16,9 @@ public class ExcludeElements extends StringParameter {
 
     public ExcludeElements(String values) {
         this.setName("IncludeOnlyElements");
-        this.setCategory(1);
+        this.setCategory(3);
         this.setStringList(Arrays.asList(values.split(" ")));
+        this.setPriority(1);
     }
 
     @Override
@@ -28,7 +29,7 @@ public class ExcludeElements extends StringParameter {
     @Override
     public boolean test(List<String> elements) {
         for (String s : elements) {
-            if (this.getStringList().contains(s.toLowerCase())) {
+            if (this.getStringList().contains(s)) {
                 return false;
             }
         }

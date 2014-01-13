@@ -4,32 +4,23 @@
  */
 package org.openscience.jch.filter;
 
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-
+import org.openscience.cdk.exception.CDKException;
+import org.openscience.jch.utilities.GeneralUtility;
 
 /**
  *
  * @author Chandrasekkhar < mailcs76[at]gmail.com / www.cs76.org>
  */
 public class Sample {
-
-    public static void main(String[] args) throws FileNotFoundException, IOException, ClassNotFoundException {
-       ParameterEngine pe = new ParameterEngine("/Users/chandu/Desktop/filter", "/Users/chandu/Desktop/filter/parameter.txt", "/Users/chandu/Desktop/filter/eMolecules/version.smi");
+    public static void main(String[] args) throws FileNotFoundException, IOException, ClassNotFoundException, CDKException {
+        final long startTime = System.currentTimeMillis();
+        ParameterEngine pe = new ParameterEngine("/Users/chandu/Desktop/diversity", "/Users/chandu/Desktop/diversity/parameter.txt", "/Users/chandu/Desktop/diversity/Passed.smi");
+        final long stopTime = System.currentTimeMillis();
+        System.out.println("total exec time for complete eMolecules:" + (stopTime - startTime));
         //System.out.println(GeneralUtility.readLines("/Users/chandu/Desktop/filter/eMolecules/version.smi").size());
-        BufferedReader br = new BufferedReader(new FileReader("/Users/chandu/Desktop/filter/SP_inin.txt"));
-        int count = 0;
-        try {
-            String line = br.readLine();
-            while (line != null) {
-                count += 1;
-                line = br.readLine();
-            }
-        } finally {
-            System.out.println(count);
-            br.close();
-        }
+        System.out.println("PassedS:" + GeneralUtility.getRowCount("/Users/chandu/Desktop/diversity/SP2_SPPassed.smi"));
+        System.out.println("FailedS:" + GeneralUtility.getRowCount("/Users/chandu/Desktop/diversity/SP2_SPFailed.smi"));
     }
 }

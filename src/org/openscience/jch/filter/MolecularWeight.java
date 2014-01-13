@@ -16,10 +16,11 @@ public class MolecularWeight extends CDKBased {
 
     public MolecularWeight(String values) {
         this.setName("MolecularWeight");
-        this.setCategory(2);
+        this.setCategory(1);
         String[] inputvalues = values.split(" ");
         this.setMin(Integer.valueOf(inputvalues[0]));
         this.setMax(Integer.valueOf(inputvalues[1]));
+        this.setPriority(2);
     }
 
     @Override
