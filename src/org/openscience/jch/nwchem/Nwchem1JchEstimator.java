@@ -23,17 +23,29 @@ import org.openscience.jch.utilities.GeneralUtility;
 public class Nwchem1JchEstimator {
 
     public static void main(String[] args) throws FileNotFoundException, CDKException {
+
+        //Reads all molecules in to a list
         List<IAtomContainer> molecules = ChemUtility.readIAtomContainersFromCML("/Users/chandu/Desktop/1JCH/SyngentaUpdate2/finalNWChemCompleteData3.cml");
 
-        System.out.println(molecules.size());
+        /**
+         * For each IAtomContainer in the list(Except ethyne: CDK gives false
+         * equivalent classes), perceive atom types and then loop through the
+         * Map. 
+         * 
+         * For each class in the equivalent classes map, check if class is
+         * of hydrogen atoms and if so add all the experimental and NWChem 1JCH
+         * to separate arrays. if all the Exp-1JCH values in a equivalent class
+         * are equal then find the average of 1JCH and add as prop. else
+         * consider the NWchem 1JCH as the Avg-1JCH property
+         * 
+         * Finally writes the data to a multiMolecule-CML file
+         */
         for (IAtomContainer mol : molecules) {
             AtomContainerManipulator.percieveAtomTypesAndConfigureAtoms(mol);
-            //System.out.println(mol.getID());
             if (!mol.getID().equalsIgnoreCase("63_NWChem_1JCH_mulliken")) {
                 Map<Integer, List<IAtom>> map = ChemUtility.getEquivalentAtoms(mol);
                 for (int i : map.keySet()) {
                     if (map.get(i).get(0).getSymbol().equalsIgnoreCase("h")) {
-                        System.out.println(map.get(i).get(0).getSymbol());
                         String[] expPropArray = new String[map.get(i).size()];
                         String[] nwchemPropArray = new String[map.get(i).size()];
                         int j = 0;
@@ -60,7 +72,6 @@ public class Nwchem1JchEstimator {
                     }
                 }
             }
-
         }
 
         IAtomContainerSet atmSet = new AtomContainerSet();
