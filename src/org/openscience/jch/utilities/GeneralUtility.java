@@ -31,6 +31,9 @@ import java.util.BitSet;
 import java.util.List;
 import java.util.Random;
 import org.openscience.cdk.exception.CDKException;
+import org.openscience.cdk.fingerprint.MACCSFingerprinter;
+import org.openscience.cdk.interfaces.IAtomContainer;
+import org.openscience.cdk.similarity.Tanimoto;
 
 /**
  *
@@ -292,10 +295,15 @@ public class GeneralUtility {
     public static String arrayToString(int[] array) {
         String arrayString = "";
         for (int t = 0; t < array.length; t++) {
-            arrayString += array[t] + ",";
+            if (t < array.length - 1) {
+                arrayString += array[t] + ",";
+            } else {
+                arrayString += array[t];
+            }
         }
         return arrayString;
     }
+
     public static String arrayToString(char[] array) {
         String arrayString = "";
         for (int t = 0; t < array.length; t++) {
@@ -307,7 +315,11 @@ public class GeneralUtility {
     public static String arrayToString(String[] array) {
         String arrayString = "";
         for (int t = 0; t < array.length; t++) {
-            arrayString += array[t] + ",";
+            if (t < array.length - 1) {
+                arrayString += array[t] + ",";
+            } else {
+                arrayString += array[t];
+            }
         }
         return arrayString;
     }
@@ -321,25 +333,60 @@ public class GeneralUtility {
     }
 
     public static String twoDimArrayToString(double[][] twoDimArray) {
-        String twoDimArrayString = "";
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < twoDimArray.length; i++) {
             for (int j = 0; j < twoDimArray[i].length; j++) {
-                twoDimArrayString += twoDimArray[i][j] + " ";
+                sb.append(twoDimArray[i][j]);
+                if (j < twoDimArray.length - 1) {
+                    sb.append(",");
+                }
             }
-            twoDimArrayString += "\n";
+            sb.append("\n");
         }
-        return twoDimArrayString;
+        return sb.toString();
     }
 
     public static String twoDimArrayToString(int[][] twoDimArray) {
-        String twoDimArrayString = "";
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < twoDimArray.length; i++) {
             for (int j = 0; j < twoDimArray[i].length; j++) {
-                twoDimArrayString += twoDimArray[i][j] + " ";
+                sb.append(twoDimArray[i][j]).append(" ");
             }
-            twoDimArrayString += "\n";
+            if (i < twoDimArray.length - 1) {
+                sb.append("\n");
+            }
         }
-        return twoDimArrayString;
+        return sb.toString();
+    }
+
+    public static String twoDimArrayToString(String[][] twoDimArray) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < twoDimArray.length; i++) {
+            for (int j = 0; j < twoDimArray[i].length; j++) {
+                sb.append(twoDimArray[i][j]).append(" ");
+            }
+            if (i < twoDimArray.length - 1) {
+                sb.append("\n");
+            }
+        }
+        return sb.toString();
+    }
+
+    public static String twoDimArrayToStringWithHeader(double[][] twoDimArray, String[] header) {
+        StringBuilder sb = new StringBuilder();
+        System.out.println(GeneralUtility.arrayToString(header));
+
+        sb.append(",").append(GeneralUtility.arrayToString(header)).append("\n");
+        for (int i = 0; i < twoDimArray.length; i++) {
+            sb.append(header[i]).append(",");
+            for (int j = 0; j < twoDimArray[i].length; j++) {
+                sb.append(twoDimArray[i][j]).append(",");
+            }
+            if (i < twoDimArray.length - 1) {
+                sb.append("\n");
+            }
+        }
+        return sb.toString();
     }
 
     public static boolean isAllElementsEqual(String[] arraytoCheck) {
@@ -412,9 +459,19 @@ public class GeneralUtility {
                 line = br.readLine();
             }
         } finally {
-            
+
             br.close();
         }
         return count;
+    }
+
+    public static double getSimilarity(String mol1, String mol2) throws CDKException {
+        double similarity = 0.0;
+        MACCSFingerprinter mfp = new MACCSFingerprinter();
+        DecimalFormat df = new DecimalFormat("#.####");
+        IAtomContainer molecule1 = ChemUtility.getIAtomContainerFromSmilesWAP(mol1);
+        IAtomContainer molecule2 = ChemUtility.getIAtomContainerFromSmilesWAP(mol2);
+        similarity = Double.valueOf(df.format(Tanimoto.calculate(mfp.getBitFingerprint(molecule1), mfp.getBitFingerprint(molecule2))));
+        return similarity;
     }
 }

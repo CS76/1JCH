@@ -23,7 +23,6 @@ import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.interfaces.IAtom;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.tools.manipulator.AtomContainerManipulator;
-import org.openscience.jch.nwchem.JCHAppender;
 
 /**
  *
@@ -94,9 +93,7 @@ public class sampleCode {
                             dataToWrite = GeneralUtility.conCat(dataToWrite, (String) atm.getProperty("avgNWChem1JCH"), ",");
                             dataToWrite = GeneralUtility.conCat(dataToWrite, String.valueOf(ChemUtility.getDistance(carbonAtm, atm)), ",");
                             dataToWrite = GeneralUtility.conCat(dataToWrite, (String) atm.getProperty("Exp1JCH"), ",");
-
                             //System.out.println("Bond angles:");
-
                             String ba = "";
 
                             for (double angles : bangles) {

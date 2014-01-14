@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ForkJoinPool;
+import static java.util.concurrent.ForkJoinTask.invokeAll;
 import java.util.concurrent.RecursiveTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -146,6 +147,7 @@ public class ParameterEngine {
                 screenSmiles ssm2 = new screenSmiles(this.smilesToScreen.subList(cutoff, size), this.parameterList);
                 this.passeds.append(ssm1.invoke());
                 return (ssm2.compute() + "\n" + ssm1.join());
+                //invokeAll(ssm1,ssm2);
             } else {
                 for (String s : this.smilesToScreen) {
                     try {

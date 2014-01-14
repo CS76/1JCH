@@ -7,11 +7,8 @@ package org.openscience.jch.diversity;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.exception.NoSuchAtomTypeException;
-import org.openscience.jch.utilities.ChemUtility;
-import org.openscience.jch.utilities.GeneralUtility;
 
 /**
  *
@@ -20,15 +17,15 @@ import org.openscience.jch.utilities.GeneralUtility;
 public class Sample {
 
     public static void main(String[] args) throws SQLException, FileNotFoundException, IOException, CDKException, NoSuchAtomTypeException, CloneNotSupportedException, NoSuchFieldException, NoSuchFieldException, NoSuchFieldException, NoSuchFieldException, NoSuchFieldException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
-            // Diverse subset selection
+        // Diverse subset selection
 //         InitializeDatabase id = new InitializeDatabase("");
-//         id.populateStructureData("/Users/chandu/Desktop/filter/SP_ulti.txt");
+//         id.populateStructureData("/Users/chandu/Desktop/diversity/SPPassed.smi");
 //         id.generateMACCSKey();
 //         id.randomizeTable("completeDataSet");
 //         id.OptiSim();
-//         id.exportData("diverseSubSet", "/Users/chandu/Desktop/filter/SP_diverseSubset.txt");
-        
-            // Openbabel 3d coordinates(SDF) generation
+//         id.exportData("diverseSubSet", "/Users/chandu/Desktop/diversity/SP/SP_diverseSubset.txt");
+
+        // Openbabel 3d coordinates(SDF) generation
 //        List<String> smilesList = GeneralUtility.readLines("/Users/chandu/Desktop/filter/SP_diverseSubset.smi");
 //        final long startTime = System.currentTimeMillis();
 //        int count = 0;
@@ -39,10 +36,11 @@ public class Sample {
 //        final long endTime = System.currentTimeMillis();
 //
 //        System.out.println("total exec time for "+count+"molecules:"+ (endTime - startTime));
-            
-          // Diverse subset diversity analysis
-//        DiversityAnalyser da= new DiversityAnalyser();
-//        da.getMaximumSimilarity("/Users/chandu/Desktop/filter/SP_diverseSubSet.smi", true);
-       
+
+        // Diverse subset diversity analysis
+        DiversityAnalyser da = new DiversityAnalyser();
+        da.analyseWithInDataSet("/Users/chandu/Desktop/try.smi", true);
     }
+
+   
 }
