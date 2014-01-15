@@ -27,8 +27,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.BitSet;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.fingerprint.MACCSFingerprinter;
@@ -473,5 +476,21 @@ public class GeneralUtility {
         IAtomContainer molecule2 = ChemUtility.getIAtomContainerFromSmilesWAP(mol2);
         similarity = Double.valueOf(df.format(Tanimoto.calculate(mfp.getBitFingerprint(molecule1), mfp.getBitFingerprint(molecule2))));
         return similarity;
+    }
+
+    public static List<Map<Integer, String>> splitMap(Map<Integer, String> mp) {
+        int length = mp.size();
+        int count = 0;
+        Map<Integer, String> mp1 = new HashMap<Integer, String>();
+        Map<Integer, String> mp2 = new HashMap<Integer, String>();
+
+        for (Map.Entry e : mp.entrySet()) {
+            if (count <= length / 2) {
+                mp1.put((Integer) e.getKey(), (String) e.getValue());
+            } else {
+                mp2.put((Integer) e.getKey(), (String) e.getValue());
+            }
+        }
+        return Arrays.asList(mp1, mp2);
     }
 }

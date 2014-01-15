@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.concurrent.ForkJoinPool;
 import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.similarity.Tanimoto;
@@ -155,8 +156,8 @@ public class InitializeDatabase {
         int start, stop;
         start = 1;
         Statement stmt = this.connection.createStatement();
-        Map< Integer, String> map = new HashMap< Integer, String>();
-        ForkJoinPool fjPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors());
+        TreeMap< Integer, String> map = new TreeMap< Integer, String>();
+        ForkJoinPool fjPool = new ForkJoinPool(2);
         for (int k = 1; k <= 10; k++) {
             System.out.println(k);
             stop = batchCount * k;
@@ -191,96 +192,181 @@ public class InitializeDatabase {
         this.connection.commit();
     }
 
-    public void OptiSim() throws CDKException {
-        int presentCount = 1;
+    public void OptiSim(int kSSSize,double threshold, int dSSSize) throws CDKException {
+        int kSubsetSize = kSSSize;
+        double diversityThreshold = threshold;
+        int diverseSetSize = dSSSize;
         
-        double diversityThreshold = 0.80;
-        int diverseSetSize = 500;
-
-        // data Set counts
         int randomCompleteDataSetCount = getRowCount("randomCompleteDataSet");
-        int kSubsetSize = 100;
         int kSubSetCount = getRowCount("kSubSet");
         int diverseSubSetCount = getRowCount("diverseSubSet");
+        int recycleSetCount = getRowCount("recycleSet");;
+        
         System.out.println("randomCompleteDataSet Count:" + randomCompleteDataSetCount);
         System.out.println("kSubSet Count:" + kSubSetCount);
         System.out.println("diverse SubSet Count:" + diverseSubSetCount);
-
-//in.copyRow("completeDataSet","scrap", initialSeed);        
-//        int[] num = new int[completeDataSetCount];
-//        for (int k = 1; k < completeDataSetCount; k++) {
-//            num[k] = k;
-//        }
-
+        System.out.println("recycle SubSet Count:" + recycleSetCount);
+      
         // initialize the sub set
         copyRow("randomCompleteDataSet", "diverseSubSet", 1);
+        diverseSubSetCount++;
         deleteRow("randomCompleteDataSet", 1);
-        presentCount += 1;
+        randomCompleteDataSetCount--;
         System.out.println("intialized");
-
-        while (presentCount <= randomCompleteDataSetCount) {
-            System.out.println(presentCount+","+randomCompleteDataSetCount+","+diverseSubSetCount+"±±±±±±±±±±±±±±±±±±±±±±±±±±±±±");
+        
+        while(randomCompleteDataSetCount != 0  || recycleSetCount !=0){
+            System.out.println("Enter While:"+ randomCompleteDataSetCount + "," + recycleSetCount);
             if (diverseSubSetCount >= diverseSetSize) {
-                System.out.println("cond1");
+                System.out.println("Target Diverse Sub Set reached Exiting the l]Loop");
                 break;
             }
-            if ((randomCompleteDataSetCount == presentCount)) {
-                System.out.println("cond2");
+            
+            if ((randomCompleteDataSetCount == 0) && recycleSetCount !=0) {
+                System.out.println("randomCompleteDataSet is exhausted, copying data from recycle set");
                 copyTable("recycleSet", "randomCompleteDataSet");
-                presentCount = 1;
                 deleteAllRows("recycleSet");
                 randomCompleteDataSetCount = getRowCount("randomCompleteDataSet");
-                System.out.println("completeDataSet exhausted");
+                recycleSetCount = 0;
             }
+            
             double[] diversityData = new double[2];
             Map<Integer, Double> map = new HashMap<Integer, Double>();
-            while (map.size() < kSubsetSize) {
-                System.out.println(presentCount+","+randomCompleteDataSetCount+","+diverseSubSetCount+"**********************");
-                if (presentCount < randomCompleteDataSetCount) {
-                    
+            
+            while (map.size() <= kSubsetSize) {
+                if (randomCompleteDataSetCount != 0) {
                     try {
-                        //System.out.println(map.size() + "," + kSubsetSize + "," + presentCount);
-                        //System.out.println("innerloop:" + presentCount + "," + 0);
                         double tempDiversity = 0.0;
-                        diversityData = getMaxMin(presentCount);
+                        //diversityData = getMaxSum(presentCount);
+                        diversityData = getMaxMin(1);
                         tempDiversity = diversityData[0];
-                        //System.out.println("tempDiv: " + tempDiversity);
-                     
+                        
+                        if (tempDiversity <= diversityThreshold) {
+                            deleteRow("randomCompleteDataSet", (int) diversityData[1]);
+                            randomCompleteDataSetCount--;
+                            System.out.println(randomCompleteDataSetCount);
+                        } else {
                             map.put((int) diversityData[1], tempDiversity);
-                            System.out.println(tempDiversity + "," + (int) diversityData[1]);
-                            System.out.println("going to kSubSet," + (int) diversityData[1]);
                             copyRow("randomCompleteDataSet", "kSubSet", (int) diversityData[1]);
                             deleteRow("randomCompleteDataSet", (int) diversityData[1]);
-                            presentCount += 1;
-                       
+                            randomCompleteDataSetCount--;
+                            kSubSetCount++;
+                        }
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
-                        System.out.println("error processing the mol: FP Not Generated");
-                        presentCount += 1;
+                        System.out.println("Error processing the mol: FP Not Generated");
                     }
                 } else {
-                    System.out.println("exiting");
+                    System.out.println("RandomSubSet exhausted");
                     break;
                 }
             }
-            //System.out.println("map:" + map.size() + "======" + kSubsetSize);
+            
             double largestDiversity = Double.MIN_VALUE;
-            int largeDivID = 0;
+            int largeDivMolID = 0;
             for (int id : map.keySet()) {
                 if (map.get(id) > largestDiversity) {
                     largestDiversity = map.get(id);
-                    largeDivID = id;
+                    largeDivMolID = id;
                 }
             }
-            copyRow("kSubSet", "diverseSubSet", largeDivID);
-            ++diverseSubSetCount;
-            map.remove(largeDivID);
+            copyRow("kSubSet", "diverseSubSet", largeDivMolID);
+            diverseSubSetCount++;
+            map.remove(largeDivMolID);
             for (int div : map.keySet()) {
                 copyRow("kSubSet", "recycleSet", div);
+                recycleSetCount++;
             }
             deleteAllRows("kSubSet");
+            kSubSetCount = 0;
             map.clear();
         }
+
+//        while (presentCount <= randomCompleteDataSetCount) {
+//            System.out.println(presentCount + "," + getRowCount("randomCompleteDataSet") + "," + diverseSubSetCount + "±±±±±±±±±±±±±±±±±±±±±±±±±±±±±");
+//            if (diverseSubSetCount >= diverseSetSize) {
+//                System.out.println("cond1");
+//                break;
+//            }
+//            if (getRowCount("randomCompleteDataSet") == 0 && getRowCount("recycleSet") == 0) {
+//                System.out.println("cond1");
+//                break;
+//            }
+//            if ((randomCompleteDataSetCount == presentCount)) {
+//                System.out.println("cond2");
+//                copyTable("recycleSet", "randomCompleteDataSet");
+//                presentCount = 1;
+//                deleteAllRows("recycleSet");
+//                randomCompleteDataSetCount = getRowCount("randomCompleteDataSet");
+//            }
+//            System.out.println(getRowCount("randomCompleteDataSet") + "," + getRowCount("recycleSet"));
+//            double[] diversityData = new double[2];
+//            Map<Integer, Double> map = new HashMap<Integer, Double>();
+//            while (map.size() < kSubsetSize) {
+//                System.out.println(presentCount + "," + getRowCount("randomCompleteDataSet")+ "," + diverseSubSetCount + "**********************");
+//                if (presentCount < randomCompleteDataSetCount) {
+//                    try {
+//                        double tempDiversity = 0.0;
+//                        //diversityData = getMaxSum(presentCount);
+//                        diversityData = getMaxMin(presentCount);
+//                        tempDiversity = diversityData[0];
+//                        if (tempDiversity <= diversityThreshold) {
+//                            deleteRow("randomCompleteDataSet", (int) diversityData[1]);
+//                            presentCount += 1;
+//                        } else {
+//                            map.put((int) diversityData[1], tempDiversity);
+//                            copyRow("randomCompleteDataSet", "kSubSet", (int) diversityData[1]);
+//                            deleteRow("randomCompleteDataSet", (int) diversityData[1]);
+//                            presentCount += 1;
+//                        }
+//                    } catch (Exception e) {
+//                        System.out.println(e.getMessage());
+//                        System.out.println("error processing the mol: FP Not Generated");
+//                        presentCount += 1;
+//                    }
+//                } else {
+//                    System.out.println("exiting");
+//                    break;
+//                }
+//            }
+//
+//            if (getRowCount("randomCompleteDataSet") < kSubsetSize && getRowCount("recycleSet")<kSubsetSize) {
+//                System.out.println("this is the tricky part");
+//                int u = getRowCount("randomCompleteDataSet");
+//                int v = 1;
+//                while (v <= u) {
+//                    double tempDiversity = 0.0;
+//                    //diversityData = getMaxSum(presentCount);
+//                    diversityData = getMaxMin(v);
+//                    tempDiversity = diversityData[0];
+//                    if (tempDiversity <= diversityThreshold) {
+//                        deleteRow("randomCompleteDataSet", (int) diversityData[1]);
+//                    } else {
+//                        map.put((int) diversityData[1], tempDiversity);
+//                        deleteRow("randomCompleteDataSet", (int) diversityData[1]);
+//                    }
+//                    v++;
+//                }
+//            }
+//
+//            //System.out.println("map:" + map.size() + "======" + kSubsetSize);
+//            double largestDiversity = Double.MIN_VALUE;
+//            int largeDivID = 0;
+//            for (int id : map.keySet()) {
+//                if (map.get(id) > largestDiversity) {
+//                    largestDiversity = map.get(id);
+//                    largeDivID = id;
+//                }
+//            }
+//            copyRow("kSubSet", "diverseSubSet", largeDivID);
+//            deleteRow("randomCompleteDataSet", largeDivID);
+//            ++diverseSubSetCount;
+//            map.remove(largeDivID);
+//            for (int div : map.keySet()) {
+//                copyRow("kSubSet", "recycleSet", div);
+//            }
+//            deleteAllRows("kSubSet");
+//            map.clear();
+//        }
     }
 
     public double getDiversity(byte[] mol1, byte[] mol2) throws CDKException {
@@ -310,7 +396,7 @@ public class InitializeDatabase {
     }
 
     public double[] getMaxMin(int molID) throws CDKException {
-        double maxMin[] = {0.0,0.0};
+        double maxMin[] = {0.0, 0.0};
         double diversity = Double.MAX_VALUE;
         DataObject tempQuery = getDataObject(molID, "randomCompleteDataSet");
         DataObject[] dsHolder = getDataObject("diverseSubSet");
@@ -321,8 +407,8 @@ public class InitializeDatabase {
                 diversity = div;
             }
         }
-        maxMin[0]=diversity;
-        maxMin[1]=tempQuery.getID();
+        maxMin[0] = diversity;
+        maxMin[1] = tempQuery.getID();
         return maxMin;
     }
 
@@ -378,7 +464,7 @@ public class InitializeDatabase {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
-        System.out.println("Records transferred successfully");
+        System.out.println("Single Record transferred successfully");
     }
 
     public void copyRows(String fromTable, String toTable, int[] orderID) {
@@ -643,22 +729,22 @@ public class InitializeDatabase {
         }
         //System.out.println("Records removed successfully ========================================");
     }
-    
-    public void exportData(String fromTable,String filePath) throws CDKException, IOException{
+
+    public void exportData(String fromTable, String filePath) throws CDKException, IOException {
         DataObject[] doArray = getDataObject(fromTable);
-        System.out.println("enetered export data,"+doArray.length);
+        System.out.println("enetered export data," + doArray.length);
         List<String> as = new ArrayList<String>();
-        for (DataObject d: doArray){
+        for (DataObject d : doArray) {
             as.add(d.getUserData());
             System.out.println(d.getUserData());
-            if (as.size() == 10000){
-                GeneralUtility.writeToTxtFile(GeneralUtility.getStringFromList(as),filePath);
+            if (as.size() == 10000) {
+                GeneralUtility.writeToTxtFile(GeneralUtility.getStringFromList(as), filePath);
                 as.clear();
             }
         }
-        if (as.size() != 0){
-            GeneralUtility.writeToTxtFile(GeneralUtility.getStringFromList(as),filePath);
-                as.clear();
-        }   
+        if (as.size() != 0) {
+            GeneralUtility.writeToTxtFile(GeneralUtility.getStringFromList(as), filePath);
+            as.clear();
+        }
     }
 }

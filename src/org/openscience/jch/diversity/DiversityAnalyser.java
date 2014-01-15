@@ -8,13 +8,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.openscience.cdk.exception.CDKException;
+import org.openscience.cdk.fingerprint.IBitFingerprint;
 import org.openscience.cdk.fingerprint.MACCSFingerprinter;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.similarity.Tanimoto;
@@ -47,8 +47,8 @@ public class DiversityAnalyser {
         this.diversityMatrix = new double[dataSetSize][dataSetSize];
         MACCSFingerprinter mfp = new MACCSFingerprinter();
         String[] header = new String[dataSetSize];
-        int q =0;
-        for (String s : this.smilesData){
+        int q = 0;
+        for (String s : this.smilesData) {
             header[q] = s.split(" ")[1];
             q++;
         }
@@ -127,7 +127,7 @@ public class DiversityAnalyser {
             System.out.println("new task");
             this.startID = start;
             this.stopID = stop;
-            System.out.println(this.startID+" | "+this.stopID);
+            System.out.println(this.startID + " | " + this.stopID);
         }
 
         @Override
@@ -151,18 +151,22 @@ public class DiversityAnalyser {
 
         private String computeDirectly(int i, int j) throws CDKException {
             for (int st = i; st < j; st++) {
-                for (int count = 0; count < DiversityAnalyser.smilesData.size(); count++) {
+                String mol1 = DiversityAnalyser.smilesData.get(st).split(" ")[0];
+                MACCSFingerprinter mfp = new MACCSFingerprinter();
+                DecimalFormat df = new DecimalFormat("#.####");
+                IAtomContainer molecule1 = ChemUtility.getIAtomContainerFromSmilesWAP(mol1);
+                IBitFingerprint m1fp = mfp.getBitFingerprint(molecule1);
+                for (int count = st; count < DiversityAnalyser.smilesData.size(); count++) {
                     if (st != count) {
-                        try{
-                        String mol1 = DiversityAnalyser.smilesData.get(st).split(" ")[0];
-                        String mol2 = DiversityAnalyser.smilesData.get(count).split(" ")[0];
-                        double divv = GeneralUtility.getSimilarity(mol1, mol2);
-                        DiversityAnalyser.diversityMatrix[st][count] = divv;
-                        DiversityAnalyser.diversityMatrix[count][st] = divv;
-                        }catch(Exception e){
+                        try {
+                            String mol2 = DiversityAnalyser.smilesData.get(count).split(" ")[0];
+                            IAtomContainer molecule2 = ChemUtility.getIAtomContainerFromSmilesWAP(mol2);                            
+                            double divv = Double.valueOf(df.format(Tanimoto.calculate(m1fp, mfp.getBitFingerprint(molecule2))));
+                            DiversityAnalyser.diversityMatrix[st][count] = divv;
+                            DiversityAnalyser.diversityMatrix[count][st] = divv;
+                        } catch (Exception e) {
                             System.out.println(DiversityAnalyser.smilesData.get(st));
                         }
-                        
                     } else {
                         DiversityAnalyser.diversityMatrix[st][count] = 1.0;
                     }

@@ -62,6 +62,7 @@ import org.openscience.cdk.interfaces.IRingSet;
 import org.openscience.cdk.io.CMLReader;
 import org.openscience.cdk.io.CMLWriter;
 import org.openscience.cdk.io.SDFWriter;
+import org.openscience.cdk.io.iterator.IteratingSDFReader;
 import org.openscience.cdk.qsar.DescriptorEngine;
 import org.openscience.cdk.qsar.DescriptorValue;
 import org.openscience.cdk.ringsearch.SSSRFinder;
@@ -330,6 +331,17 @@ public class ChemUtility {
             break;
         }
         return molecule;
+    }
+    
+    
+       public static IAtomContainerSet readIAtomContainersFromSDF(String filePath) throws FileNotFoundException {
+        File sdfFile = new File(filePath);
+        IteratingSDFReader reader = new IteratingSDFReader(new FileInputStream(sdfFile), DefaultChemObjectBuilder.getInstance());
+        IAtomContainerSet molecules = new AtomContainerSet();
+        while (reader.hasNext()) {
+            molecules.addAtomContainer(reader.next());
+        }
+        return molecules;
     }
 
     /**
@@ -1416,7 +1428,7 @@ public class ChemUtility {
         return mol;
     }
 
-        public static IAtomContainer getIAtomContainerFromSmilesWAPHA(String smiles) throws CDKException {
+    public static IAtomContainer getIAtomContainerFromSmilesWAPHA(String smiles) throws CDKException {
         System.out.println(smiles);
         IAtomContainer mol = new AtomContainer();
         IChemObjectBuilder builder = SilentChemObjectBuilder.getInstance();
