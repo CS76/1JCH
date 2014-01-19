@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<molecule id="a7" xmlns="http://www.xml-cml.org/schema">
+  <atomArray>
+    <atom id="a1" elementType="C" x3="-0.49627444" y3="0.55007644" z3="0.0" formalCharge="0">
+      <scalar title="valency" dataType="xsd:string">3.81564</scalar>
+      <scalar title="numberOfValenceFreeElectrons" dataType="xsd:string">2.28531</scalar>
+      <scalar title="sumOFBondIndices" dataType="xsd:string">3.81564</scalar>
+      <scalar title="mullikenCharge" dataType="xsd:string">6.10095</scalar>
+    </atom>
+    <atom id="a2" elementType="C" x3="0.36364082" y3="1.57005995" z3="0.0" formalCharge="0">
+      <scalar dataType="xsd:string">6</scalar>
+      <scalar title="valency" dataType="xsd:string">3.87043</scalar>
+      <scalar title="numberOfValenceFreeElectrons" dataType="xsd:string">2.29446</scalar>
+      <scalar title="sumOFBondIndices" dataType="xsd:string">3.87043</scalar>
+      <scalar title="mullikenCharge" dataType="xsd:string">6.16489</scalar>
+    </atom>
+    <atom id="a3" elementType="C" x3="-0.08437609" y3="-0.81661326" z3="0.0" formalCharge="0">
+      <scalar dataType="xsd:string">6</scalar>
+      <scalar title="valency" dataType="xsd:string">3.95973</scalar>
+      <scalar title="numberOfValenceFreeElectrons" dataType="xsd:string">1.92143</scalar>
+      <scalar title="sumOFBondIndices" dataType="xsd:string">3.95973</scalar>
+      <scalar title="mullikenCharge" dataType="xsd:string">5.8811599999999995</scalar>
+    </atom>
+    <atom id="a4" elementType="N" x3="0.22746958" y3="-1.93174417" z3="0.0" formalCharge="0">
+      <scalar dataType="xsd:string">7</scalar>
+      <scalar title="valency" dataType="xsd:string">3.07228</scalar>
+      <scalar title="numberOfValenceFreeElectrons" dataType="xsd:string">4.15874</scalar>
+      <scalar title="sumOFBondIndices" dataType="xsd:string">3.07228</scalar>
+      <scalar title="mullikenCharge" dataType="xsd:string">7.23102</scalar>
+    </atom>
+    <atom id="a5" elementType="H" x3="-1.56779078" y3="0.71770314" z3="0.0" formalCharge="0">
+      <scalar dataType="xsd:string">1</scalar>
+      <scalar title="JCH" dataType="xsd:string">[a1; 171.8438 Hz, a2; -3.6158 Hz, a3; 3.2128 Hz]</scalar>
+      <scalar title="valency" dataType="xsd:string">0.96133</scalar>
+      <scalar title="numberOfValenceFreeElectrons" dataType="xsd:string">-0.09492</scalar>
+      <scalar title="sumOFBondIndices" dataType="xsd:string">0.96133</scalar>
+      <scalar title="mullikenCharge" dataType="xsd:string">0.86641</scalar>
+    </atom>
+    <atom id="a6" elementType="H" x3="0.00586118" y3="2.59154669" z3="0.0" formalCharge="0">
+      <scalar dataType="xsd:string">1</scalar>
+      <scalar title="JCH" dataType="xsd:string">[a1; 0.9086 Hz, a2; 164.4094 Hz, a3; 16.9641 Hz]</scalar>
+      <scalar title="valency" dataType="xsd:string">0.96995</scalar>
+      <scalar title="numberOfValenceFreeElectrons" dataType="xsd:string">-0.09093</scalar>
+      <scalar title="sumOFBondIndices" dataType="xsd:string">0.96995</scalar>
+      <scalar title="mullikenCharge" dataType="xsd:string">0.87902</scalar>
+    </atom>
+    <atom id="a7" elementType="H" x3="1.43488885" y3="1.41384399" z3="0.0" formalCharge="0">
+      <scalar dataType="xsd:string">1</scalar>
+      <scalar title="JCH" dataType="xsd:string">[a1; -3.4116 Hz, a2; 164.2431 Hz, a3; 9.5221 Hz]</scalar>
+      <scalar title="valency" dataType="xsd:string">0.97347</scalar>
+      <scalar title="numberOfValenceFreeElectrons" dataType="xsd:string">-0.09692</scalar>
+      <scalar title="sumOFBondIndices" dataType="xsd:string">0.97347</scalar>
+      <scalar title="mullikenCharge" dataType="xsd:string">0.8765499999999999</scalar>
+    </atom>
+  </atomArray>
+  <bondArray>
+    <bond id="a1_a2" atomRefs2="a1 a2" order="D"/>
+    <bond id="a1_a3" atomRefs2="a1 a3" order="S"/>
+    <bond id="a1_a5" atomRefs2="a1 a5" order="S"/>
+    <bond id="a2_a6" atomRefs2="a2 a6" order="S"/>
+    <bond id="a2_a7" atomRefs2="a2 a7" order="S"/>
+    <bond id="a3_a4" atomRefs2="a3 a4" order="T"/>
+  </bondArray>
+</molecule>

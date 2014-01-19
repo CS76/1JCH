@@ -92,12 +92,11 @@ public class GeneralUtility {
      * @return
      */
     public static String conCat(int[] toConCat, String delimitor) {
-        String concatenatedString = "";
+        StringBuilder sb = new StringBuilder();
         for (int s : toConCat) {
-            concatenatedString = concatenatedString + String.valueOf(s) + delimitor;
+            sb.append(String.valueOf(s)).append(delimitor);
         }
-        concatenatedString = concatenatedString.substring(0, concatenatedString.length() - 1);
-        return concatenatedString;
+        return (sb.substring(0, sb.length() - 1));
     }
 
     /**

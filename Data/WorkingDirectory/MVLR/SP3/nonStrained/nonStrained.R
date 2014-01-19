@@ -1,0 +1,117 @@
+# import libraries
+library(StatDA)
+library(chemometrics)
+library(car)
+library(MASS)
+library(gvlma)
+library(robustbase)
+
+# import data
+completeData = read.csv("nonStrained.csv",header=TRUE)
+summary(completeData)
+
+# nonStrained.complete = nonStrained.complete[-c(1,2),]
+# select subset of data (remove unwanted columns)
+nonStrained.complete <- subset( completeData, select = -c(1, 2, 3, 4,5,6,8,10,11,13, 17,18 ,20))
+summary(nonStrained.complete)
+head(nonStrained.complete)
+
+# center and scale data
+# auto scaling
+nonStrained.complete <- scale(nonStrained.complete,center = TRUE, scale = TRUE)
+summary(nonStrained.complete)
+
+# Variability in the data
+# MAD (if MAD == 0, remove the columns)
+nonStrained.complete.mad = apply(nonStrained.complete, 2, function(x) {
+  mad(x, center = median(x), constant = 1.4826,na.rm = FALSE, low = FALSE, high = FALSE)
+})
+
+nonStrained.complete.mad
+
+summary(nonStrained.complete)
+summary(completeData)
+
+exp1JCH<-completeData[,c(17,18,20)]
+
+nonStrained.complete<-cbind(nonStrained.complete,exp1JCH)
+summary(nonStrained.complete)
+nonStrained.complete.shuffled <- nonStrained.complete[sample(nrow(nonStrained.complete)),]
+
+nonStrained.complete.testSet<- nonStrained.complete.shuffled[1:200,]
+nonStrained.complete.trainSet<- nonStrained.complete.shuffled[201:287,]
+summary(nonStrained.complete.trainSet)
+
+pca<-princomp(nonStrained.complete.trainSet[,-c(12,13,14)],scores=TRUE, cor=TRUE)
+pca<-princomp(nonStrained.complete.trainSet[-c(75,102),-13],scores=TRUE, cor=TRUE)
+plot(pca)
+
+summary(pca)
+biplot(pca)
+pca$scores[,1:6]
+
+PCA_expValues <- cbind(pca$scores[,1:6], nonStrained.complete.trainSet[,c(12,13,14)])
+train.frame <- data.frame(PCA_expValues)
+
+summary(train.frame)
+train_woo.frame <- train.frame
+train_woo.frame <- train.frame[-c(68,77),]
+
+#res<- pcaVarexpl(nonStrained.complete.trainSet[,-12],a=4)
+#res
+#finalrandomdata=finaldata[sample(nrow(finaldata)),]
+
+library(DAAG)
+library(boot) 
+
+model.boot <- glm(formula = NWChem ~ Comp.1 + Comp.2 + Comp.3 + Comp.4 + Comp.5 + Comp.6, train_woo.frame, family = gaussian)
+
+summary(model.boot)
+plot(model.boot)
+model.boot
+
+
+# The 'cv.glm' function returns a 'delta' which shows (first) the raw cross-validation estimate
+# of prediction error and (second) the adjusted cross-validation estimate. The adjustment is
+# designed to compensate for the bias introduced by not using leave-one-out cross-validation.
+# Leave one out cross validation (default).
+val.loocv <- cv.glm(data = train_woo.frame, glmfit = model.boot,K = nrow(train_woo.frame))
+val.loocv
+
+k_cv<- vector()
+
+for (j in 2:10){
+  ka=0
+  for (k in 1:100){
+    ka = ka + cv.glm(data = train_woo.frame, glmfit = model.boot, K = j)$delta[1]
+  }
+  k_cv[j]=ka/100
+}
+
+k_cv
+
+scaled_testSet<-scale(nonStrained.complete.testSet[,-c(12,13,14)],center = TRUE, scale = TRUE)
+pc_new <- as.data.frame(predict(pca,newdata=scaled_testSet))
+
+
+
+new.fit <- predict(model.boot, pc_new)
+
+rmse <- function(error)
+{
+  sqrt(mean(error^2))
+}
+
+mae <- function(error)
+{     
+  mean(abs(error))
+}
+
+nonStrained.complete.testSet[,12]-new.fit
+mae(nonStrained.complete.testSet[,12]-new.fit)
+rmse(nonStrained.complete.testSet[,12]-new.fit)
+
+plot(nonStrained.complete.testSet[,12],new.fit)
+hist(model.boot$resid)
+skewness(model.boot$resid)
+shapiro.test(model.boot$resid)

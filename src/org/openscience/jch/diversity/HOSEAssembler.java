@@ -26,8 +26,7 @@ public class HOSEAssembler {
         for (IAtomContainer mol : molList) {
             for (IAtom atm : mol.atoms()) {
                 if (atm.getSymbol().equalsIgnoreCase("c")) {
-                    System.out.println(mol.getID() + ":::" + atm.getSymbol());
-                    System.out.println(hg.getHOSECode(mol, atm, 6));
+                    System.out.println(mol.getID()+","+hg.getHOSECode(mol, atm, 2)+"\"");
                 }
             }
         }
