@@ -38,24 +38,24 @@ nonStrained.complete<-cbind(nonStrained.complete,exp1JCH)
 summary(nonStrained.complete)
 nonStrained.complete.shuffled <- nonStrained.complete[sample(nrow(nonStrained.complete)),]
 
-nonStrained.complete.testSet<- nonStrained.complete.shuffled[1:200,]
-nonStrained.complete.trainSet<- nonStrained.complete.shuffled[201:287,]
+nonStrained.complete.trainSet<- nonStrained.complete.shuffled[1:200,]
+nonStrained.complete.testSet<- nonStrained.complete.shuffled[201:287,]
 summary(nonStrained.complete.trainSet)
 
 pca<-princomp(nonStrained.complete.trainSet[,-c(12,13,14)],scores=TRUE, cor=TRUE)
-pca<-princomp(nonStrained.complete.trainSet[-c(75,102),-13],scores=TRUE, cor=TRUE)
+pca<-princomp(nonStrained.complete.trainSet[-c(130,127,99,143,71,155,194),-c(12,13,14)],scores=TRUE, cor=TRUE)
 plot(pca)
 
 summary(pca)
 biplot(pca)
 pca$scores[,1:6]
 
-PCA_expValues <- cbind(pca$scores[,1:6], nonStrained.complete.trainSet[,c(12,13,14)])
+PCA_expValues <- cbind(pca$scores[,1:6], nonStrained.complete.trainSet[-c(130,127,99,143,71,155,194),c(12,13,14)])
 train.frame <- data.frame(PCA_expValues)
 
 summary(train.frame)
 train_woo.frame <- train.frame
-train_woo.frame <- train.frame[-c(41,77),]
+train_woo.frame <- train.frame[-c(48,99,182),]
 
 #res<- pcaVarexpl(nonStrained.complete.trainSet[,-12],a=4)
 #res
