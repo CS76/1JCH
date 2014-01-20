@@ -55,7 +55,7 @@ train.frame <- data.frame(PCA_expValues)
 
 summary(train.frame)
 train_woo.frame <- train.frame
-train_woo.frame <- train.frame[-c(68,77),]
+train_woo.frame <- train.frame[-c(8,16,21),]
 
 #res<- pcaVarexpl(strained.complete.trainSet[,-12],a=4)
 #res

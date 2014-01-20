@@ -7,57 +7,57 @@ library(gvlma)
 library(robustbase)
 
 # import data
-completeData = read.csv("SP3.csv",header=TRUE)
+completeData = read.csv("SP2.csv",header=TRUE)
 summary(completeData)
 
-# SP3.complete = SP3.complete[-c(1,2),]
+# SP2.complete = SP2.complete[-c(1,2),]
 # select subset of data (remove unwanted columns)
-SP3.complete <- subset( completeData, select = -c(1, 2, 3, 4,5,6,8,10,11,13, 17,18 ,20))
-summary(SP3.complete)
-head(SP3.complete)
+SP2.complete <- subset( completeData, select = -c(1, 2, 3, 4, 5, 9,12,16,17,19,21,22,23))
+summary(SP2.complete)
+head(SP2.complete)
 
 # center and scale data
 # auto scaling
-SP3.complete <- scale(SP3.complete,center = TRUE, scale = TRUE)
-summary(SP3.complete)
+SP2.complete <- scale(SP2.complete,center = TRUE, scale = TRUE)
+summary(SP2.complete)
 
 # Variability in the data
 # MAD (if MAD == 0, remove the columns)
-SP3.complete.mad = apply(SP3.complete, 2, function(x) {
+SP2.complete.mad = apply(SP2.complete, 2, function(x) {
   mad(x, center = median(x), constant = 1.4826,na.rm = FALSE, low = FALSE, high = FALSE)
 })
 
-SP3.complete.mad
+SP2.complete.mad
 
-summary(SP3.complete)
+summary(SP2.complete)
 summary(completeData)
 
-exp1JCH<-completeData[,c(17,18,20)]
+exp1JCH<-completeData[,c(16,17,19)]
 
-SP3.complete<-cbind(SP3.complete,exp1JCH)
-summary(SP3.complete)
-SP3.complete.shuffled <- SP3.complete[sample(nrow(SP3.complete)),]
+SP2.complete<-cbind(SP2.complete,exp1JCH)
+summary(SP2.complete)
+SP2.complete.shuffled <- SP2.complete[sample(nrow(SP2.complete)),]
 
-SP3.complete.testSet<- SP3.complete.shuffled[1:114,]
-SP3.complete.trainSet<- SP3.complete.shuffled[115:381,]
-summary(SP3.complete.trainSet)
+SP2.complete.testSet<- SP2.complete.shuffled[1:88,]
+SP2.complete.trainSet<- SP2.complete.shuffled[89:292,]
+summary(SP2.complete.trainSet)
 
-pca<-princomp(SP3.complete.trainSet[,-c(12,13,14)],scores=TRUE, cor=TRUE)
-pca<-princomp(SP3.complete.trainSet[-c(37,83,159,162),-c(12,13,14)],scores=TRUE, cor=TRUE)
+pca<-princomp(SP2.complete.trainSet[,-c(11,12,13)],scores=TRUE, cor=TRUE)
+pca<-princomp(SP2.complete.trainSet[-c(37,83,159,162),-c(11,12,13)],scores=TRUE, cor=TRUE)
 plot(pca)
 
 summary(pca)
 biplot(pca)
 pca$scores[,1:6]
 
-PCA_expValues <- cbind(pca$scores[,1:6], SP3.complete.trainSet[-c(37,83,159,162),c(12,13,14)])
+PCA_expValues <- cbind(pca$scores[,1:6], SP2.complete.trainSet[,c(11,12,13)])
 train.frame <- data.frame(PCA_expValues)
 
 summary(train.frame)
 train_woo.frame <- train.frame
-train_woo.frame <- train.frame[-c(62,105,169),]
+train_woo.frame <- train.frame[-c(57,127,168,175,183,144),]
 
-#res<- pcaVarexpl(SP3.complete.trainSet[,-12],a=4)
+#res<- pcaVarexpl(SP2.complete.trainSet[,-12],a=4)
 #res
 #finalrandomdata=finaldata[sample(nrow(finaldata)),]
 
@@ -90,7 +90,7 @@ for (j in 2:10){
 
 k_cv
 
-scaled_testSet<-scale(SP3.complete.testSet[,-c(12,13,14)],center = TRUE, scale = TRUE)
+scaled_testSet<-scale(SP2.complete.testSet[,-c(11,12,13)],center = TRUE, scale = TRUE)
 pc_new <- as.data.frame(predict(pca,newdata=scaled_testSet))
 
 
@@ -107,11 +107,11 @@ mae <- function(error)
   mean(abs(error))
 }
 
-SP3.complete.testSet[,12]-new.fit
-mae(SP3.complete.testSet[,12]-new.fit)
-rmse(SP3.complete.testSet[,12]-new.fit)
+SP2.complete.testSet[,12]-new.fit
+mae(SP2.complete.testSet[,12]-new.fit)
+rmse(SP2.complete.testSet[,12]-new.fit)
 
-plot(SP3.complete.testSet[,12],new.fit)
+plot(SP2.complete.testSet[,12],new.fit)
 hist(model.boot$resid)
 skewness(model.boot$resid)
 shapiro.test(model.boot$resid)

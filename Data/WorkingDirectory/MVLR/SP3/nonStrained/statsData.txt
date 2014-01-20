@@ -1,0 +1,913 @@
+
+R version 3.0.2 (2013-09-25) -- "Frisbee Sailing"
+Copyright (C) 2013 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> setwd("~/NetBeansProjects/1JCH/Data/WorkingDirectory/MVLR/SP3/nonStrained")
+> # import libraries
+> library(StatDA)
+Loading required package: geoR
+Loading required package: sp
+Loading required package: MASS
+--------------------------------------------------------------
+ Analysis of geostatistical data
+ For an Introduction to geoR go to http://www.leg.ufpr.br/geoR
+ geoR version 1.7-4 (built on 2012-06-29) is now loaded
+--------------------------------------------------------------
+
+Loading required package: sgeostat
+> library(chemometrics)
+Loading required package: class
+Loading required package: e1071
+Loading required package: gclus
+Loading required package: cluster
+Loading required package: lars
+Loaded lars 1.2
+
+Loading required package: mclust
+Package 'mclust' version 4.2
+Loading required package: nnet
+Loading required package: pcaPP
+Loading required package: mvtnorm
+Loading required package: pls
+
+Attaching package: ‘pls’
+
+The following object is masked from ‘package:stats’:
+
+    loadings
+
+Loading required package: rpart
+Loading required package: robustbase
+Loading required package: som
+> library(car)
+> library(MASS)
+> library(gvlma)
+> library(robustbase)
+> # import data
+> completeData = read.csv("nonStrained.csv",header=TRUE)
+> summary(completeData)
+     rowID                           Mol.ID   
+ Min.   :  1.0   28_NWChem_1JCH_mulliken: 16  
+ 1st Qu.:103.5   44_NWChem_1JCH_mulliken: 12  
+ Median :210.0   5_NWChem_1JCH_mulliken : 12  
+ Mean   :195.9   4_NWChem_1JCH_mulliken : 10  
+ 3rd Qu.:281.5   8_NWChem_1JCH_mulliken : 10  
+ Max.   :381.0   12_NWChem_1JCH_mulliken:  9  
+                 (Other)                :218  
+                                                                                                    SMILES   
+ [H]C1([H])(C2([H])(C([H])([H])C3([H])(C([H])([H])C1([H])C([H])([H])C([H])(C2([H])([H]))C3([H])([H])))): 16  
+ [H]C([H])([H])[Si](C([H])([H])[H])(C([H])([H])[H])C([H])([H])[H]                                      : 12  
+ [H]C([H])([H])C(C([H])([H])[H])(C([H])([H])[H])C([H])([H])[H]                                         : 12  
+ [H]C([H])([H])C([H])(C([H])([H])[H])C([H])([H])[H]                                                    : 10  
+ [H]C1([H])(C([H])([H])C([H])([H])C([H])([H])C1([H])([H]))                                             : 10  
+ [H]C([H])([H])N(C([H])([H])[H])C([H])([H])[H]                                                         :  9  
+ (Other)                                                                                               :218  
+    Atom.ID     Aromatic        Strained       C_Mulliken.Charge
+ a8     : 26   Mode :logical   Mode :logical   Min.   :5.386    
+ a10    : 25   FALSE:287       FALSE:287       1st Qu.:6.185    
+ a9     : 25   NA's :0         NA's :0         Median :6.224    
+ a11    : 22                                   Mean   :6.260    
+ a7     : 22                                   3rd Qu.:6.349    
+ a5     : 21                                   Max.   :6.634    
+ (Other):146                                                    
+   AtomDegree    C_Effective.Atom.Polarizability C_Partial.Pi.Charge
+ Min.   :0.000   Min.   :2.339                   Min.   :0          
+ 1st Qu.:1.000   1st Qu.:4.692                   1st Qu.:0          
+ Median :2.000   Median :6.191                   Median :0          
+ Mean   :1.589   Mean   :5.979                   Mean   :0          
+ 3rd Qu.:2.000   3rd Qu.:7.098                   3rd Qu.:0          
+ Max.   :3.000   Max.   :8.778                   Max.   :0          
+                                                                    
+ C_Pi.Electronegativity C_SigmaElectonegativity Hybridization
+ Min.   :0              Min.   : 7.276          SP3:287      
+ 1st Qu.:0              1st Qu.: 7.501                       
+ Median :0              Median : 7.580                       
+ Mean   :0              Mean   : 7.802                       
+ 3rd Qu.:0              3rd Qu.: 7.922                       
+ Max.   :0              Max.   :11.740                       
+                                                             
+ H_mulliken_charge H_Effective.Atom.Polarizability
+ Min.   :0.7527    Min.   :1.895                  
+ 1st Qu.:0.8813    1st Qu.:3.071                  
+ Median :0.8937    Median :3.821                  
+ Mean   :0.8891    Mean   :3.715                  
+ 3rd Qu.:0.9026    3rd Qu.:4.274                  
+ Max.   :0.9690    Max.   :5.115                  
+                                                  
+ H_sigmaElectroNegativityDescriptor     NWChem        Avg_NWChem   
+ Min.   :7.291                      Min.   :121.0   Min.   :121.1  
+ 1st Qu.:7.334                      1st Qu.:124.2   1st Qu.:124.6  
+ Median :7.343                      Median :127.1   Median :128.1  
+ Mean   :7.376                      Mean   :131.5   Mean   :131.5  
+ 3rd Qu.:7.391                      3rd Qu.:134.3   3rd Qu.:132.8  
+ Max.   :8.040                      Max.   :240.9   Max.   :240.9  
+                                                                   
+   BondLength       Exp1JCH      SigmaDeltaTheta   SigmaAbsDelthaTheta
+ Min.   :1.082   Min.   :118.4   Min.   :-8.3716   Min.   : 0.002586  
+ 1st Qu.:1.092   1st Qu.:125.0   1st Qu.:-2.3582   1st Qu.: 3.018910  
+ Median :1.094   Median :128.0   Median :-1.4091   Median : 5.033014  
+ Mean   :1.093   Mean   :131.9   Mean   :-0.5956   Mean   : 5.734209  
+ 3rd Qu.:1.095   3rd Qu.:133.7   3rd Qu.: 0.8840   3rd Qu.: 6.900954  
+ Max.   :1.110   Max.   :239.1   Max.   :24.5496   Max.   :25.001912  
+                                                                      
+     Omega       MaxDeltaTheta    
+ Min.   :116.8   Min.   : 0.0000  
+ 1st Qu.:121.0   1st Qu.: 0.4381  
+ Median :121.9   Median : 1.6287  
+ Mean   :122.5   Mean   : 2.2136  
+ 3rd Qu.:123.6   3rd Qu.: 2.8750  
+ Max.   :134.0   Max.   :17.4847  
+                                  
+> # nonStrained.complete = nonStrained.complete[-c(1,2),]
+> # select subset of data (remove unwanted columns)
+> nonStrained.complete <- subset( completeData, select = -c(1, 2, 3, 4,5,6,8,10,11,13, 17,18 ,20))
+> summary(nonStrained.complete)
+ C_Mulliken.Charge C_Effective.Atom.Polarizability C_SigmaElectonegativity
+ Min.   :5.386     Min.   :2.339                   Min.   : 7.276         
+ 1st Qu.:6.185     1st Qu.:4.692                   1st Qu.: 7.501         
+ Median :6.224     Median :6.191                   Median : 7.580         
+ Mean   :6.260     Mean   :5.979                   Mean   : 7.802         
+ 3rd Qu.:6.349     3rd Qu.:7.098                   3rd Qu.: 7.922         
+ Max.   :6.634     Max.   :8.778                   Max.   :11.740         
+ H_mulliken_charge H_Effective.Atom.Polarizability
+ Min.   :0.7527    Min.   :1.895                  
+ 1st Qu.:0.8813    1st Qu.:3.071                  
+ Median :0.8937    Median :3.821                  
+ Mean   :0.8891    Mean   :3.715                  
+ 3rd Qu.:0.9026    3rd Qu.:4.274                  
+ Max.   :0.9690    Max.   :5.115                  
+ H_sigmaElectroNegativityDescriptor   BondLength    SigmaDeltaTheta  
+ Min.   :7.291                      Min.   :1.082   Min.   :-8.3716  
+ 1st Qu.:7.334                      1st Qu.:1.092   1st Qu.:-2.3582  
+ Median :7.343                      Median :1.094   Median :-1.4091  
+ Mean   :7.376                      Mean   :1.093   Mean   :-0.5956  
+ 3rd Qu.:7.391                      3rd Qu.:1.095   3rd Qu.: 0.8840  
+ Max.   :8.040                      Max.   :1.110   Max.   :24.5496  
+ SigmaAbsDelthaTheta     Omega       MaxDeltaTheta    
+ Min.   : 0.002586   Min.   :116.8   Min.   : 0.0000  
+ 1st Qu.: 3.018910   1st Qu.:121.0   1st Qu.: 0.4381  
+ Median : 5.033014   Median :121.9   Median : 1.6287  
+ Mean   : 5.734209   Mean   :122.5   Mean   : 2.2136  
+ 3rd Qu.: 6.900954   3rd Qu.:123.6   3rd Qu.: 2.8750  
+ Max.   :25.001912   Max.   :134.0   Max.   :17.4847  
+> head(nonStrained.complete)
+  C_Mulliken.Charge C_Effective.Atom.Polarizability C_SigmaElectonegativity
+1           6.45437                          2.6120                7.276083
+2           6.45437                          2.6120                7.276083
+3           6.45437                          2.6120                7.276083
+4           6.18554                          6.9165                7.500560
+5           6.19439                          6.9165                7.500560
+6           6.18395                          6.9165                7.500560
+  H_mulliken_charge H_Effective.Atom.Polarizability
+1           0.88641                         2.03150
+2           0.88640                         2.03150
+3           0.88640                         2.03150
+4           0.91728                         4.18375
+5           0.91514                         4.18375
+6           0.91670                         4.18375
+  H_sigmaElectroNegativityDescriptor BondLength SigmaDeltaTheta
+1                           7.291347   1.090096    -0.006199288
+2                           7.291347   1.090092    -0.003275258
+3                           7.291347   1.090092    -0.002586493
+4                           7.334338   1.096648    -1.453375454
+5                           7.334338   1.095686    -5.092199199
+6                           7.334338   1.097107    -5.005577520
+  SigmaAbsDelthaTheta    Omega MaxDeltaTheta
+1         0.006199288 125.2629 4.940656e-324
+2         0.003275258 125.2637 4.940656e-324
+3         0.002586493 125.2639 4.940656e-324
+4         7.118469539 121.5088  1.767119e+00
+5         8.928823406 119.1933  1.784619e+00
+6         9.010570718 119.5155  1.458775e+00
+> # center and scale data
+> # auto scaling
+> nonStrained.complete <- scale(nonStrained.complete,center = TRUE, scale = TRUE)
+> summary(nonStrained.complete)
+ C_Mulliken.Charge C_Effective.Atom.Polarizability C_SigmaElectonegativity
+ Min.   :-5.2683   Min.   :-2.4999                 Min.   :-0.9582        
+ 1st Qu.:-0.4477   1st Qu.:-0.8839                 1st Qu.:-0.5489        
+ Median :-0.2171   Median : 0.1460                 Median :-0.4042        
+ Mean   : 0.0000   Mean   : 0.0000                 Mean   : 0.0000        
+ 3rd Qu.: 0.5364   3rd Qu.: 0.7689                 3rd Qu.: 0.2198        
+ Max.   : 2.2579   Max.   : 1.9233                 Max.   : 7.1810        
+ H_mulliken_charge H_Effective.Atom.Polarizability
+ Min.   :-5.8533   Min.   :-2.4999                
+ 1st Qu.:-0.3376   1st Qu.:-0.8839                
+ Median : 0.1964   Median : 0.1460                
+ Mean   : 0.0000   Mean   : 0.0000                
+ 3rd Qu.: 0.5783   3rd Qu.: 0.7689                
+ Max.   : 3.4279   Max.   : 1.9233                
+ H_sigmaElectroNegativityDescriptor   BondLength      SigmaDeltaTheta  
+ Min.   :-0.9491                    Min.   :-3.3338   Min.   :-2.0185  
+ 1st Qu.:-0.4685                    1st Qu.:-0.5326   1st Qu.:-0.4575  
+ Median :-0.3761                    Median : 0.1197   Median :-0.2112  
+ Mean   : 0.0000                    Mean   : 0.0000   Mean   : 0.0000  
+ 3rd Qu.: 0.1607                    3rd Qu.: 0.4660   3rd Qu.: 0.3841  
+ Max.   : 7.4190                    Max.   : 4.9093   Max.   : 6.5271  
+ SigmaAbsDelthaTheta     Omega         MaxDeltaTheta    
+ Min.   :-1.3568     Min.   :-2.3589   Min.   :-0.8281  
+ 1st Qu.:-0.6428     1st Qu.:-0.6013   1st Qu.:-0.6642  
+ Median :-0.1660     Median :-0.2163   Median :-0.2188  
+ Mean   : 0.0000     Mean   : 0.0000   Mean   : 0.0000  
+ 3rd Qu.: 0.2762     3rd Qu.: 0.4566   3rd Qu.: 0.2474  
+ Max.   : 4.5611     Max.   : 4.8095   Max.   : 5.7129  
+> # Variability in the data
+> # MAD (if MAD == 0, remove the columns)
+> nonStrained.complete.mad = apply(nonStrained.complete, 2, function(x) {
++ mad(x, center = median(x), constant = 1.4826,na.rm = FALSE, low = FALSE, high = FALSE)
++ })
+> nonStrained.complete.mad
+                 C_Mulliken.Charge    C_Effective.Atom.Polarizability 
+                         0.8504238                          1.1398200 
+           C_SigmaElectonegativity                  H_mulliken_charge 
+                         0.3967324                          0.6577948 
+   H_Effective.Atom.Polarizability H_sigmaElectroNegativityDescriptor 
+                         1.1398200                          0.3698481 
+                        BondLength                    SigmaDeltaTheta 
+                         0.7038707                          0.5921986 
+               SigmaAbsDelthaTheta                              Omega 
+                         0.6954986                          0.7343618 
+                     MaxDeltaTheta 
+                         0.6766114 
+> summary(nonStrained.complete)
+ C_Mulliken.Charge C_Effective.Atom.Polarizability C_SigmaElectonegativity
+ Min.   :-5.2683   Min.   :-2.4999                 Min.   :-0.9582        
+ 1st Qu.:-0.4477   1st Qu.:-0.8839                 1st Qu.:-0.5489        
+ Median :-0.2171   Median : 0.1460                 Median :-0.4042        
+ Mean   : 0.0000   Mean   : 0.0000                 Mean   : 0.0000        
+ 3rd Qu.: 0.5364   3rd Qu.: 0.7689                 3rd Qu.: 0.2198        
+ Max.   : 2.2579   Max.   : 1.9233                 Max.   : 7.1810        
+ H_mulliken_charge H_Effective.Atom.Polarizability
+ Min.   :-5.8533   Min.   :-2.4999                
+ 1st Qu.:-0.3376   1st Qu.:-0.8839                
+ Median : 0.1964   Median : 0.1460                
+ Mean   : 0.0000   Mean   : 0.0000                
+ 3rd Qu.: 0.5783   3rd Qu.: 0.7689                
+ Max.   : 3.4279   Max.   : 1.9233                
+ H_sigmaElectroNegativityDescriptor   BondLength      SigmaDeltaTheta  
+ Min.   :-0.9491                    Min.   :-3.3338   Min.   :-2.0185  
+ 1st Qu.:-0.4685                    1st Qu.:-0.5326   1st Qu.:-0.4575  
+ Median :-0.3761                    Median : 0.1197   Median :-0.2112  
+ Mean   : 0.0000                    Mean   : 0.0000   Mean   : 0.0000  
+ 3rd Qu.: 0.1607                    3rd Qu.: 0.4660   3rd Qu.: 0.3841  
+ Max.   : 7.4190                    Max.   : 4.9093   Max.   : 6.5271  
+ SigmaAbsDelthaTheta     Omega         MaxDeltaTheta    
+ Min.   :-1.3568     Min.   :-2.3589   Min.   :-0.8281  
+ 1st Qu.:-0.6428     1st Qu.:-0.6013   1st Qu.:-0.6642  
+ Median :-0.1660     Median :-0.2163   Median :-0.2188  
+ Mean   : 0.0000     Mean   : 0.0000   Mean   : 0.0000  
+ 3rd Qu.: 0.2762     3rd Qu.: 0.4566   3rd Qu.: 0.2474  
+ Max.   : 4.5611     Max.   : 4.8095   Max.   : 5.7129  
+> summary(completeData)
+     rowID                           Mol.ID   
+ Min.   :  1.0   28_NWChem_1JCH_mulliken: 16  
+ 1st Qu.:103.5   44_NWChem_1JCH_mulliken: 12  
+ Median :210.0   5_NWChem_1JCH_mulliken : 12  
+ Mean   :195.9   4_NWChem_1JCH_mulliken : 10  
+ 3rd Qu.:281.5   8_NWChem_1JCH_mulliken : 10  
+ Max.   :381.0   12_NWChem_1JCH_mulliken:  9  
+                 (Other)                :218  
+                                                                                                    SMILES   
+ [H]C1([H])(C2([H])(C([H])([H])C3([H])(C([H])([H])C1([H])C([H])([H])C([H])(C2([H])([H]))C3([H])([H])))): 16  
+ [H]C([H])([H])[Si](C([H])([H])[H])(C([H])([H])[H])C([H])([H])[H]                                      : 12  
+ [H]C([H])([H])C(C([H])([H])[H])(C([H])([H])[H])C([H])([H])[H]                                         : 12  
+ [H]C([H])([H])C([H])(C([H])([H])[H])C([H])([H])[H]                                                    : 10  
+ [H]C1([H])(C([H])([H])C([H])([H])C([H])([H])C1([H])([H]))                                             : 10  
+ [H]C([H])([H])N(C([H])([H])[H])C([H])([H])[H]                                                         :  9  
+ (Other)                                                                                               :218  
+    Atom.ID     Aromatic        Strained       C_Mulliken.Charge
+ a8     : 26   Mode :logical   Mode :logical   Min.   :5.386    
+ a10    : 25   FALSE:287       FALSE:287       1st Qu.:6.185    
+ a9     : 25   NA's :0         NA's :0         Median :6.224    
+ a11    : 22                                   Mean   :6.260    
+ a7     : 22                                   3rd Qu.:6.349    
+ a5     : 21                                   Max.   :6.634    
+ (Other):146                                                    
+   AtomDegree    C_Effective.Atom.Polarizability C_Partial.Pi.Charge
+ Min.   :0.000   Min.   :2.339                   Min.   :0          
+ 1st Qu.:1.000   1st Qu.:4.692                   1st Qu.:0          
+ Median :2.000   Median :6.191                   Median :0          
+ Mean   :1.589   Mean   :5.979                   Mean   :0          
+ 3rd Qu.:2.000   3rd Qu.:7.098                   3rd Qu.:0          
+ Max.   :3.000   Max.   :8.778                   Max.   :0          
+                                                                    
+ C_Pi.Electronegativity C_SigmaElectonegativity Hybridization
+ Min.   :0              Min.   : 7.276          SP3:287      
+ 1st Qu.:0              1st Qu.: 7.501                       
+ Median :0              Median : 7.580                       
+ Mean   :0              Mean   : 7.802                       
+ 3rd Qu.:0              3rd Qu.: 7.922                       
+ Max.   :0              Max.   :11.740                       
+                                                             
+ H_mulliken_charge H_Effective.Atom.Polarizability
+ Min.   :0.7527    Min.   :1.895                  
+ 1st Qu.:0.8813    1st Qu.:3.071                  
+ Median :0.8937    Median :3.821                  
+ Mean   :0.8891    Mean   :3.715                  
+ 3rd Qu.:0.9026    3rd Qu.:4.274                  
+ Max.   :0.9690    Max.   :5.115                  
+                                                  
+ H_sigmaElectroNegativityDescriptor     NWChem        Avg_NWChem   
+ Min.   :7.291                      Min.   :121.0   Min.   :121.1  
+ 1st Qu.:7.334                      1st Qu.:124.2   1st Qu.:124.6  
+ Median :7.343                      Median :127.1   Median :128.1  
+ Mean   :7.376                      Mean   :131.5   Mean   :131.5  
+ 3rd Qu.:7.391                      3rd Qu.:134.3   3rd Qu.:132.8  
+ Max.   :8.040                      Max.   :240.9   Max.   :240.9  
+                                                                   
+   BondLength       Exp1JCH      SigmaDeltaTheta   SigmaAbsDelthaTheta
+ Min.   :1.082   Min.   :118.4   Min.   :-8.3716   Min.   : 0.002586  
+ 1st Qu.:1.092   1st Qu.:125.0   1st Qu.:-2.3582   1st Qu.: 3.018910  
+ Median :1.094   Median :128.0   Median :-1.4091   Median : 5.033014  
+ Mean   :1.093   Mean   :131.9   Mean   :-0.5956   Mean   : 5.734209  
+ 3rd Qu.:1.095   3rd Qu.:133.7   3rd Qu.: 0.8840   3rd Qu.: 6.900954  
+ Max.   :1.110   Max.   :239.1   Max.   :24.5496   Max.   :25.001912  
+                                                                      
+     Omega       MaxDeltaTheta    
+ Min.   :116.8   Min.   : 0.0000  
+ 1st Qu.:121.0   1st Qu.: 0.4381  
+ Median :121.9   Median : 1.6287  
+ Mean   :122.5   Mean   : 2.2136  
+ 3rd Qu.:123.6   3rd Qu.: 2.8750  
+ Max.   :134.0   Max.   :17.4847  
+                                  
+> exp1JCH<-completeData[,c(17,18,20)]
+> nonStrained.complete<-cbind(nonStrained.complete,exp1JCH)
+> summary(nonStrained.complete)
+ C_Mulliken.Charge C_Effective.Atom.Polarizability C_SigmaElectonegativity
+ Min.   :-5.2683   Min.   :-2.4999                 Min.   :-0.9582        
+ 1st Qu.:-0.4477   1st Qu.:-0.8839                 1st Qu.:-0.5489        
+ Median :-0.2171   Median : 0.1460                 Median :-0.4042        
+ Mean   : 0.0000   Mean   : 0.0000                 Mean   : 0.0000        
+ 3rd Qu.: 0.5364   3rd Qu.: 0.7689                 3rd Qu.: 0.2198        
+ Max.   : 2.2579   Max.   : 1.9233                 Max.   : 7.1810        
+ H_mulliken_charge H_Effective.Atom.Polarizability
+ Min.   :-5.8533   Min.   :-2.4999                
+ 1st Qu.:-0.3376   1st Qu.:-0.8839                
+ Median : 0.1964   Median : 0.1460                
+ Mean   : 0.0000   Mean   : 0.0000                
+ 3rd Qu.: 0.5783   3rd Qu.: 0.7689                
+ Max.   : 3.4279   Max.   : 1.9233                
+ H_sigmaElectroNegativityDescriptor   BondLength      SigmaDeltaTheta  
+ Min.   :-0.9491                    Min.   :-3.3338   Min.   :-2.0185  
+ 1st Qu.:-0.4685                    1st Qu.:-0.5326   1st Qu.:-0.4575  
+ Median :-0.3761                    Median : 0.1197   Median :-0.2112  
+ Mean   : 0.0000                    Mean   : 0.0000   Mean   : 0.0000  
+ 3rd Qu.: 0.1607                    3rd Qu.: 0.4660   3rd Qu.: 0.3841  
+ Max.   : 7.4190                    Max.   : 4.9093   Max.   : 6.5271  
+ SigmaAbsDelthaTheta     Omega         MaxDeltaTheta         NWChem     
+ Min.   :-1.3568     Min.   :-2.3589   Min.   :-0.8281   Min.   :121.0  
+ 1st Qu.:-0.6428     1st Qu.:-0.6013   1st Qu.:-0.6642   1st Qu.:124.2  
+ Median :-0.1660     Median :-0.2163   Median :-0.2188   Median :127.1  
+ Mean   : 0.0000     Mean   : 0.0000   Mean   : 0.0000   Mean   :131.5  
+ 3rd Qu.: 0.2762     3rd Qu.: 0.4566   3rd Qu.: 0.2474   3rd Qu.:134.3  
+ Max.   : 4.5611     Max.   : 4.8095   Max.   : 5.7129   Max.   :240.9  
+   Avg_NWChem       Exp1JCH     
+ Min.   :121.1   Min.   :118.4  
+ 1st Qu.:124.6   1st Qu.:125.0  
+ Median :128.1   Median :128.0  
+ Mean   :131.5   Mean   :131.9  
+ 3rd Qu.:132.8   3rd Qu.:133.7  
+ Max.   :240.9   Max.   :239.1  
+> nonStrained.complete.shuffled <- nonStrained.complete[sample(nrow(nonStrained.complete)),]
+> nonStrained.complete.testSet<- nonStrained.complete.shuffled[1:200,]
+> nonStrained.complete.trainSet<- nonStrained.complete.shuffled[201:287,]
+> summary(nonStrained.complete.trainSet)
+ C_Mulliken.Charge  C_Effective.Atom.Polarizability C_SigmaElectonegativity
+ Min.   :-5.26833   Min.   :-2.49993                Min.   :-0.754761      
+ 1st Qu.:-0.44531   1st Qu.:-0.88385                1st Qu.:-0.548925      
+ Median :-0.21709   Median : 0.08981                Median :-0.417129      
+ Mean   :-0.05638   Mean   : 0.01867                Mean   :-0.007005      
+ 3rd Qu.: 0.53636   3rd Qu.: 0.76047                3rd Qu.: 0.219375      
+ Max.   : 2.25789   Max.   : 1.92328                Max.   : 7.180962      
+ H_mulliken_charge  H_Effective.Atom.Polarizability
+ Min.   :-1.91213   Min.   :-2.49993               
+ 1st Qu.:-0.26508   1st Qu.:-0.88385               
+ Median : 0.19512   Median : 0.08981               
+ Mean   : 0.04573   Mean   : 0.01867               
+ 3rd Qu.: 0.54611   3rd Qu.: 0.76047               
+ Max.   : 1.84024   Max.   : 1.92328               
+ H_sigmaElectroNegativityDescriptor   BondLength       SigmaDeltaTheta  
+ Min.   :-0.710759                  Min.   :-2.05690   Min.   :-2.0185  
+ 1st Qu.:-0.468547                  1st Qu.:-0.49586   1st Qu.:-0.4881  
+ Median :-0.403532                  Median : 0.09548   Median :-0.2595  
+ Mean   : 0.001678                  Mean   :-0.03237   Mean   :-0.1177  
+ 3rd Qu.: 0.106219                  3rd Qu.: 0.31893   3rd Qu.: 0.3458  
+ Max.   : 7.418993                  Max.   : 2.35059   Max.   : 2.0997  
+ SigmaAbsDelthaTheta     Omega          MaxDeltaTheta           NWChem     
+ Min.   :-1.27970    Min.   :-2.35894   Min.   :-0.828126   Min.   :121.0  
+ 1st Qu.:-0.41180    1st Qu.:-0.67238   1st Qu.:-0.574842   1st Qu.:124.1  
+ Median :-0.08557    Median :-0.27970   Median :-0.203188   Median :128.4  
+ Mean   : 0.04314    Mean   :-0.07532   Mean   : 0.008201   Mean   :131.2  
+ 3rd Qu.: 0.24516    3rd Qu.: 0.54571   3rd Qu.: 0.190967   3rd Qu.:133.6  
+ Max.   : 4.04289    Max.   : 2.15428   Max.   : 4.840701   Max.   :240.9  
+   Avg_NWChem       Exp1JCH     
+ Min.   :121.1   Min.   :118.4  
+ 1st Qu.:124.6   1st Qu.:124.5  
+ Median :128.2   Median :128.5  
+ Mean   :131.0   Mean   :131.7  
+ 3rd Qu.:131.8   3rd Qu.:133.0  
+ Max.   :240.9   Max.   :239.1  
+> pca<-princomp(nonStrained.complete.trainSet[,-c(12,13,14)],scores=TRUE, cor=TRUE)
+> plot(pca)
+> summary(pca)
+Importance of components:
+                          Comp.1    Comp.2    Comp.3    Comp.4     Comp.5
+Standard deviation     1.8056259 1.7241731 1.4588568 1.1054978 0.89489219
+Proportion of Variance 0.2963895 0.2702521 0.1934785 0.1111023 0.07280291
+Cumulative Proportion  0.2963895 0.5666416 0.7601201 0.8712224 0.94402531
+                           Comp.6     Comp.7     Comp.8      Comp.9
+Standard deviation     0.59652588 0.41398141 0.25468892 0.114986244
+Proportion of Variance 0.03234938 0.01558006 0.00589695 0.001201985
+Cumulative Proportion  0.97637468 0.99195474 0.99785169 0.999053673
+                            Comp.10 Comp.11
+Standard deviation     0.1020274436       0
+Proportion of Variance 0.0009463272       0
+Cumulative Proportion  1.0000000000       1
+> biplot(pca)
+> pca$scores[,1:6]
+         Comp.1      Comp.2      Comp.3       Comp.4       Comp.5      Comp.6
+147  2.02800580  1.77023130 -0.13785387  0.303476173  0.717311004 -0.34841281
+45  -2.07303443  0.01607698  1.82327289  0.381240586 -0.157841754 -0.07943064
+59   0.21408673 -2.60724810 -1.66315085 -0.271909881 -0.490801345 -0.38420889
+207  0.59389281  0.84724497  0.35838251  0.702073879  0.193291967 -0.38074434
+49  -0.88063327  0.06451054  0.72413153 -0.529027180 -0.801934208 -0.40541504
+194  0.41409408  1.71790957  0.22847109  0.435530875 -0.986303027  0.65043995
+267  0.68011109 -1.24390408 -1.22860084 -0.376421856 -1.309736062 -0.59351070
+237 -0.55325698  0.54716117 -0.47914059 -0.179824222  0.272963920 -0.40946428
+241 -0.34648529  1.39276432 -0.05056317  0.424490253 -0.450430941  0.45715676
+92  -0.34608617 -1.85173378 -1.19271964  1.056997134  1.031339884  0.17995926
+35  -2.30074140 -0.52928216  1.42752037  0.270368388  0.474842658  0.11070955
+170  2.71971748  2.41596156 -1.64236026 -1.550097894  1.083860998 -0.32667602
+86   1.08280230 -1.41262446 -1.88500222  0.103917166  0.029887358 -0.65058592
+185  0.30245985  2.81917389 -1.28014361  0.645884672 -0.181836597  0.69956476
+234  0.09363677  1.30710316 -0.84408270  0.879263648  0.393592438 -0.65320791
+161 -0.95184054  0.57452338  0.13568362  1.490037895 -0.608069326 -0.10067411
+260  1.16446456  0.99622704  2.11316263 -0.380148512  1.019964542 -0.73064738
+71   1.65986402  1.76826531  0.08896749 -0.118964258  0.419368175 -0.16579198
+238 -0.69729065  0.79625114 -0.08882142  1.468969986 -0.435981880 -0.51737691
+284  0.53216174 -2.54333536 -2.00641750 -0.670673506 -0.179902353 -0.78416656
+43  -1.56370887 -0.62016983  1.03492965 -1.388796400  0.290061290 -0.09544686
+177 -0.72161020  1.83809025 -1.35294666  0.836460438 -0.189795607  1.03945591
+99  -0.67657901 -1.05882700  0.17842058 -0.401558003 -0.317671655 -0.29285540
+164 -0.57420473  0.80491903 -0.33712954  0.959285353 -0.426951744 -0.27621366
+55   0.37676172 -1.95758284 -1.02434738 -0.359092064 -1.379439734 -0.08236551
+33  -1.99562129 -0.96975735  1.07725225  0.583660001  0.721655751 -1.31552618
+168 -1.12116157 -0.24302627  1.98510497  0.587503336 -0.695961522 -0.15793526
+239 -0.52336660  0.91063906 -0.37102486  1.060582663 -0.380256461 -0.01568287
+271 -1.63936150 -0.13779129  1.78591474  0.712035386 -1.183581870 -0.07956906
+109  0.46952445  0.84613117 -1.64210934 -2.449637208  0.627078308  0.72769295
+81   3.29263155  0.06835314 -0.78157064  0.363292198  0.363356315 -0.28539026
+281 -0.28604319 -2.55910984 -1.52921690  0.025844952  0.712707442 -0.16631058
+133 -0.52643364  0.97621484 -0.21664799  1.743808098 -0.449579300 -0.30230666
+122 -1.55484596 -0.51655335  1.33507472 -1.385569151 -1.521001927 -0.03049844
+76   1.94165786  2.19280966 -1.82648542 -0.977094939  0.410755792 -0.64812092
+259  0.14154799 -2.30921089  2.84187375  2.358296347 -0.339865861  1.62480728
+29  -2.40128028  0.23449398  1.20926703  0.019222051  1.556932318 -0.21040229
+32  -2.06147664  0.49812212  1.41616454 -0.401404220  0.702486730 -0.44022531
+139  1.43621156  2.36388629 -0.32809617 -0.208126595 -0.651634164  0.46308118
+83   0.79655470 -1.50218221 -1.63157579  0.418403237  0.114102688 -0.48283444
+73   3.89243737 -3.86112701  3.54492855 -2.320210826 -0.308032806  1.00950146
+44  -1.32081487 -0.11535090  1.29810323  0.019168576 -1.376881247 -0.05681507
+142  2.25592086  2.47523232 -0.85180279 -0.509289754 -0.232071868  0.73218013
+10  -1.97863692  0.54334300  1.44140125  0.003979587  0.551576582 -0.22217763
+102  0.08695615 -0.14481032 -1.23457809 -2.896605814  1.052616446  0.18172250
+197  0.68965017  1.65577563  0.09299363  0.274098604 -1.357467552  0.32802113
+129 -0.83006540 -1.54267305  1.61156150 -2.271480784 -2.088868239 -0.59121557
+15  -2.66002313  0.54792049  1.67990077  0.399742640  1.663700864 -0.27449933
+26  -2.24758088 -1.37153757  0.73686317  0.973545910  1.489329430 -0.45335593
+88   1.19229046 -1.87241358  1.83417591  1.699168577 -0.007363849  0.86621074
+206  0.59696509  0.84728943  0.35447948  0.699816877  0.194743842 -0.38526910
+173 -0.72405820  1.83837656 -1.35163653  0.838324213 -0.186856554  1.04131367
+56   0.38716350 -1.96870220 -1.03454851 -0.362354762 -1.386239039 -0.08457058
+183 -0.71971904  1.83607874 -1.35476993  0.834695729 -0.193622845  1.04303749
+190  0.30376650  2.81794963 -1.28304910  0.645738730 -0.179593186  0.69696791
+95   1.20905894 -1.96355561 -2.05209722 -0.294455683 -0.944911452 -0.42043775
+113 -0.87556384  1.81431901 -0.11334482 -2.374398207  1.104209487  0.11454993
+235 -0.19672710  1.32794923 -0.50136413  0.950925717  0.191138042  0.23769631
+212  2.43420884  1.59550902  0.51619387  0.918586471  0.704991610 -0.68015755
+96   1.24214480 -1.15664271  0.11759511 -0.070476973 -0.751205822 -0.65247551
+262 -0.82628794 -2.22875577 -0.72756813  1.589374474  0.664736364  0.18679524
+60   0.31107033 -6.05971866 -4.48102132  0.926211278  2.213123455  0.97503854
+42  -1.57612982 -0.61513984  1.04042005 -1.381691906  0.309598481 -0.08876941
+145  0.81441215  1.46914856  0.10788456  1.907222230  0.865795223 -0.43228193
+242  0.45948350  0.75633225 -1.18348516  0.108563995 -0.380800519 -0.14046479
+47  -1.34649040  0.35363476  0.88600001 -0.515988588 -0.025547153 -0.54432869
+19  -2.26709024 -0.89474746  0.99253441  0.840818194  1.189941959  0.11614072
+72   2.50925397 -2.43018292  1.64517357 -0.495490431  0.036455717  2.06523441
+254 -1.64214631  1.28603128  0.48525209 -2.690490834  2.229756348  0.45664622
+68   0.18328969 -4.60602836 -2.47890091  1.025998249  0.663700719  0.22893742
+217 -0.92387946  0.46708217 -0.07747331  0.619066675 -0.468539577 -0.23948001
+216 -0.92272198  0.46785039 -0.07523500  0.617498453 -0.474918703 -0.23826178
+179 -0.72032763  1.83873601 -1.35421938  0.835436555 -0.189077964  1.03697602
+221 -0.92319027  0.46956956 -0.07594682  0.616637769 -0.472337536 -0.23911769
+266  0.01671649 -0.85931973 -0.65789705  0.113189404 -0.501501563 -0.81164835
+14  -2.58236683 -0.25624749  1.51580361  0.745802420  1.234062569  0.14038152
+232 10.27720661 -1.05744072  5.34754308  1.159747320  1.402454354 -0.65347284
+141  2.67260258  1.73247797 -1.97937309 -0.755308642 -0.306348603 -0.97610519
+77   1.36068168  2.09020317 -0.25784773 -0.342370118 -0.847320872  0.20604026
+100  0.05351527 -0.97476984 -0.23570230 -1.254441301 -1.307579978 -0.16459102
+143  2.25592126  2.47523285 -0.85180321 -0.509290226 -0.232071393  0.73217887
+39   0.33223170 -2.98193866 -1.45713399 -1.256679510 -0.558757889 -0.08773486
+250 -1.62061838 -0.21242087  1.48694135 -0.632284610 -0.439995705  0.11165727
+124 -1.55536314 -0.51487732  1.33506197 -1.386202583 -1.518722358 -0.03146399
+253 -1.63709680  1.29510346  0.48215715 -2.697160753  2.233881816  0.43909795
+279 -0.66221676 -0.48959669  0.96590220 -1.143763409 -0.776394180  1.21880792
+222 -0.92295741  0.47212670 -0.07165897  0.614778235 -0.479767095 -0.23730949
+> PCA_expValues <- cbind(pca$scores[,1:6], nonStrained.complete.trainSet[,c(12,13,14)])
+> train.frame <- data.frame(PCA_expValues)
+> summary(train.frame)
+     Comp.1            Comp.2            Comp.3             Comp.4       
+ Min.   :-2.6600   Min.   :-6.0597   Min.   :-4.48102   Min.   :-2.8966  
+ 1st Qu.:-0.9379   1st Qu.:-1.0581   1st Qu.:-1.18810   1st Qu.:-0.5093  
+ Median :-0.2860   Median : 0.3536   Median :-0.07595   Median : 0.1132  
+ Mean   : 0.0000   Mean   : 0.0000   Mean   : 0.00000   Mean   : 0.0000  
+ 3rd Qu.: 0.6849   3rd Qu.: 1.3175   3rd Qu.: 1.03767   3rd Qu.: 0.7902  
+ Max.   :10.2772   Max.   : 2.8192   Max.   : 5.34754   Max.   : 2.3583  
+     Comp.5            Comp.6            NWChem        Avg_NWChem   
+ Min.   :-2.0889   Min.   :-1.3155   Min.   :121.0   Min.   :121.1  
+ 1st Qu.:-0.4853   1st Qu.:-0.3953   1st Qu.:124.1   1st Qu.:124.6  
+ Median :-0.1818   Median :-0.1007   Median :128.4   Median :128.2  
+ Mean   : 0.0000   Mean   : 0.0000   Mean   :131.2   Mean   :131.0  
+ 3rd Qu.: 0.6454   3rd Qu.: 0.2333   3rd Qu.:133.6   3rd Qu.:131.8  
+ Max.   : 2.2339   Max.   : 2.0652   Max.   :240.9   Max.   :240.9  
+    Exp1JCH     
+ Min.   :118.4  
+ 1st Qu.:124.5  
+ Median :128.5  
+ Mean   :131.7  
+ 3rd Qu.:133.0  
+ Max.   :239.1  
+> train_woo.frame <- train.frame
+> library(DAAG)
+Loading required package: lattice
+
+Attaching package: ‘DAAG’
+
+The following object is masked from ‘package:car’:
+
+    vif
+
+The following object is masked from ‘package:robustbase’:
+
+    milk
+
+The following object is masked from ‘package:MASS’:
+
+    hills
+
+> library(boot)
+
+Attaching package: ‘boot’
+
+The following object is masked from ‘package:lattice’:
+
+    melanoma
+
+The following object is masked from ‘package:car’:
+
+    logit
+
+The following object is masked from ‘package:robustbase’:
+
+    salinity
+
+> model.boot <- glm(formula = NWChem ~ Comp.1 + Comp.2 + Comp.3 + Comp.4 + Comp.5 + Comp.6, train_woo.frame, family = gaussian)
+> summary(model.boot)
+
+Call:
+glm(formula = NWChem ~ Comp.1 + Comp.2 + Comp.3 + Comp.4 + Comp.5 + 
+    Comp.6, family = gaussian, data = train_woo.frame)
+
+Deviance Residuals: 
+     Min        1Q    Median        3Q       Max  
+-18.5413   -2.4141    0.2816    2.5332   21.5110  
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept) 131.2270     0.4985 263.255  < 2e-16 ***
+Comp.1        6.4256     0.2761  23.275  < 2e-16 ***
+Comp.2       -0.9496     0.2891  -3.284 0.001517 ** 
+Comp.3        3.1111     0.3417   9.105 5.46e-14 ***
+Comp.4       -1.6341     0.4509  -3.624 0.000508 ***
+Comp.5        4.1736     0.5570   7.493 7.91e-11 ***
+Comp.6       -0.7439     0.8356  -0.890 0.376040    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for gaussian family taken to be 21.61779)
+
+    Null deviance: 16980.9  on 86  degrees of freedom
+Residual deviance:  1729.4  on 80  degrees of freedom
+AIC: 522.99
+
+Number of Fisher Scoring iterations: 2
+
+> plot(model.boot)
+Hit <Return> to see next plot: 
+Hit <Return> to see next plot: 
+Hit <Return> to see next plot: 
+Hit <Return> to see next plot: 
+> 
+> View(train.frame)
+> train_woo.frame <- train.frame[-c(41,77),]
+> model.boot <- glm(formula = NWChem ~ Comp.1 + Comp.2 + Comp.3 + Comp.4 + Comp.5 + Comp.6, train_woo.frame, family = gaussian)
+> summary(model.boot)
+
+Call:
+glm(formula = NWChem ~ Comp.1 + Comp.2 + Comp.3 + Comp.4 + Comp.5 + 
+    Comp.6, family = gaussian, data = train_woo.frame)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-7.3464  -1.5728   0.4399   1.5273   4.9396  
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept) 130.8145     0.2818 464.278  < 2e-16 ***
+Comp.1        4.8693     0.2354  20.682  < 2e-16 ***
+Comp.2       -0.9262     0.1681  -5.510 4.47e-07 ***
+Comp.3        1.9640     0.2468   7.959 1.13e-11 ***
+Comp.4       -2.3978     0.2551  -9.398 1.83e-14 ***
+Comp.5        3.1720     0.3151  10.068 9.34e-16 ***
+Comp.6        0.6247     0.4687   1.333    0.186    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for gaussian family taken to be 6.433703)
+
+    Null deviance: 4229.18  on 84  degrees of freedom
+Residual deviance:  501.83  on 78  degrees of freedom
+AIC: 408.15
+
+Number of Fisher Scoring iterations: 2
+
+> plot(model.boot)
+Hit <Return> to see next plot: model.boot
+Hit <Return> to see next plot: 
+Hit <Return> to see next plot: 
+Hit <Return> to see next plot: 
+> 
+> model.boot
+
+Call:  glm(formula = NWChem ~ Comp.1 + Comp.2 + Comp.3 + Comp.4 + Comp.5 + 
+    Comp.6, family = gaussian, data = train_woo.frame)
+
+Coefficients:
+(Intercept)       Comp.1       Comp.2       Comp.3       Comp.4       Comp.5  
+   130.8145       4.8693      -0.9262       1.9640      -2.3978       3.1720  
+     Comp.6  
+     0.6247  
+
+Degrees of Freedom: 84 Total (i.e. Null);  78 Residual
+Null Deviance:	    4229 
+Residual Deviance: 501.8 	AIC: 408.1
+> # The 'cv.glm' function returns a 'delta' which shows (first) the raw cross-validation estimate
+> # of prediction error and (second) the adjusted cross-validation estimate. The adjustment is
+> # designed to compensate for the bias introduced by not using leave-one-out cross-validation.
+> # Leave one out cross validation (default).
+> val.loocv <- cv.glm(data = train_woo.frame, glmfit = model.boot,K = nrow(train_woo.frame))
+> val.loocv
+$call
+cv.glm(data = train_woo.frame, glmfit = model.boot, K = nrow(train_woo.frame))
+
+$K
+[1] 85
+
+$delta
+[1] 7.044527 7.037336
+
+$seed
+  [1]         403         287  -622981949 -2048923039    81568464  1097610286
+  [7]   217487833 -1954109973  -443797414  -655760868  1343771423  -933681291
+ [13]  1644916236  1859098594 -1101546307  1849424695  2053907422  -337026792
+ [19]  -132905861 -1957275111 -2030343512  -149995434  -151528239   237701251
+ [25]  -945308910  -314515804 -1005655449  1798054845  1898683700  1313511066
+ [31]  1058047205  -885049729    17514502   -68869232  1265536563  1470856657
+ [37] -1167351936  1080676958 -1648023127 -1250670501 -1746063254 -1387568884
+ [43]  -424199345 -1776138235 -1834518852  1476931474   -48808819  -995505465
+ [49]   750537646  1348789768   632420875   801667817   241149368  -933985690
+ [55]  -301748479  1400474003   619323970  1721640436   872792055 -1940192275
+ [61]  -424563580  1172771498 -1075566571   884822191   200687286  1696738528
+ [67]  1795756067 -1885917375 -1355328976  -444895154  -935251783   412271819
+ [73]  2115012986 -1789537156  1680335039 -1379236459   -95423060 -2073342078
+ [79] -1962904227 -2096100265   792030014  1072116600  -963633061 -2019104839
+ [85]   443053576  2076361910   624878577  -188961245   774803058 -1970309948
+ [91]  1100366471   902183517 -2096366508 -1509239174   -40229435  1392805663
+ [97] -1014439258 -1657387984    26506963  1536644337  -943558624 -1247828290
+[103] -1452608823 -1548810117  -721050038   591307436 -1744489041  -972991131
+[109]   905569052  1638172530  1901992941 -1296225241 -1621486514   681375912
+[115]  1335613099  1342686153 -1810161704  -748030330 -1843220639  -929733901
+[121]  1216453986  -581420076   173506263   867353805 -1160477596  1533119050
+[127]   298487733  -649465073  -708063210 -2007115072  1204010115    54511777
+[133] -1600004464   961535342   185166617  -735350869  1617464730   713439580
+[139]  -716156833   116711477  -919161908   933017378  1164151165 -1822580105
+[145] -1465787490 -1606219176  -930831429  -123542183   608976616 -1916027114
+[151] -1941385071  -307172029 -1453983662  -461698332 -1387655897  1427527037
+[157] -1015661452   967288410 -1537547611   261548223 -1410507962 -1601689136
+[163]  1199487987   368960273  1893151552 -1237099746  1699357673  -591320805
+[169]  -274398422 -1088535476  -354841585 -1695897787   984191228   959831890
+[175] -1193242419  -924508025  -813104274   970388808  -329252533  -887065431
+[181]  -841546248 -1598821082  -252555711  -213383213 -1462395518   684601780
+[187]   692837687  -250652627   422118724  2102805098  2005724373 -2135315857
+[193]  1773756278  -618192736 -1531545245  1182054913   863365488 -1766516466
+[199] -1591088263  1678582539   763964474  -620065988  -360603521 -2007563307
+[205]  -982028820  1890451266  1414856861  1069693207 -1775955842 -1352325064
+[211]  1871888155  -354136967 -2080844600 -1988283146  1925424433  1699829091
+[217]   -97863886  -132063100  -814383929  1523691421 -1128719596    91777466
+[223]  -797917179 -1641990689 -1789130650  -637421584 -1207189229 -1999937871
+[229]   142448992   289144016 -1328796638  -704759640  1509563788  -335496772
+[235] -1519683534   974334784 -1105529164 -1806896824 -1972542790  -902449392
+[241]  2071628012   351574100  1159270162  -420679264 -1774989364   818837344
+[247] -1238735678   360295976 -1708602964  1532642108   888525682  1329420080
+[253] -1331034076  1702108728  1851245274 -1204840560   879725820  -362060396
+[259] -1374424254  -937887232  -336914372 -2105558448  1665278114   896697160
+[265]  2106741260   754348764  -605444014  1982880896  -688984236    94044136
+[271]   -45962502    11829072  1590051884  2124243316 -1969187182 -1506756000
+[277]  1227069580 -1568126624  1106041058  -422820696  -436007220   769743356
+[283]   708174770  -799589392   454990276 -1462227624 -1400387206  1847065008
+[289]   893485500   454917716  2125949378 -1703343328   514972604 -2107023280
+[295]  -641686558   350029672 -1080402100  1979596540   586759922 -1719829248
+[301]  -177458060  -470835704 -1803313734  1320584656 -1771544596  1992260500
+[307]   -84881198 -1762292640   998643020   157854496  -894600574 -1511841304
+[313]  1247749100  -608336324 -1386037646   -86109328   -43971292  -124188104
+[319]  1939435930  1726776784  -460081732  1715037844    26886786  1682597312
+[325] -1723150532  -313904496  1740441378   959649288   -59993332  2001488796
+[331]   -62184430     7140224   723692308  1973921064  -163991494  -899296304
+[337]  1323010668 -1580159948  -955754350   732037472     9395532  -341897760
+[343]  2147152802  1957927848  -271618932  1785709500 -2054509454 -1073952784
+[349]  -956812220 -1663498152  2130550842  1987530864   675808828 -1474345196
+[355]  -775972158  1455178464 -2031211396 -1096078128   739408802  1964764712
+[361]    43141388 -1755637828 -1497818830 -1668841280   910045748   788892360
+[367]  1015589562  1071772816   452122348 -1035796908  -573667694  2016429856
+[373] -2096498740  1577943264  -362299710 -1811368920  -422175828  2039757500
+[379] -1540535822  1763153456  -914720860  1854878136   669991770  1472410768
+[385]   572828540  1099966228  1921764674   598191872 -1800531012 -1334423728
+[391]   198199586  -810065336 -2129719284 -1900506020  -792464942  1790934528
+[397] -2107137708  1669828840  -222961414  -787413296   382259500   876028148
+[403] -1621045870  1188845920   858118156  1042481888  -602903966  1966883496
+[409] -1910707636  1695133564 -1196714702  1464739440  1320219460 -1239734312
+[415]  -341375110  -987531728  1468508092 -1240287660 -2052632510 -1776389984
+[421] -1617398084  1728948688  1535279970  -771382552  -832683828   971432444
+[427]   801927666 -1182889344  -456712716  1821963912 -1199907014  1503581008
+[433]    33221740 -1933835884  1448866898  1677148640 -2036523828 -1644378976
+[439]  -269666942  1731397864 -2038696212 -1986669252   858573938   524839024
+[445] -1063059420  1121897528   393801498   753347792  1664778044  1575921556
+[451] -1557736574  1614252480 -1670709700    24511888  -510116318 -1521752824
+[457]    39664802  1757116855 -2102927999 -1472578682 -2095081020   224973045
+[463]  1411850591   157084600 -1780179306  1107822755  -370183579 -1243727998
+[469]  1437764848  -186686311  -319710069   176022908   421438378  1156608991
+[475]   613292393  1305310590  1378260332 -1412117059   880471687  2134358640
+[481]  1300988174  -643740101   -20153059 -1398814774  -545427224     5882833
+[487]  -385227325  1274412740  -317340302 -1517021113   791284753 -2095993450
+[493]  1613558004   660560517  1385010127  1362320072  1116199782   905273747
+[499]   736144117 -1868332334  2035658016  1775748361  -603504069 -1092462708
+[505] -1875806694  -554733937 -1978553895  1597857390   406126076  -363526291
+[511] -1466371817 -1802756896  -856796482  1904631947  1688796941  -112865478
+[517]   431409016  -223781599 -1853719085 -1813840652  -909380222   676835351
+[523]  1385453281   905039910  1704297764  -514396715 -1519758977  1412730904
+[529] -1643204810  1671018947   631601157   266075042  1557342096  1988985657
+[535]  -640641045   -64571172  2047125770   946214911   -27321783  -751534114
+[541]  -733491316  2125528925   -78420121    86744208  -410275154  -412962981
+[547]  1347010365   480263594  1898009160  -176197007  1922302947  1093201636
+[553] -1309592046 -1144356377  1804287409   638077942   275940884   235006245
+[559]    48288303 -1145976856   226963654  1083319667  -566104619  -505163342
+[565] -1379111040   850146153    51566555   -21389524  -536211142  -750030865
+[571]   766327417   995618062  1245250780  1216322381  -919571785   597180480
+[577] -1441185506 -2096354325  1221973869 -1050731046 -1202139240   997481985
+[583]    37334963   913956564 -1812666398 -1960605065   137032641 -2024263354
+[589] -1545297788   247080501 -1326502369  -526198408  1896011862 -1741867805
+[595]   577790629  -342843582 -2021327568  1978072409  1956081355  1391052604
+[601]  1861029738   701103519  -778464215  1275659966   482551724  1298787581
+[607]  1993218119  1268311856  1893990478 -1045328773  1258414045 -1569042934
+[613]    62231336 -1122558575   504996739  1777535108  -297097550  -363775481
+[619] -2030613935  1250279894 -1662849868   179689669  2034739727  1853522568
+[625]  1313273766  1188189764
+
+> k_cv<- vector()
+> for (j in 2:10){
++ ka=0
++ for (k in 1:100){
++ ka = ka + cv.glm(data = train_woo.frame, glmfit = model.boot, K = j)$delta[1]
++ }
++ k_cv[j]=ka/100
++ }
+There were 50 or more warnings (use warnings() to see the first 50)
+> k_cv
+ [1]       NA 8.240288 7.619767 7.433714 7.239043 7.193692 7.156470 7.179294
+ [9] 7.150212 7.126550
+> scaled_testSet<-scale(nonStrained.complete.testSet[,-c(12,13,14)],center = TRUE, scale = TRUE)
+> pc_new <- as.data.frame(predict(pca,newdata=scaled_testSet))
+> new.fit <- predict(model.boot, pc_new)
+> rmse <- function(error)
++ {
++ sqrt(mean(error^2))
++ }
+> mae <- function(error)
++ {
++ mean(abs(error))
++ }
+> nonStrained.complete.testSet[,12]-new.fit
+        128         156           6         275         165         251 
+ 0.68996192  5.54320872  0.68693478  0.86691057  1.71204892  0.56543132 
+         16         182         123         224         257          79 
+-1.51883434  0.38024155  0.67774340  1.57996836 -2.00461748 -3.23549219 
+        163         132         220         125          89         171 
+ 1.71261252  1.19885782  1.57020535  0.70159297  1.61954858  2.52280866 
+        127         286         111          90         273         233 
+ 0.69852228  0.86779575 -6.96455206  0.32064933  1.13213695 29.23160464 
+        201          85          46         198          61          82 
+ 4.42884659 -1.19999496  1.11086160 -1.00405204  1.07417077  0.62240047 
+         48          65          20          41         229         180 
+ 1.74234135  1.84322907 -1.55929958 -3.29342730 -1.74734409  0.37861796 
+         94         101         202          75          62         196 
+-1.08242733  5.49259239  4.44299711 -7.30287817  0.65368582 -4.81071867 
+         12         244          57          84         204           1 
+-1.24578567 -2.51824372  1.30492394 -2.00370531  1.11272315  6.03329397 
+         18          63          37          31         189         240 
+-1.37398948  0.96993881 -1.90354731 -0.46974081  3.37058403  2.06491386 
+        116         245         169         215         107         255 
+ 0.94969628 -0.72753791  5.47843332  1.56819635  0.86236727  4.05921718 
+        210         252          52         138         270          64 
+ 7.41465845  0.58053586 -0.82401522 -0.14190321  0.53834642  1.83985802 
+        248         287         249         188         218         131 
+-0.09383025  0.91783361 -1.51736828  3.37048409  1.55983358  1.15357238 
+        178         121         157          69         114         236 
+ 0.37028522  0.66172561  1.18237054 -2.71489186  7.46041697 -1.10268139 
+        172         191         137          25         106          22 
+ 2.52281183  6.01514770 -4.21829907 -1.48946797  0.63510404 -4.22436610 
+        264         152         144         112         181         166 
+-0.13442560  0.79989485  3.53227461 -2.79153165  0.37198527  1.71274639 
+        213         130         115         195         227         149 
+ 1.55044078  1.15519556  0.94590564 -5.48035236 -0.66861601 -1.01452285 
+        269         160           5         136         184         246 
+ 0.51048132  3.03643464 -0.31108460 -4.21678852  0.37960921  2.07755601 
+        174         155         110           3          11         105 
+ 0.36721170  5.52504009 -6.96784207  6.03523982 -3.36127675  2.09183452 
+        176          30         209         278         268         186 
+ 0.36628521 -0.28922470  1.89163339 -4.67231676  1.10100186  3.37178956 
+        276         117         187         154           7         119 
+ 0.86720935  0.65329910  3.37198500  4.32339830 -2.04003819  0.66847207 
+        280         208         258         108         158          34 
+-4.50686851  1.20340126  0.28114957  4.33253062  1.45145945 -1.12975795 
+        153         150         261         243          74         151 
+ 4.33561298 -1.01262048 -0.94373307 -2.51824372 -7.27532208  0.79928350 
+         80         285         199         103          36         175 
+-0.33960518 -0.91230126 -1.00410235  0.16269913 -2.58467290  0.35360292 
+         87         219         277         214         263         228 
+ 1.18392634  1.56301324 -6.73452414  1.55939101 -0.14949735 13.45561615 
+          4           8          54         231           9         203 
+-0.48844289 -1.08243633 -0.62255924  8.52860256 -2.32376336  1.03343494 
+         58          13         272         283         159         205 
+-1.22686246 -1.53084917  1.13193696  3.34721065  3.03583496  1.11845180 
+         91           2          17         256         126         140 
+-2.04132321  6.03413397 -2.21173935  4.08907151  0.68236953 -6.81373154 
+        148         247          67          70          28         135 
+-3.14690444  0.97790744  2.98714262  4.76342716 -2.74828302  1.45481873 
+        265          50          51         226         193         282 
+ 0.60564731  1.43804123  1.65413866 -0.70308694  6.01544782 -0.35762538 
+         21          53          23         274         167          40 
+-4.22947651 -0.80939776 -0.14136768  0.86631000  1.71274491 -3.27779459 
+        192         225         211          66         223          98 
+ 6.01544786  2.90494310  2.12291728  2.98714259  1.57805935  6.97227356 
+        200          24          97         162         134          38 
+ 4.43295784 -2.20728895  7.45346171  1.71191515  1.43265360 -4.08253880 
+         93         230         146          27          78         118 
+-2.43825251 11.41198495 -5.24532136 -1.79942601 -6.71236661  0.68039335 
+        120         104 
+ 0.66161742  1.94028604 
+> View(nonStrained.complete.testSet)
+> mae(nonStrained.complete.testSet[,12]-new.fit)
+[1] 2.504151
+> rmse(nonStrained.complete.testSet[,12]-new.fit)
+[1] 3.832669
+> plot(nonStrained.complete.testSet[,12],new.fit)
+> hist(model.boot$resid)
+> skewness(model.boot$resid)
+[1] -0.5638379
+> shapiro.test(model.boot$resid)
+
+	Shapiro-Wilk normality test
+
+data:  model.boot$resid
+W = 0.9721, p-value = 0.06218
+
+> shapiro.test(model.boot$resid)
+
+	Shapiro-Wilk normality test
+
+data:  model.boot$resid
+W = 0.9721, p-value = 0.06218
