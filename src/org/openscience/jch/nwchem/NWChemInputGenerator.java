@@ -38,7 +38,7 @@ public class NWChemInputGenerator {
                 dataToWrite = dataToWrite + "   " + atm.getSymbol() + "       " + GeneralUtility.format_Double(atm.getPoint3d().x) + "     " + GeneralUtility.format_Double(atm.getPoint3d().y) + "     " + GeneralUtility.format_Double(atm.getPoint3d().z) + "\n";
             }
             dataToWrite = dataToWrite + "end\n" + endData_A;
-            System.out.println(dataToWrite);
+            //System.out.println(dataToWrite);
             new File(Path+fileName+"/").mkdir();
             GeneralUtility.writeToTxtFile(dataToWrite, Path+fileName+"/"+ fileName + ".nw");
         }

@@ -77,6 +77,7 @@ public class DiversityAnalyser {
         System.out.println("contin");
         GeneralUtility.writeToTxtFile(GeneralUtility.twoDimArrayToStringWithHeader(diversityMatrix, header), "/Users/chandu/Desktop/correlation-explorer-gh-pages/examples/diversity.csv");
         return diversityMatrix;
+        
     }
 
     public void getMaximumSimilarity(String pathToDataSet, boolean writeDataToFile) throws FileNotFoundException, IOException, CDKException {

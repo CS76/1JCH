@@ -208,11 +208,11 @@ public class InitializeDatabase {
         System.out.println("recycle SubSet Count:" + recycleSetCount);
       
         // initialize the sub set
-        copyRow("randomCompleteDataSet", "diverseSubSet", 1);
-        diverseSubSetCount++;
-        deleteRow("randomCompleteDataSet", 1);
-        randomCompleteDataSetCount--;
-        System.out.println("intialized");
+       // copyRow("randomCompleteDataSet", "diverseSubSet", 1);
+       // diverseSubSetCount++;
+       // deleteRow("randomCompleteDataSet", 1);
+       // randomCompleteDataSetCount--;
+        //System.out.println("intialized");
         
         while(randomCompleteDataSetCount != 0  || recycleSetCount !=0){
             System.out.println("Enter While:"+ randomCompleteDataSetCount + "," + recycleSetCount);
@@ -252,8 +252,10 @@ public class InitializeDatabase {
                             kSubSetCount++;
                         }
                     } catch (Exception e) {
-                        System.out.println(e.getMessage());
-                        System.out.println("Error processing the mol: FP Not Generated");
+                        System.out.println("Error processing the mol: FP Not Generated: "+diversityData[1]+1);
+                        randomCompleteDataSetCount--;
+                        deleteRow("randomCompleteDataSet", getFirstRowID("randomCompleteDataSet"));
+                       
                     }
                 } else {
                     System.out.println("RandomSubSet exhausted");
@@ -451,6 +453,22 @@ public class InitializeDatabase {
             System.exit(0);
         }
         return tempObj;
+    }
+    
+    public int getFirstRowID(String tableName) {
+        int rowID = 0;
+        try {
+            Statement st = this.connection.createStatement();
+            ResultSet res = st.executeQuery("SELECT rowid FROM "+tableName+" LIMIT 1;");
+            while (res.next()) {
+                rowID = res.getInt(1);
+            }
+            st.close();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        return rowID;
     }
 
     public void copyRow(String fromTable, String toTable, int orderID) {
@@ -718,6 +736,20 @@ public class InitializeDatabase {
 
     public void deleteRow(String fromTable, int i) {
         String sqlQuery = "DELETE FROM " + fromTable + " WHERE `ID` =" + i + ";";
+        try {
+            Statement stmt = this.connection.createStatement();
+            stmt.executeUpdate(sqlQuery);
+            stmt.close();
+            this.connection.commit();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        //System.out.println("Records removed successfully ========================================");
+    }
+    
+    public void deleteFirstRow(String fromTable) {
+        String sqlQuery = "DELETE FROM " + fromTable + " WHERE `rowid` = 1;";
         try {
             Statement stmt = this.connection.createStatement();
             stmt.executeUpdate(sqlQuery);
