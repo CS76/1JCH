@@ -1,0 +1,284 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>1JCH</title>
+<link href='http://fonts.googleapis.com/css?family=Marcellus' rel='stylesheet' type='text/css'>
+<script src="JSmol.min.js"></script>
+<script src="d3.js"></script>
+<script type="text/javascript">
+var jmol="jmol";
+var jme = "jme";
+var jmolApplet0; 
+var use = "HTML5";
+var s = document.location.search;
+Jmol.debugCode = (s.indexOf("debugcode") >= 0);
+jmol_isReady = function(applet) {
+	document.title = (applet._id + " is ready")
+	Jmol._getElement(applet, "appletdiv").style.border="none"
+}	
+</script>
+<style type="text/css">
+<!--
+html, body{
+	background-color: #F8F8F8;
+	margin: 0px;
+	padding: 0px;
+	height: 100%;
+	width: 100%;
+}
+.mainWrapper {
+	height: 90%;
+	width: 80%;
+	margin-right: auto;
+	margin-left: auto;
+}
+.mainWrapper .header {
+	height: 10%;
+	width: 100%;
+}
+.mainWrapper .header .logoContainer {
+	height: 100%;
+	width: 20%;
+	text-align: right;
+	float: left;
+}
+.mainWrapper .header .title p {
+	font-family: 'Marcellus', serif;
+	font-size: 30px;
+	padding-top: 10px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	}
+.topBorder {
+	background-color: #333;
+	height: 0.5%;
+}
+.footer {
+	height: 60px;
+	background-color: #1F1F1F;
+	width: 80%;
+	margin: auto;
+	position: absolute;
+}
+.mainWrapper #Abstract p {
+	font-family: 'Marcellus', serif;
+	text-align: justify;
+}
+.mainWrapper #dataSet p {
+	font-family: 'Marcellus', serif;
+	text-align: justify;
+}
+.footer .ebiLogo {
+	height: 70%;
+	width: 20%;
+	padding-left: 10px;
+	padding-top: 10px;
+	float: right;
+}
+.mainWrapper .dataContainer #mainTable tr td #jsmolContainer {
+	background-color: #333;
+	height: 82%;
+	width: 100%;
+}
+.mainWrapper .dataContainer {
+	width: 100%;
+}
+.mainWrapper .dataContainer #mainTable {
+	font-family: 'Marcellus', serif;
+	border: 1px solid #000;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.mainWrapper .dataContainer #mainTable tr td #valuesTable {
+	font-family: 'Marcellus', serif;
+	border-left-width: 1px;
+	border-left-style: solid;
+	border-left-color: #000;
+}
+.mainWrapper .dataContainer table tr td .jsmolContainer {
+	height: 85%;
+	width: 100%;
+}
+.mainWrapper .dataContainer #mainTable tr td #valuesTable tr td #table {
+	font-family: 'Marcellus', serif;
+	border: 1px solid #333;
+}
+.footer .syngentaLogo {
+	height: 70%;
+	width: 20%;
+	padding-right: 10px;
+	padding-top: 10px;
+	float: right;
+	text-align: right;
+}
+.mainWrapper .dataContainer #mainTable tr td {
+	vertical-align: top;
+	text-align: center;
+}
+-->
+</style>
+</head>
+<body>
+<div class="topBorder"></div>
+<div class="mainWrapper">
+  <div class="header">
+    <div class="logoContainer"><img src="images/logo.png" width="30%" height="100%" alt="CS76" /></div>
+    <div class="title"><p>Predcition of One Bond Coupling Constants - 1JCH</p></div>
+  </div>
+ 
+  <div class="dataContainer">
+    <table id= "mainTable" width="100%" height="500px">
+      <tr>
+        <td width="35%"><div id = "jsmolContainer">
+        <script>
+   	   var mydiv = document.getElementById("jsmolContainer");
+	   var curr_width = mydiv.style.width;
+	   var curr_height = $(window).height()*(0.8)*(0.8);
+	   console.log(curr_height);
+	   var Info;
+                Info = {
+                width: curr_width,
+                height: curr_height,
+                debug: false,
+                color: "#1F1F1F",
+              	addSelectionOptions: true,
+                serverURL: "http://chemapps.stolaf.edu/jmol/jsmol/php/jsmol.php",
+                use: "HTML5",
+                readyFunction: null,
+           		// PubChem -- use $ for NCI
+                bondWidth: 4,
+                zoomScaling: 1.5,
+                pinchScaling: 2.0,
+                mouseDragFactor: 0.5,
+                touchDragFactor: 0.15,
+                multipleBondSpacing: 4,
+                spinRateX: 0.2,
+                spinRateY: 0.5,
+                spinFPS: 20,
+                spin:true,
+                debug: false
+				}	 
+		jmol = Jmol.getApplet("jmolApplet0", Info);
+		var lastPrompt=0;
+	  </script>  
+        </div></td>
+        <td width="65%">
+        <table width="100%" height= "100%" align="center" id= "valuesTable">
+          <tr>
+            <td height="10%" align="center" valign="middle">Molecule ID : <select id = "molList" style="width:70%">
+            </select>    </td>
+          </tr>
+          <tr>
+            <td>
+            <div id="table">
+          <table id="jchDataTable" width="100%" border="0">
+            <tr bgcolor="#999999">
+              <td width="37" align="center">S.No </td>
+              <td width="32" align="center">C</td>
+              <td width="96" align="center">Hybridization</td>
+              <td width="139" align="center">Exp 1JCH (Hz)</td>
+              <td width="158" align="center">NWChem 1JCH (Hz)</td>
+              <td width="97" align="center">Error (Hz)</td>
+              </tr>
+          </table>
+          </div>
+            </td>
+          </tr>
+        </table></td>
+      </tr>
+    </table>
+  </div>
+  <div class="footer">
+  <div class="ebiLogo"><img src="images/EMBL-EBI.png" width="60%" height="90%" alt="EMBL-EBI" /></div>
+  <div class="syngentaLogo"><img src="images/syngenta_logo.png" width="35%" height="90%" alt="EMBL-EBI" /></div>
+  </div>
+</div>
+<script>
+
+function loadMolecule(id){
+	javascript:Jmol.loadFile(jmolApplet0,'data/structures/'+json.molecules[id].MolID+'.cml')
+	load1JCHData(id);
+}
+function load1JCHData(id){
+	clearRows();
+	if (!document.getElementsByTagName) return;
+	for (var j = 0; j < json.molecules[id].AtomsList.length; j++){
+		tabBody=document.getElementById("jchDataTable");
+		row = document.createElement("tr");
+		row.bgColor="#F5F5F5";
+        cell1 = document.createElement("td");
+        cell2 = document.createElement("td");
+		cell3 = document.createElement("td");
+		cell4 = document.createElement("td");
+		cell5 = document.createElement("td");
+		cell6 = document.createElement("td");
+
+		cell1.align='center';
+		cell2.align='center';
+		cell3.align='center';
+		cell4.align='center';
+		cell5.align='center';
+		cell6.align='center';
+		
+        textnode1=document.createTextNode(j+1+"");
+        textnode2=document.createTextNode(json.molecules[id].AtomsList[j].ATOMID);
+		textnode3=document.createTextNode(json.molecules[id].AtomsList[j].HYBRIDIZATION);
+		textnode4=document.createTextNode(json.molecules[id].AtomsList[j].EXP_1JCH);
+		textnode5=document.createTextNode(json.molecules[id].AtomsList[j].NWCHEM_1JCH);
+		textnode6=document.createTextNode(Math.round((json.molecules[id].AtomsList[j].EXP_1JCH-json.molecules[id].AtomsList[j].NWCHEM_1JCH)*10000)/10000);
+		
+        cell1.appendChild(textnode1);
+        cell2.appendChild(textnode2);
+		cell3.appendChild(textnode3);
+		cell4.appendChild(textnode4);
+		cell5.appendChild(textnode5);
+		cell6.appendChild(textnode6);	
+		
+        row.appendChild(cell1);
+		row.appendChild(cell2);
+		row.appendChild(cell3);
+		row.appendChild(cell4);
+		row.appendChild(cell5);
+		row.appendChild(cell6);
+
+        tabBody.appendChild(row);
+	}
+}
+
+function clearRows(){
+var elmtTable = document.getElementById('jchDataTable');
+var tableRows = elmtTable.getElementsByTagName('tr');
+var rowCount = tableRows.length;
+for (var x=rowCount-1; x>0; x--) {
+   elmtTable.removeChild(tableRows[x]);
+}	
+}
+	document.getElementById("molList").onchange = function() {loadMolecule(this.value)};
+    var json
+	function addList(){
+		d3.json("./data/final.json", function(data) {
+		for (var i = 0; i < data.molecules.length; i++){
+			json = data;
+			var select = document.getElementById("molList");
+    		var option = document.createElement('option');
+   			option.text = data.molecules[i].MolID;
+			option.value = i;
+    		select.add(option, 0);
+		}});
+	}
+	addList();
+	//document.getElementById("molList").onchange();
+	var readyStateCheckInterval = setInterval(function() {
+    if (document.readyState == "complete") {
+        loadMolecule(0);
+        clearInterval(readyStateCheckInterval);
+    }}, 2);
+</script>
+</body>
+</html>
