@@ -21,7 +21,7 @@
 	   var Info = {
                 width: curr_width,
                 height: curr_height,
-                color: "#FFF",
+                color: "#000",
                 serverURL: "http://chemapps.stolaf.edu/jmol/jsmol/php/jsmol.php",
                 use: "HTML5",
                 readyFunction: null,
@@ -48,22 +48,24 @@ html, body{
 	height: 100%;
 	width: 100%;
 }
-.header .title p {
+.header {
+	height: 10%;
+	width: 90%;
+}
+.header .headerContent {
+	height: 100%;
+	width:65%;
+	margin:auto;
+}
+.header .headerContent p {
 	font-family: 'Marcellus', serif;
 	font-size: 30px;
+	float:right;
 	padding-top: 10px;
 	padding-right: 0px;
 	padding-bottom: 0px;
 	padding-left: 0px;
-	margin-top: 0px;
-	margin-right: 0px;
-	margin-bottom: 0px;
-	margin-left: 0px;
-	}
-.header .logoContainer {
-	width: 20%;
-	text-align: right;
-	float: left;
+	margin: 0px;
 }
 #molDataTable {
 	font-size: 12px;
@@ -84,10 +86,12 @@ html, body{
  	<!-- first row : Header (1x1) -->
     <tr>
     	<td height=10%">
-    		<div class="header">
-    			<div class="logoContainer"><img src="images/logo.png" width="30%" height="100%" alt="CS76"></div>
-    			<div class="title"><p>Predcition of One Bond Coupling Constants - 1JCH</p></div>
-  			</div>
+    	<div class="header">
+   	  	<div class="headerContent">
+     	 <img src="images/Slogo.png" width="86" height="77" alt="Cs76" />
+      	 <p>Predcition of One Bond Coupling Constants - 1JCH</p>
+     	</div>
+  </div>
     	</td>
 	</tr>
     <!-- end of first row -->

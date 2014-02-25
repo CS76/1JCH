@@ -29,7 +29,11 @@ plot(sp3$Experimental_1JCH,lm.resi)
 skewness(lm.resi)
 qqnorm(lm.resi)
 qqline(lm.resi)
+
+
+
 hist(lm.resi)
+
 
 shapiro.test(lm.resi)
 # Detect outliers in the dataset and their removal
@@ -90,6 +94,7 @@ library(boot)
 model.boot <- glm(Experimental_1JCH  ~ Avg_NWChemPrediction,sp3_new,family = gaussian)
 
 summary(model.boot)
+
 # The 'cv.glm' function returns a 'delta' which shows (first) the raw cross-validation estimate
 # of prediction error and (second) the adjusted cross-validation estimate. The adjustment is
 # designed to compensate for the bias introduced by not using leave-one-out cross-validation.

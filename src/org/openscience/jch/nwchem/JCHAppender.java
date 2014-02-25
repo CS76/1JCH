@@ -25,16 +25,16 @@ import org.openscience.jch.utilities.ChemUtility;
 public class JCHAppender {
 
     public static void main(String[] args) throws FileNotFoundException, CDKException, IOException {
-        File folder = new File("/Users/chandu/Desktop/sp_COSMOS/");
+        File folder = new File("C:\\Users\\CS76\\Desktop\\SP_extracted");
         File[] listOfFiles = folder.listFiles();
         for (int i = 0; i < listOfFiles.length; i++) {
             String fileName = listOfFiles[i].getName();
-            //          System.out.println(fileName);
+            System.out.println(fileName);
             if (!fileName.endsWith(".DS_Store")) {
-                String pathToCmlFile = "/Users/chandu/Desktop/sp_COSMOS/" + fileName + "/" + fileName + "_NWChem_coord.cml";
-                String pathToExtractedJCHFile = "/Users/chandu/Desktop/sp_COSMOS/" + fileName + "/extractedJCH.txt";
+                String pathToCmlFile = "C:\\Users\\CS76\\Desktop\\SP_extracted\\" + fileName + "\\" + fileName + "_NWChem_coord.cml";
+                String pathToExtractedJCHFile = "C:\\Users\\CS76\\Desktop\\SP_extracted\\" + fileName + "\\extractedJCH.txt";
                 IAtomContainer molecule = ChemUtility.readIAtomContainerFromCML(pathToCmlFile);
-                ChemUtility.writeToCmlFile(appendJCH(molecule, extractJCH(pathToExtractedJCHFile)), "/Users/chandu/Desktop/sp_COSMOS/" + fileName + "/" + fileName + "_NWChem_1JCH.cml");
+                ChemUtility.writeToCmlFile(appendJCH(molecule, extractJCH(pathToExtractedJCHFile)), "C:\\Users\\CS76\\Desktop\\SP_extracted\\" + fileName + "\\" + fileName + "_NWChem_1JCH.cml");
             }
         }
     }

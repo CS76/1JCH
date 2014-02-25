@@ -21,6 +21,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -227,7 +228,6 @@ public class ChemUtility {
         GeneralUtility.writeToTxtFile(minMol[0], Path + fileName + ".sdf");
         GeneralUtility.writeToTxtFile(minMol[1], Path + fileName + ".txt");
 
-
         File nfile = new File(tempPath + "/temp.sdf");
         if (nfile.delete()) {
             System.out.println("temp file deleted");
@@ -332,9 +332,8 @@ public class ChemUtility {
         }
         return molecule;
     }
-    
-    
-       public static IAtomContainerSet readIAtomContainersFromSDF(String filePath) throws FileNotFoundException {
+
+    public static IAtomContainerSet readIAtomContainersFromSDF(String filePath) throws FileNotFoundException {
         File sdfFile = new File(filePath);
         IteratingSDFReader reader = new IteratingSDFReader(new FileInputStream(sdfFile), DefaultChemObjectBuilder.getInstance());
         IAtomContainerSet molecules = new AtomContainerSet();
@@ -712,7 +711,6 @@ public class ChemUtility {
             }
             values[0] = (120.0 - bondAngle(tempList.get(0), tempList.get(1), tempList.get(2)));
 
-
         } else if (hybtn == 1) {
             for (IAtom catm : mol.getConnectedAtomsList(calAtom)) {
                 tempList.add(catm);
@@ -765,7 +763,6 @@ public class ChemUtility {
 //                }
 //            }
 
-
         return Boolean.TRUE;
     }
 
@@ -803,7 +800,6 @@ public class ChemUtility {
 //            if (mol.getAtomCount() != mappedMol.get(mol).getAtomCount()){
 //                 System.out.println(mol.getID()+":::"+mappedMol.get(mol).getID());
 //            }
-
 
         }
 
@@ -1236,7 +1232,6 @@ public class ChemUtility {
                         break;
                     }
 
-
                 case 'C':
                     if (getNextChar(chars, i) == 'u') {
                         addToList(atomsList, "Cu");
@@ -1383,7 +1378,6 @@ public class ChemUtility {
         String smiles = sg.create(mol);
         return smiles;
 
-
     }
 
     public static Map<Integer, List<IAtom>> getEquivalentAtoms(IAtomContainer mol) throws NoSuchAtomException {
@@ -1464,5 +1458,24 @@ public class ChemUtility {
         String[] abc = {molecule, methodDetails};
         input.close();
         return abc;
+    }
+
+    public static void splitSdf(String multipleSdfPath,String workingDirectory) throws FileNotFoundException, IOException, CDKException {
+        BufferedReader br = new BufferedReader(new FileReader(multipleSdfPath));
+        String line = br.readLine();
+        StringBuilder sb = new StringBuilder();
+        int count = 0;
+        while (line != null) {
+            if (line.contains("$$$$")) {
+                sb.append(line);
+                count++;
+                System.out.println(count);
+                GeneralUtility.writeToTxtFile(sb.toString(), workingDirectory+"\\molID_"+count+".sdf");
+                sb = new StringBuilder();
+            } else {
+                sb.append(line).append("\n");
+            }
+            line = br.readLine();
+        }
     }
 }

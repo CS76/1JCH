@@ -1,0 +1,340 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>1JCH</title>
+<link href='http://fonts.googleapis.com/css?family=Marcellus' rel='stylesheet' type='text/css'>
+<script src="JSmol.min.js"></script>
+<script src="d3.js"></script>
+<script type="text/javascript">
+var jmol="jmol";
+var jme = "jme";
+var jmolApplet0; 
+var use = "HTML5";
+var s = document.location.search;
+Jmol.debugCode = (s.indexOf("debugcode") >= 0);
+jmol_isReady = function(applet) {
+	document.title = (applet._id + " is ready")
+	Jmol._getElement(applet, "appletdiv").style.border="none"
+}	
+</script>
+<style type="text/css">
+<!--
+html, body{
+	background:#999;
+	margin: 0px;
+	padding: 0px;
+	height: 100%;
+	width: 100%;
+}
+.mainWrapper {
+	background-color: #F8F8F8;
+	height: 100%;
+	width: 80%;
+	margin-right: auto;
+	margin-left: auto;
+}
+.topBorder {
+	background-color: #333;
+	height: 0.5%;
+}
+.mainWrapper .header {
+	height: 10%;
+	width: 100%;
+}
+.mainWrapper .header .headerContent {
+	height: 100%;
+	width:71%;
+	margin:auto;
+}
+.mainWrapper .header .headerContent p {
+	font-family: 'Marcellus', serif;
+	font-size: 30px;
+	float:right;
+	padding-top: 10px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+	margin: 0px;
+}
+
+.mainWrapper .dataContainer {
+	width: 100%;
+	height:82%;
+}
+
+.mainWrapper .footer {
+	text-align:right;
+	height:7.5%;
+	background-color: #1F1F1F;
+}
+.mainWrapper .dataContainer #mainTable {
+	border-top: 1px solid #000;
+	border-bottom: 3px solid #000;
+	margin-bottom: 10px;
+}
+.mainWrapper .dataContainer #mainTable tr td #valuesTable {
+	border-left-width: 1px;
+	border-left-style: solid;
+	border-left-color: #000;
+}
+.mainWrapper .dataContainer table tr td .jsmolContainer {
+	width: 100%;
+}
+.mainWrapper .dataContainer #mainTable tr td #valuesTable tr td button {
+	margin-top: 10px;
+}
+
+.mainWrapper .dataContainer #mainTable tr td #valuesTable tr td #status {
+	background: green;
+	width:20%;
+}
+-->
+</style>
+</head>
+
+<body>
+<div class="mainWrapper">
+	<div class="topBorder"></div>
+    <div class="header">
+   	  <div class="headerContent">
+     	 <img src="images/Slogo.png" width="86" height="77" alt="Cs76" />
+      	 <p>Predcition of One Bond Coupling Constants - 1JCH</p>
+      </div>
+  	</div>
+  	<div class="dataContainer">
+    	 <table id= "mainTable" width="100%" height="100%">
+      <tr>
+        <td width="35%"><div id = "jsmolContainer" style="text-align:center">
+        <script>
+   	   var mydiv = document.getElementById("jsmolContainer");
+	   var curr_width = mydiv.style.width;
+	   var curr_height = $(window).height()*(0.8)*(0.88);
+	   console.log(curr_height);
+	   var Info;
+                Info = {
+                width: curr_width,
+                height: curr_height,
+                debug: false,
+                color: "#1F1F1F",
+              	addSelectionOptions: true,
+                serverURL: "http://chemapps.stolaf.edu/jmol/jsmol/php/jsmol.php",
+                use: "HTML5",
+                readyFunction: null,
+           		// PubChem -- use $ for NCI
+                bondWidth: 4,
+                zoomScaling: 1.5,
+                pinchScaling: 2.0,
+                mouseDragFactor: 0.5,
+                touchDragFactor: 0.15,
+                multipleBondSpacing: 4,
+                spinRateX: 0.2,
+                spinRateY: 0.5,
+                spinFPS: 20,
+                spin:true,
+                debug: false,
+				}	 
+		jmol = Jmol.getApplet("jmolApplet0", Info);
+		var lastPrompt=0;
+       
+        
+	  </script>  
+        </div></td>
+        <td width="65%">
+        <table width="100%" height= "100%" align="center" id= "valuesTable">
+          <tr>
+            <td height="8%" align="center" valign="middle">
+            <div class = "selectContainer">
+            Category :  <select id = "molCategory" style="width:40%">
+            </select>
+            </div>
+            <input type="radio" id="done" class="rad" value="done"  onchange="doneFunction()">Done
+            <input type="radio" id="exited" class="rad" value="exited"  onchange="exitedFunction()">Exited
+            <div class="selectContainer">
+            Molecule ID : <select id = "molList" style="width:40%"></select>
+            </div>
+            <button type="button"  style="font-size:13px; width: 100px;" onclick="previous()"><</button>   
+            <button type="button"  style="font-size:13px; width: 100px; " onclick="next()">></button> 
+            <a style="font-size:13px" href="javascript:Jmol.script(jmolApplet0,'if (_fileType == &quot;Pdb&quot;){select *.CA;label %n%r}else{select *;label %a};select *;')">Labels ON</a>
+            <div class="nwchemStatus">
+            <h2 id="status" > Done </h2>
+            </div>
+            <div class="colorCode" align="center">
+            <table width="100%" border="0">
+              <tr>
+                <td  width="70%" height="100%" align="left">
+                  <div id="setStatus" style="height:50%; text-align:center">
+               <table width="100%" border="1">
+                  <tr>
+                    <td>Data Set</td>
+                    <td id="ds">SP3</td>
+                  </tr>
+                  <tr>
+                    <td>Total count</td>
+                    <td id="tc">584</td>
+                  </tr>
+                  <tr>
+                    <td>Successful Jobs</td>
+                    <td id="sjc">418</td>
+                  </tr>
+                  <tr>
+                    <td>Exited Jobs</td>
+                    <td id="ejc">186</td>
+                  </tr>
+                </table>
+
+                </div>
+                
+                <div id="errorCode" style="height:50%; text-align:center">
+                
+                </div>
+                </td>
+                <td  width="30%">
+                 <table height = "100%" border="1">
+                  <tr><td width="90%">Element (Symbol)</td><td width="12%">Color</td></tr>
+                  <tr><td>H</td><td style="background-color:#FFFFFF	">&nbsp;</td></tr>
+                  <tr><td> C</td><td style="background-color:#909090">&nbsp;</td></tr>
+                  <tr><td> N</td><td style="background-color:#3050F8">&nbsp;</td></tr>
+                  <tr><td> O</td><td style="background-color:#FF0D0D">&nbsp;</td></tr>
+                  <tr><td> F</td><td style="background-color:#90E050">&nbsp;</td></tr>
+                  <tr><td> Al</td><td style="background-color:#BFA6A6">&nbsp;</td></tr>
+                  <tr><td> Si</td><td style="background-color:#F0C8A0">&nbsp;</td></tr>
+                  <tr><td> P </td><td style="background-color:#FF8000">&nbsp;</td></tr>
+                  <tr><td>S</td><td style="background-color:#FFFF30">&nbsp;</td></tr>
+                  <tr><td> Cl</td><td style="background-color:#1FF01F">&nbsp;</td></tr>
+                  <tr><td> Ar</td><td style="background-color:#80D1E3">&nbsp;</td></tr>
+                </table>
+                </td>
+              </tr>
+            </table>
+            </div>
+            </td>
+          </tr>
+        </table></td>
+      </tr>
+    </table>
+    </div>
+    <div class="footer">
+    	<img src="images/EBI_Syngenta.png"/>
+    </div>
+</div>
+</body>
+<script>
+		document.getElementById('done').checked = true;
+		document.getElementById('exited').checked = false;
+		var json
+		
+		d3.json("./data/nwchemUpdate.json", function(data) {
+			json = data;
+			for (var i = 0; i < data.categories.length; i++){
+			var select = document.getElementById("molCategory");
+    		var option = document.createElement('option');
+   			option.text = data.categories[i].categoryID;
+			option.value = i;
+    		select.add(option, 0);
+			}
+			addMolList();
+			loadMolecule();
+			});
+		
+		function addMolList(){
+			document.getElementById("molList").innerHTML = "";
+			var catID = document.getElementById("molCategory").value;
+			var pData = json.categories[parseInt(catID, 10)];
+			
+			console.log(document.getElementById('done').checked);
+			if (document.getElementById('done').checked){
+				for (var i = 0; i < pData.moleculesDone.length; i++){	
+				var select = document.getElementById("molList");
+    			var option = document.createElement('option');
+   				option.text = pData.moleculesDone[i].molID;
+				option.value = i;
+    			select.add(option, 0);
+				document.getElementById("errorCode").innerHTML = "";
+				}
+			}else{
+				for (var i = 0; i < pData.moleculesExited.length; i++){	
+				var select = document.getElementById("molList");
+    			var option = document.createElement('option');
+   				option.text = pData.moleculesExited[i].molID;
+				option.value = i;
+    			select.add(option, 0);
+				getErrorCode();
+				}
+			}
+		}
+
+		function loadMolecule(){
+			var m = document.getElementById("molList");
+			var mol = m.options[m.selectedIndex].text;
+			var eCat = document.getElementById("molCategory");
+			var cat = eCat.options[eCat.selectedIndex].text;
+			console.log(cat);
+			javascript:Jmol.loadFile(jmolApplet0,'data/structures/nwchemCal/'+cat+'/structures/'+mol);
+			
+		}
+		
+		function previous(){
+			console.log("previous");
+			var molListSelect = document.getElementById("molList");
+			var cI =molListSelect.selectedIndex;
+			console.log(cI);
+			molListSelect.selectedIndex = parseInt(cI, 10) + 1;
+			loadMolecule();
+			getErrorCode();
+		}
+		
+		function next(){
+			console.log("next");
+			var molListSelect = document.getElementById("molList");
+			var cI =molListSelect.selectedIndex;
+			console.log(cI);
+			molListSelect.selectedIndex = parseInt(cI, 10) - 1;
+			loadMolecule();
+			getErrorCode();
+		}
+		
+		document.getElementById("molList").onchange = function() {loadMolecule();getErrorCode();};
+		document.getElementById("molCategory").onchange = function() {addMolList();changeDataSetName();loadMolecule();};
+		
+		function changeDataSetName(){
+			var ds = document.getElementById("molCategory");
+			document.getElementById("ds").innerHTML = ds.options[ds.selectedIndex].text;
+			var catID = document.getElementById("molCategory").value;
+			var jData = json.categories[parseInt(catID, 10)];
+			document.getElementById("tc").innerHTML = jData.totalJobs;
+			document.getElementById("sjc").innerHTML = jData.successfulJobs;
+			document.getElementById("ejc").innerHTML = jData.exitedJobs
+			}
+			
+		function getErrorCode(){
+			if (document.getElementById('exited').checked){
+			console.log(json);
+			var ds = document.getElementById("molCategory").value;
+			var catID = document.getElementById("molList").value;
+			console.log(ds,catID);
+			var eData = json.categories[parseInt(ds, 10)].moleculesExited[parseInt(catID, 10)].error;
+			document.getElementById("errorCode").innerHTML = eData;
+			}
+		}
+		
+		function doneFunction(){
+			console.log("done");
+			document.getElementById('exited').checked = false;
+			addMolList();
+			loadMolecule();
+			document.getElementById("status").innerHTML = "Done";
+			document.getElementById("status").style.backgroundColor = "green";
+		}
+		
+		function exitedFunction(){
+			console.log("exited");
+			document.getElementById('done').checked = false;
+			addMolList();
+			loadMolecule();
+			document.getElementById("status").innerHTML = "Exited";
+			document.getElementById("status").style.backgroundColor = "red";
+		}
+
+</script>
+</html>

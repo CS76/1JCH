@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>1JCH</title>
+<link href='http://fonts.googleapis.com/css?family=Marcellus' rel='stylesheet' type='text/css'>
+<script src="JSmol.min.js"></script>
+<script src="d3.js"></script>
+<script type="text/javascript">
+var jmol="jmol";
+var jme = "jme";
+var jmolApplet0; 
+var use = "HTML5";
+var s = document.location.search;
+Jmol.debugCode = (s.indexOf("debugcode") >= 0);
+jmol_isReady = function(applet) {
+	document.title = (applet._id + " is ready")
+	Jmol._getElement(applet, "appletdiv").style.border="none"
+}	
+</script>
+<style type="text/css">
+<!--
+a, u{
+    color: black;
+    text-decoration: none !important;
+}
+html, body{
+	background-color: #F8F8F8;
+	margin: 0px;
+	padding: 0px;
+	height: 100%;
+	width: 100%;
+}
+.mainWrapper {
+	height: 100%;
+	width: 80%;
+	margin-right: auto;
+	margin-left: auto;
+}
+.dataContainer {
+	height: 79%;
+}
+.mainWrapper .header {
+	height: 10%;
+	width: 100%;
+}
+.mainWrapper .header .logoContainer {
+	height: 100%;
+	width: 20%;
+	text-align: right;
+	float: left;
+}
+.mainWrapper .header .title p {
+	font-family: 'Marcellus', serif;
+	font-size: 30px;
+	padding-top: 10px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	}
+.topBorder {
+	background-color: #333;
+	height: 0.5%;
+}
+.footer {
+	height: 10%;
+	background-color: #1F1F1F;
+	width: 80%;
+	margin: auto;
+	position: absolute;
+}
+.footer .ebiLogo {
+	height: 70%;
+	width: 20%;
+	padding-left: 10px;
+	padding-top: 10px;
+	float: right;
+}
+
+.footer .syngentaLogo {
+	height: 70%;
+	width: 20%;
+	padding-right: 10px;
+	padding-top: 10px;
+	float: right;
+	text-align: right;
+}
+
+-->
+</style>
+</head>
+<body>
+<div class="topBorder"></div>
+<div class="mainWrapper">
+  <div class="header">
+    <div class="logoContainer"><img src="images/logo.png" width="30%" height="100%" alt="CS76" /></div>
+    <div class="title"><p>Predcition of One Bond Coupling Constants - 1JCH</p></div>
+  </div>
+  <div class="dataContainer"> &nbsp;</div>
+  <div class="footer">
+  <div class="ebiLogo"><img src="images/EMBL-EBI.png" width="60%" height="90%" alt="EMBL-EBI" /></div>
+  <div class="syngentaLogo"><img src="images/syngenta_logo.png" width="35%" height="90%" alt="EMBL-EBI" /></div>
+</div>
+</body>
+</html>

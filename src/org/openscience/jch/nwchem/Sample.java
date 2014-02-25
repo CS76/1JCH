@@ -20,15 +20,15 @@ import org.openscience.jch.utilities.ChemUtility;
 public class Sample {
 
     public static void main(String[] args) throws FileNotFoundException, CDKException, IOException {
-        IAtomContainerSet molecules = ChemUtility.readIAtomContainersFromSDF("/Users/chandu/Desktop/diversity/SP2/SP2_diverseSubSet_maxmin.sdf");
+        IAtomContainerSet molecules = ChemUtility.readIAtomContainersFromSDF("C:\\Users\\CS76\\Desktop\\169_c3.sdf");
         System.out.println(molecules.getAtomContainerCount());
         WeightDescriptor wd = new WeightDescriptor();
         int id = 1;
-         IAtomContainerSet moleculesNew = new AtomContainerSet();
+        IAtomContainerSet moleculesNew = new AtomContainerSet();
         for (IAtomContainer mol : molecules.atomContainers()) {
             double molWt = Double.valueOf(wd.calculate(mol).getValue().toString());
             if (molWt < 1000) {
-                mol.setID(id + "_SP2");
+                mol.setID(id + "_napthaldehyde");
                 System.out.println(mol.getID());
                 moleculesNew.addAtomContainer(mol);
             }
@@ -37,6 +37,6 @@ public class Sample {
             }
             id++;
         }
-        NWChemInputGenerator.generateNWChemInput(moleculesNew, "/Users/chandu/Desktop/diversity/SP2/NWChemInput/");
+        NWChemInputGenerator.generateNWChemInput(moleculesNew, "C:\\Users\\CS76\\Desktop\\");
     }
 }

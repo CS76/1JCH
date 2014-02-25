@@ -28,6 +28,7 @@ public class NWChemInputGenerator {
         for (IAtomContainer a : completeDataSet) {
             i++;
             fileName = a.getID();
+            System.out.println(fileName);
             if (fileName == null) {
                 fileName = String.valueOf(i);
             }
@@ -40,7 +41,7 @@ public class NWChemInputGenerator {
             dataToWrite = dataToWrite + "end\n" + endData_A;
             //System.out.println(dataToWrite);
             new File(Path+fileName+"/").mkdir();
-            GeneralUtility.writeToTxtFile(dataToWrite, Path+fileName+"/"+ fileName + ".nw");
+            GeneralUtility.writeToTxtFile(dataToWrite, Path+fileName+"\\"+ fileName + ".nw");
         }
     }
 }

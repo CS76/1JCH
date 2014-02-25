@@ -492,4 +492,22 @@ public class GeneralUtility {
         }
         return Arrays.asList(mp1, mp2);
     }
+
+    public static List<String> getAllFileNamesInFolder(String folderPath) {
+        List<String> fileNames = new ArrayList<String>();
+        File folder = new File(folderPath);
+        File[] listOfFiles = folder.listFiles();
+        for (int i = 0; i < listOfFiles.length; i++) {
+            if (listOfFiles[i].isFile()) {
+                fileNames.add(listOfFiles[i].getName());
+            }
+        }
+        return fileNames;
+    }
+
+    public static List<String> getNonEmptyArrayList(String[] parentList) {
+        List<String> list = new ArrayList<String>(Arrays.asList(parentList));
+        list.removeAll(Arrays.asList("", null));
+        return list;
+    }
 }
