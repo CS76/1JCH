@@ -1,19 +1,3 @@
-/* 
- * Copyright (C) 2013 Chandrasekkhar < mailcs76[at]gmail.com / www.cs76.org>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
 package org.openscience.jch.utilities;
 
 import java.io.BufferedReader;
@@ -66,6 +50,7 @@ import org.openscience.cdk.io.SDFWriter;
 import org.openscience.cdk.io.iterator.IteratingSDFReader;
 import org.openscience.cdk.qsar.DescriptorEngine;
 import org.openscience.cdk.qsar.DescriptorValue;
+import org.openscience.cdk.qsar.result.IDescriptorResult;
 import org.openscience.cdk.ringsearch.SSSRFinder;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;
 import org.openscience.cdk.smiles.SmilesGenerator;
@@ -162,6 +147,36 @@ public class ChemUtility {
                 atom.setProperty(key, value1);
             } else {
                 atom.setProperty(key, value2);
+            }
+        }
+        return molecule;
+    }
+
+    public static IAtomContainer isAttachedToHetero(IAtomContainer molecule) {
+        Object key = "isAttachedToHetero";
+        Object value1 = true;
+        Object value2 = false;
+        for (IAtom atom : molecule.atoms()) {
+            if (!atom.getSymbol().equalsIgnoreCase("h")) {
+                atom.setProperty(key, value2);
+            }
+            if (atom.getSymbol().equalsIgnoreCase("c")) {
+                for (IAtom attachedAtom : molecule.getConnectedAtomsList(atom)) {
+                    if (!attachedAtom.getSymbol().equalsIgnoreCase("c") && !attachedAtom.getSymbol().equalsIgnoreCase("h")) {
+                        atom.setProperty(key, value1);
+                        break;
+                    }
+                }
+                for (IAtom attachedAtom : molecule.getConnectedAtomsList(atom)) {
+                    if (attachedAtom.getSymbol().equalsIgnoreCase("h")) {
+                        if (atom.getProperty(key).equals(value1)) {
+
+                            attachedAtom.setProperty(key, value1);
+                        } else {
+                            attachedAtom.setProperty(key, value2);
+                        }
+                    }
+                }
             }
         }
         return molecule;
@@ -580,7 +595,7 @@ public class ChemUtility {
         classNames.add("org.openscience.cdk.qsar.descriptors.atomic.AtomDegreeDescriptor");
         classNames.add("org.openscience.cdk.qsar.descriptors.atomic.EffectiveAtomPolarizabilityDescriptor");
         classNames.add("org.openscience.cdk.qsar.descriptors.atomic.PartialPiChargeDescriptor");
-        classNames.add("org.openscience.cdk.qsar.descriptors.atomic.PartialSigmaDescriptor");
+        classNames.add("org.openscience.cdk.qsar.descriptors.atomic.PartialSigmaChargeDescriptor");
         classNames.add("org.openscience.cdk.qsar.descriptors.atomic.PiElectronegativityDescriptor");
         classNames.add("org.openscience.cdk.qsar.descriptors.atomic.SigmaElectronegativityDescriptor");
 
@@ -589,6 +604,9 @@ public class ChemUtility {
         for (String s : engine.getDescriptorClassNames()) {
             System.out.println(s);
         }
+
+
+
     }
 
     /**
@@ -607,7 +625,40 @@ public class ChemUtility {
                 descString = descString + ((DescriptorValue) i.get(l)).getValue().toString() + ",";
             }
         }
+
         return descString;
+    }
+
+    /**
+     *
+     * @param Catm
+     * @param Hatm
+     * @return
+     */
+    public static IAtomContainer setDescriptorValuesAsProperties(IAtomContainer molecule) {
+        List<List<String>> descMappedList = new ArrayList<List<String>>();
+        for (int i = 0; i < molecule.getAtomCount(); i++) {
+            Map descMap = molecule.getAtom(i).getProperties();
+            System.out.println(descMap.size());
+            List<String> propList = new ArrayList<String>();
+            for (Object k : descMap.keySet()) {
+                Object kk = descMap.get(k);
+                if (!(kk instanceof String) && !(kk instanceof Boolean)) {
+                    DescriptorValue d = (DescriptorValue) kk;
+                    propList.add(d.getSpecification().getImplementationTitle().toString().split("\\.")[6] + "@" + d.getValue());
+                }
+            }
+            descMappedList.add(propList);
+        }
+
+        for (int j = 0; j < molecule.getAtomCount(); j++) {
+            IAtom atm = molecule.getAtom(j);
+            for (String s: descMappedList.get(j)){
+                String[] descDetails = s.split("@");
+                atm.setProperty(descDetails[0],descDetails[1]);
+            }  
+        }
+        return molecule;
     }
 
     /**
@@ -1460,7 +1511,7 @@ public class ChemUtility {
         return abc;
     }
 
-    public static void splitSdf(String multipleSdfPath,String workingDirectory) throws FileNotFoundException, IOException, CDKException {
+    public static void splitSdf(String multipleSdfPath, String workingDirectory) throws FileNotFoundException, IOException, CDKException {
         BufferedReader br = new BufferedReader(new FileReader(multipleSdfPath));
         String line = br.readLine();
         StringBuilder sb = new StringBuilder();
@@ -1470,7 +1521,7 @@ public class ChemUtility {
                 sb.append(line);
                 count++;
                 System.out.println(count);
-                GeneralUtility.writeToTxtFile(sb.toString(), workingDirectory+"\\molID_"+count+".sdf");
+                GeneralUtility.writeToTxtFile(sb.toString(), workingDirectory + "\\molID_" + count + ".sdf");
                 sb = new StringBuilder();
             } else {
                 sb.append(line).append("\n");

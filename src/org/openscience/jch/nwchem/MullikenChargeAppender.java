@@ -25,7 +25,7 @@ public class MullikenChargeAppender {
 
     public static void main(String[] args) throws FileNotFoundException, IOException, CDKException {
         // readOutPut("");
-        File folder = new File("C:\\Users\\CS76\\Desktop\\SP_extracted\\");
+        File folder = new File("C:\\Users\\CS76\\Desktop\\SP2_1_extracted\\");
         File[] listOfFiles = folder.listFiles();
         for (int i = 0; i < listOfFiles.length; i++) {
             File subFolder = listOfFiles[i];

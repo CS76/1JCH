@@ -1,109 +1,363 @@
+<!DOCTYPE html>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>1JCH</title>
-<link href='http://fonts.googleapis.com/css?family=Marcellus' rel='stylesheet' type='text/css'>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>1JCH</title>
+        <link href='http://fonts.googleapis.com/css?family=Marcellus' rel='stylesheet' type='text/css'>
 <script src="JSmol.min.js"></script>
-<script src="d3.js"></script>
-<script type="text/javascript">
-var jmol="jmol";
-var jme = "jme";
-var jmolApplet0; 
-var use = "HTML5";
-var s = document.location.search;
-Jmol.debugCode = (s.indexOf("debugcode") >= 0);
-jmol_isReady = function(applet) {
-	document.title = (applet._id + " is ready")
-	Jmol._getElement(applet, "appletdiv").style.border="none"
-}	
-</script>
-<style type="text/css">
-<!--
-a, u{
-    color: black;
-    text-decoration: none !important;
-}
-html, body{
-	background-color: #F8F8F8;
-	margin: 0px;
-	padding: 0px;
-	height: 100%;
-	width: 100%;
-}
-.mainWrapper {
-	height: 100%;
-	width: 80%;
-	margin-right: auto;
-	margin-left: auto;
-}
-.dataContainer {
-	height: 79%;
-}
-.mainWrapper .header {
-	height: 10%;
-	width: 100%;
-}
-.mainWrapper .header .logoContainer {
-	height: 100%;
-	width: 20%;
-	text-align: right;
-	float: left;
-}
-.mainWrapper .header .title p {
+        <style type="text/css">
+                <!--
+                html, body{
+                    background:#999;
+                    margin: 0px;
+                    padding: 0px;
+                    height: 100%;
+                    width: 100%;
+                }
+                .mainWrapper {
+                    background-color: #F8F8F8;
+                    height: 100%;
+                    width: 80%;
+                    margin-right: auto;
+                    margin-left: auto;
+                }
+                .topBorder {
+                    background-color: #333;
+                    height: 0.5%;
+                }
+                .mainWrapper .header {
+                    height: 20%;
+                    width: 100%;
+                }
+                .mainWrapper .header .headerContent {
+                    width:71%;
+                    margin:auto;
+                }
+                .mainWrapper .header .headerContent p {
+                    font-family: 'Marcellus', serif;
+                    font-size: 29px;
+                    float:right;
+                    padding-top: 10px;
+                    padding-right: 0px;
+                    padding-bottom: 0px;
+                    padding-left: 0px;
+                    margin: 0px;
+                }
+
+                .mainWrapper .dataContainer {
+                    width: 100%;
+                }
+                .mainWrapper .header .menuBar {
+                    margin-top: 5px;
+                    background-color: #1F1F1F;
+                    height: 30%
+                }
+
+                .mainWrapper .footer {
+                    text-align:right;
+                    height:7.5%;
+                    background-color: #1F1F1F;
+                }
+.sectionHeader {
 	font-family: 'Marcellus', serif;
-	font-size: 30px;
-	padding-top: 10px;
-	padding-right: 0px;
-	padding-bottom: 0px;
-	padding-left: 0px;
-	margin-top: 0px;
-	margin-right: 0px;
-	margin-bottom: 0px;
-	margin-left: 0px;
-	}
-.topBorder {
-	background-color: #333;
-	height: 0.5%;
+	font-size:18px;
+	margin-left: 10px;
 }
-.footer {
-	height: 10%;
-	background-color: #1F1F1F;
-	width: 80%;
-	margin: auto;
-	position: absolute;
+.subHeader {
+font-family: 'Marcellus', serif;
+margin-left:5px;
 }
-.footer .ebiLogo {
-	height: 70%;
-	width: 20%;
-	padding-left: 10px;
-	padding-top: 10px;
-	float: right;
+#editB {
+	display: block;
+	background: url(images/edit.png);
+	background-repeat: no-repeat;
+	background-size:25px 25px;
+        padding: 0;
+        border: none;
+        cursor: pointer; 
+        cursor: hand;
 }
 
-.footer .syngentaLogo {
-	height: 70%;
-	width: 20%;
-	padding-right: 10px;
-	padding-top: 10px;
-	float: right;
-	text-align: right;
-}
-
--->
-</style>
+                -->
+            </style>
 </head>
-<body>
-<div class="topBorder"></div>
-<div class="mainWrapper">
-  <div class="header">
-    <div class="logoContainer"><img src="images/logo.png" width="30%" height="100%" alt="CS76" /></div>
-    <div class="title"><p>Predcition of One Bond Coupling Constants - 1JCH</p></div>
-  </div>
-  <div class="dataContainer"> &nbsp;</div>
-  <div class="footer">
-  <div class="ebiLogo"><img src="images/EMBL-EBI.png" width="60%" height="90%" alt="EMBL-EBI" /></div>
-  <div class="syngentaLogo"><img src="images/syngenta_logo.png" width="35%" height="90%" alt="EMBL-EBI" /></div>
-</div>
-</body>
+
+    <body>
+        <div class="mainWrapper">
+            <div class="topBorder"></div>
+            <div class="header">
+                <div class="headerContent"><img src="images/Slogo.png" width="86" height="77" alt="Cs76" /><p>Prediction of One Bond Coupling Constants - 1JCH</p></div>
+                <div class="menuBar">&nbsp;</div>
+            </div>
+            <div class="dataContainer" style="height:178%">
+                <table width="100%" height="100%" border="0" style="background: #F8F8F8">
+                    <tr width="100%" height="35%" >
+                        <td>
+                            <table width="100%" height="100%" border="0">
+                                <tr width="100%" height="7%" style="background:#CCC"><td colspan="2"><a class="sectionHeader">Molecular Structure</a></td></tr>
+                                <tr><form>
+                                        <td width="60%" >
+                                           <table width="100%" height="100%" border="0">
+                                                <tr height="10%">
+                                                    <td width="35%"><input type="radio" id="smilesR" name="structureInput" value="smiles" checked="checked" onChange="iFSelected()"><a class="subHeader">SMILES</a><br></td>
+                                                    <td><input type="text" id="sSmiles" name="sSmiles" style="width:85%; height:70%" >&nbsp;<button type="button" id="smilesB" onClick="fetchStructure('smiles')" >&#8594;</button></td>
+                                                </tr>
+                                                <tr height="70%" valign="top">
+                                                    <td><input type="radio" id="structureR" name="structureInput" value="structure" onChange="iFSelected()"><a class="subHeader">SDF/MOL</a><br></td>
+                                                    <td><textarea  id="sStructure" name="sStructure" rows="4" style="width:85%; height:90%; resize: none;" disabled="disabled"></textarea>&nbsp;<button type="button" id="structureB" disabled="disabled" onClick="fetchStructure('structure')" >&#8594;</button></td>
+                                                </tr>
+                                                <tr height="10%">
+                                                    <td><input type="radio" id="stringR" name="structureInput" value="stringSearch" onChange="iFSelected()"><a class="subHeader">Common Name/IUPAC</a><br></td>
+                                                    <td><input id="sString" type="text" name="sString" style="width:85%; height:70%" disabled="disabled">&nbsp;<button type="button" id="stringB" disabled="disabled" onClick="fetchStructure('string')">&#8594;</button></td>
+                                                </tr>
+                                                <tr height="10%" >
+                                                    <td><button type="button" onClick="openEditor()" id="editB" type="submit" style="height:30px; width:30px">&nbsp;</button> </td>
+                                                    <td>&nbsp;</td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </form>
+                                        <td width="40%" style="background:#000"><div id="jsmolContainer">
+                                        
+                                                <script type="text/javascript">
+														var jmolApplet0; 
+														var use = "HTML5";
+														var s = document.location.search;
+														var mydiv = document.getElementById("jsmolContainer");
+													    var curr_width = mydiv.style.width;
+													    var curr_height = $(window).height()*(0.35)*(1.78)*(0.8);
+														Jmol.debugCode = (s.indexOf("debugcode") >= 0);
+														jmol_isReady = function(applet) {
+															document.title = (applet._id + " is ready")
+															Jmol._getElement(applet, "appletdiv").style.border="none"
+														}	
+													   var myJmol;
+													   var Info = {
+																width: curr_width,
+																height: curr_height,
+																color: "#000",
+																serverURL: "http://chemapps.stolaf.edu/jmol/jsmol/php/jsmol.php",
+																use: "HTML5",
+																readyFunction: null,
+																// PubChem -- use $ for NCI
+																bondWidth: 4,
+																zoomScaling: 1.5,
+																pinchScaling: 2.0,
+																mouseDragFactor: 0.5,
+																touchDragFactor: 0.15,
+																multipleBondSpacing: 4,
+																spinRateX: 0.2,
+																spinRateY: 0.5,
+																spinFPS: 20,
+																spin:true,
+																debug: false
+													   }
+													   jmol = Jmol.getApplet("jmolApplet0", Info);
+													</script>
+                                                    </div>
+                                        </td>
+                                </tr>
+                                <tr width="100%" height="10%" align="center" >
+                                        <td colspan="1"><button type="button" style="width:100px">Save</button><button type="button" style="width:100px" onClick="clearField(['sStructure','sSmiles','sString'])">Clear</button> </td>
+                                </tr>
+                             </table>
+                        </td>
+                    </tr>
+                    <tr >
+                        <td>
+                            <table width="100%"  height="100%" border="0">
+                            <tr height="4%"><td colspan="3" style="background:#CCC"><a class="sectionHeader">NWChem Input Parameters</a></td></tr>
+                            <tr height="5%" >
+                                <td width="25%">START</td>
+                                <td width="55%" align="center"><input type="text" name="fname" style="width:90%; height:70%"></td>
+                                <td><button type="button">?</button></td>
+                            </tr>
+                            <tr height="5%" >
+                                <td >TITLE</td>
+                                <td align="center"><input type="text" name="fname" style="width:90%; height:70%"></td>
+                                <td><button type="button">?</button></td>
+                            </tr>
+                            <tr height="5%">
+                                <td>MEMORY</td>
+                                <td align="center"	><input type="text" name="fname" style="width:54%; height:70%">&nbsp;
+                                        <select style="width:35%; height:70%">
+                                            <option value="volvo">mb</option>
+                                            <option value="saab">Saab</option>
+                                            <option value="mercedes">Mercedes</option>
+                                            <option value="audi">Audi</option>
+                                        </select> 
+                                </td>                                                                                
+                                <td><button type="button">?</button></td>                                                                                
+                           </tr>                                                                
+                           <tr height="5%" >                                                                  
+                               <td>CHARGE</td>
+                               <td align="center"><input type="text" name="fname" style="width:90%; height:70%"></td>                           
+                               <td valign="top"><button type="button">?</button></td>                                                                            
+                           </tr>
+                           <tr height="20%">                                                                                 
+                               <td valign="top">GEOMETRY</td>
+                               <td align="center"><textarea rows="4" style="width:90%; height:90%; resize: none;"></textarea></td>                                                                                 
+                               <td valign="top"><button type="button">?</button></td>                                                                                 
+                           </tr>                                                                                 
+                           <tr>                                                
+                                <td valign="top">Basis sets</td>
+                                <td align="center"><textarea rows="4" style="width:90%; height:90%; resize: none;"></textarea></td>                          
+                                <td valign="top"><button type="button">?</button></td>                                                                           
+                           </tr>                                                                             
+                           <tr>                                 
+                               <td valign="top">Quantum Mechanical Methods</td>
+                               <td align="center"><textarea rows="4" style="width:90%; height:90%; resize: none;"></textarea></td>                           
+                               <td valign="top"><button type="button">?</button></td>                                                                                 
+                           </tr>                                                                             
+                           <tr>                                      
+                               <td valign="top">Geometry Optimization</td>                                                                                 
+                               <td align="center"><textarea rows="4" style="width:90%; height:90%; resize: none;"></textarea></td>                                                                                 
+                               <td valign="top"><button type="button">?</button></td>
+                           </tr>
+                           <tr>                                                   
+                               <td valign="top">PROPERTY</td>
+                               <td align="center"><textarea rows="4" style="width:90%; height:90%; resize: none;"></textarea></td>
+                               <td valign="top"><button type="button">?</button></td>
+                           </tr>                                                                 
+                            <tr>
+                                <td>TASK</td>
+                                <td align="center"><input type="text" name="fname" style="width:90%; height:70%"></td>                                                                                
+                                <td valign="top"><button type="button">?</button></td>                                                                                 
+                           </tr>                                                                 
+                           <tr>                                                                  
+                               <td>&nbsp;</td>
+                               <td align="center"><input type="text" name="fname" style="width:90%; height:70%"></td>                                                                  
+                               <td>&nbsp;</td>                                                                                 
+                           </tr>                                                                    
+                            </table>                                                                       
+                        </td>                                                                       
+                    </tr>                                                                        
+                    <tr>                                                                                                    
+                        <td align="center"><button type="button" style="width:100px">Save</button><button type="button" style="width:200px">Copy to Clipboard</button><button type="button">Clear</button><button type="button" style="width:100px">view i/p file</button></td>                                                                       
+                    </tr>                                                                        
+                </table>                                                                              
+            </div>                                                                
+            <div class="footer">                                                
+                <img src="images/EBI_Syngenta.png"/>                                                                              
+            </div>                                                                                  
+        </div>                                                                                     
+    <script type="text/javascript">
+		<!-- Disable and enable Input text areas for the structure input-->
+			function iFSelected(){
+			
+			if(document.getElementById('smilesR').checked){
+				console.log("Smiles");
+				document.getElementById('sSmiles').disabled=false;
+				document.getElementById('smilesB').disabled=false;
+				document.getElementById('sStructure').disabled=true;
+				document.getElementById('structureB').disabled=true;
+				document.getElementById('sString').disabled=true;
+				document.getElementById('stringB').disabled=true;
+				clearField(["sStructure","sString"]);
+				
+			}else if(document.getElementById('structureR').checked){
+				document.getElementById('sSmiles').disabled=true;
+				document.getElementById('smilesB').disabled=true;
+				document.getElementById('sStructure').disabled=false;
+				document.getElementById('structureB').disabled=false;
+				document.getElementById('sString').disabled=true;
+				document.getElementById('stringB').disabled=true;
+				clearField(["sSmiles","sString"]);
+			}
+			else if(document.getElementById('stringR').checked){
+				document.getElementById('sSmiles').disabled=true;
+				document.getElementById('smilesB').disabled=true;
+				document.getElementById('sStructure').disabled=true;
+				document.getElementById('structureB').disabled=true;
+				document.getElementById('sString').disabled=false;
+				document.getElementById('stringB').disabled=false;
+				clearField(["sStructure","sSmiles"]);
+			}
+			}
+			
+			function fetchStructure(data){
+				if (data === "smiles"){
+					var elmnt = document.getElementById("sSmiles");
+					if(elmnt.value == ""){alert("No Input")}
+					else{
+						 var molData = getSDF(elmnt.value);
+						 document.getElementById("sStructure").value = molData;
+						 document.getElementById("sString").value = getIPUAC(elmnt.value);
+						 var s = 'load inline "' + molData + '"; ';
+						 javascript:Jmol.script(jmolApplet0, s);
+					}
+				}else if(data === "string"){
+					var elmnt = document.getElementById("sString");
+					if(elmnt.value == ""){alert("No Input")}
+					else{
+						var molData = getSDF(elmnt.value);
+						document.getElementById("sStructure").value = getSDF(elmnt.value);
+						document.getElementById("sSmiles").value = getSmiles(elmnt.value);
+						var s = 'load inline "' + molData + '"; ';
+						javascript:Jmol.script(jmolApplet0, s);
+					}
+				}else {
+					var elmnt = document.getElementById("sStructure");
+					if(elmnt.value == ""){alert("No Input")}
+					else{
+						
+					}
+				
+				}
+			}
+			
+			function getSmiles(data){
+					var query = data; 
+					var url ="http://cactus.nci.nih.gov/chemical/structure/"+query+"/smiles";
+					var xmlHttp = null;
+					xmlHttp = new XMLHttpRequest();
+					xmlHttp.open( "GET", url, false );
+					xmlHttp.send( null );
+					return xmlHttp.responseText;
+			}
+			function getSDF(data){
+					var query = data;
+					var url ="http://cactus.nci.nih.gov/chemical/structure/"+query+"/file?format=mol&get3d=True";
+					var xmlHttp = null;
+					xmlHttp = new XMLHttpRequest();
+					xmlHttp.open( "GET", url, false );
+					xmlHttp.send( null );
+					return xmlHttp.responseText;
+			}
+			function getIPUAC(data){
+					var query = data;
+					var url ="http://cactus.nci.nih.gov/chemical/structure/"+query+"/iupac_name";
+					var xmlHttp = null;
+					xmlHttp = new XMLHttpRequest();
+					xmlHttp.open( "GET", url, false );
+					xmlHttp.send( null );
+					return xmlHttp.responseText;
+			}
+			function clearField(data){
+				var fields = data;
+				for(var s in fields)
+				{ 	
+					document.getElementById(fields[s]).value="";
+				}
+			}
+			function openEditor(){
+				window.open('jme_window.html','JME','width=450,height=450,scrollbars=no,resizable=yes');
+			}
+			function fromEditor(smiles,jme) {
+			  if (smiles=="") {
+				alert ("no molecule submitted");
+				return;
+			  }
+			  document.getElementById("sSmiles").value = smiles;
+			  fetchStructure("smiles");
+			}
+			
+			function getMolData(){
+				 return document.getElementById("sStructure").value;
+			}
+	</script>
+    </body>                                                                                                
 </html>
+
+

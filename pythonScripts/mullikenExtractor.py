@@ -1,7 +1,7 @@
 import string
 import os
 import subprocess
-folder="C:\\Users\\CS76\\Desktop\\SP_extracted"
+folder="C:\\Users\\CS76\\Desktop\\SP2_1_extracted"
 
 for currentDir, subDirectories, fileNames in os.walk(folder):
     for subDirectory in subDirectories:

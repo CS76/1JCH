@@ -20,7 +20,7 @@ import org.openscience.jch.utilities.ChemUtility;
 public class Sample {
 
     public static void main(String[] args) throws FileNotFoundException, CDKException, IOException {
-        IAtomContainerSet molecules = ChemUtility.readIAtomContainersFromSDF("C:\\Users\\CS76\\Desktop\\169_c3.sdf");
+        IAtomContainerSet molecules = ChemUtility.readIAtomContainersFromSDF("C:\\Users\\CS76\\Desktop\\168.sdf");
         System.out.println(molecules.getAtomContainerCount());
         WeightDescriptor wd = new WeightDescriptor();
         int id = 1;

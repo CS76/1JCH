@@ -326,10 +326,10 @@ public class GeneralUtility {
         return arrayString;
     }
 
-    public static String arrayToString(double[] array) {
+    public static String arrayToString(double[] array,String separator) {
         String arrayString = "";
         for (int t = 0; t < array.length; t++) {
-            arrayString += array[t] + ",";
+            arrayString += array[t] + separator;
         }
         return arrayString;
     }

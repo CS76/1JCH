@@ -67,26 +67,30 @@ public class sample2 {
 //        GeneralUtility.extractPolymer("/Users/chandu/Desktop/ChEBI_complete_3star.sdf","/Users/chandu/Desktop/polymer.sdf");
 //        ChemUtility.splitSdf("C:\\Users\\CS76\\Desktop\\diversity\\SP2\\SP2_diverseSubSet_maxmin.sdf","C:\\Users\\CS76\\Desktop\\diversity\\SP2\\structures");
           
-        List<String> names = GeneralUtility.getAllFileNamesInFolder("C:\\Users\\CS76\\Desktop\\diversity\\SP2\\structures\\exited");
-        System.out.println(names.size());
-        StringBuilder sb = new StringBuilder();
-        for (String s : names){
-            String error="";
-            String name = s.replace("molID_", "").replace(".sdf","");
-            System.out.println(name);
-            try{
-            error = GeneralUtility.readFile("C:\\Users\\CS76\\Desktop\\clusterJobs\\SP2\\extracted\\"+name+"_extracted.txt");
-            System.out.println(error);
-            }catch(Exception e){
-                error = "";
-            }
-          
-            sb.append("{\"molID\":").append("\""+s+"\"").append(",").append("\"status\":\"exited\",").append("\"error\":\""+error+"\"}").append(",");
-        }  
-        GeneralUtility.writeToTxtFile(sb.toString(),"C:\\Users\\CS76\\Desktop\\new.txt");
-          
-          
-          
+//        List<String> names = GeneralUtility.getAllFileNamesInFolder("C:\\Users\\CS76\\Desktop\\diversity\\SP2\\structures\\exited");
+//        System.out.println(names.size());
+//        StringBuilder sb = new StringBuilder();
+//        for (String s : names){
+//            String error="";
+//            String name = s.replace("molID_", "").replace(".sdf","");
+//            System.out.println(name);
+//            try{
+//            error = GeneralUtility.readFile("C:\\Users\\CS76\\Desktop\\clusterJobs\\SP2\\extracted\\"+name+"_extracted.txt");
+//            System.out.println(error);
+//            }catch(Exception e){
+//                error = "";
+//            }
+//          
+//            sb.append("{\"molID\":").append("\""+s+"\"").append(",").append("\"status\":\"exited\",").append("\"error\":\""+error+"\"}").append(",");
+//        }  
+//        GeneralUtility.writeToTxtFile(sb.toString(),"C:\\Users\\CS76\\Desktop\\new.txt");          
+            
+            List<String> fileNames = GeneralUtility.getAllFileNamesInFolder("C:\\Users\\CS76\\Desktop\\syngenta\\data\\structures\\NWChemDoneJobs\\SP2_SP\\");
+           for (int i = 0; i < fileNames.size();i++){
+               System.out.print("{\"molID\":\""+fileNames.get(i)+"\"},");
+           }
+        
+          // {"molID":"1_SP3_NWChem_1JCH_mulliken.cml"}
           
           
           

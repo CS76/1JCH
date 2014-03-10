@@ -107,9 +107,9 @@ public class DiversityAnalyser {
             }
         }
 
-        System.out.println(GeneralUtility.arrayToString(compMaxSimilarity));
+        System.out.println(GeneralUtility.arrayToString(compMaxSimilarity,","));
         System.out.println("==================================");
-        System.out.println(GeneralUtility.arrayToString(compMinSimilarity));
+        System.out.println(GeneralUtility.arrayToString(compMinSimilarity,","));
     }
 
     private double getMinimumSimilarity() {

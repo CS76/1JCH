@@ -1,7 +1,7 @@
 import string
 import os
 import subprocess
-folder="/Users/chandu/Desktop/rem"
+folder="C:\Users\CS76\Desktop\SP2_1_extracted"
 
 for currentDir, subDirectories, fileNames in os.walk(folder):
     for subDirectory in subDirectories:
@@ -12,7 +12,7 @@ for currentDir, subDirectories, fileNames in os.walk(folder):
                     print files
                     input1 = os.path.join(currentDir_sub, files)
                     output1 = os.path.join(currentDir_sub, subDirectory+"_all.cml")                      
-                    cmd="java -jar /Users/chandu/jumbo/jumbo-converters-compchem/jumbo-converters-compchem-nwchem/target/jumbo-converters-compchem-nwchem-0.3-SNAPSHOT-jar-with-dependencies.jar "+input1+" "+output1
+                    cmd="java -jar C:\\Users\\CS76\\Documents\\NetBeansProjects\\1JCH\\dependencies\\jumbo-converters-compchem-nwchem-0.3-SNAPSHOT-jar-with-dependencies.jar "+input1+" "+output1
                     print cmd
                     process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
                     out, err = process.communicate()
@@ -52,16 +52,16 @@ for currentDir, subDirectories, fileNames in os.walk(folder):
                                     num =[0,0]
                                     for indAtom in range (0,len(atoms)) :
                                         fields = string.split(atoms[indAtom],":")
-                                        num[indAtom] =int(string.split(fields[0],"Atom")[1].lstrip().rstrip())
-                                        data = data + "Atom "+str(indAtom+1)+" :" + string.split(fields[0],"Atom")[1].lstrip().rstrip()
-                                        data = data + " (" + fields[1].lstrip().rstrip()+")   "
-                                    
+                                        if ("Atom          S        P        D" not in fields[0]):
+                                            num[indAtom] =int(string.split(fields[0],"Atom")[1].lstrip().rstrip())
+                                            data = data + "Atom "+str(indAtom+1)+" :" + string.split(fields[0],"Atom")[1].lstrip().rstrip()
+                                            data = data + " (" + fields[1].lstrip().rstrip()+")   "
                                 elif ("NWChem Input Module" in lines[b]):
                                      a=b
                                      break
                             content += "=========================================================" +'\n'
                     print content
-                    fa = open(os.path.join(currentDir_sub,"extractedJCH.txt"),'a')
+                    fa = open(os.path.join(currentDir_sub,"extractedJCH.txt"),'w')
                     fa.write(content)
                     
              
