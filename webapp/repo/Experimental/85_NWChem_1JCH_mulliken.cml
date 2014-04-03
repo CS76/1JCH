@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<molecule id="a7" xmlns="http://www.xml-cml.org/schema">
+  <atomArray>
+    <atom id="a1" elementType="C" x3="-1.1317E-4" y3="0.00537579" z3="0.0" formalCharge="0">
+      <scalar title="valency" dataType="xsd:string">3.83193</scalar>
+      <scalar title="numberOfValenceFreeElectrons" dataType="xsd:string">2.05241</scalar>
+      <scalar title="sumOFBondIndices" dataType="xsd:string">3.83193</scalar>
+      <scalar title="mullikenCharge" dataType="xsd:string">5.88434</scalar>
+    </atom>
+    <atom id="a2" elementType="C" x3="0.00453988" y3="-1.29751093" z3="0.0" formalCharge="0">
+      <scalar dataType="xsd:string">6</scalar>
+      <scalar title="valency" dataType="xsd:string">3.88121</scalar>
+      <scalar title="numberOfValenceFreeElectrons" dataType="xsd:string">2.41132</scalar>
+      <scalar title="sumOFBondIndices" dataType="xsd:string">3.88121</scalar>
+      <scalar title="mullikenCharge" dataType="xsd:string">6.292529999999999</scalar>
+    </atom>
+    <atom id="a3" elementType="C" x3="-0.00474001" y3="1.30828864" z3="0.0" formalCharge="0">
+      <scalar dataType="xsd:string">6</scalar>
+      <scalar title="valency" dataType="xsd:string">3.88121</scalar>
+      <scalar title="numberOfValenceFreeElectrons" dataType="xsd:string">2.4113</scalar>
+      <scalar title="sumOFBondIndices" dataType="xsd:string">3.88121</scalar>
+      <scalar title="mullikenCharge" dataType="xsd:string">6.29251</scalar>
+    </atom>
+    <atom id="a4" elementType="H" x3="0.0070518" y3="-1.86124378" z3="0.92694811" formalCharge="0">
+      <scalar dataType="xsd:string">1</scalar>
+      <scalar title="JCH" dataType="xsd:string">[a1; -2.8803 Hz, a2; 170.0509 Hz, a3; 7.0049 Hz]</scalar>
+      <scalar title="valency" dataType="xsd:string">0.97447</scalar>
+      <scalar title="numberOfValenceFreeElectrons" dataType="xsd:string">-0.09181</scalar>
+      <scalar title="sumOFBondIndices" dataType="xsd:string">0.97447</scalar>
+      <scalar title="mullikenCharge" dataType="xsd:string">0.88266</scalar>
+    </atom>
+    <atom id="a5" elementType="H" x3="0.0070518" y3="-1.86124378" z3="-0.92694811" formalCharge="0">
+      <scalar dataType="xsd:string">1</scalar>
+      <scalar title="JCH" dataType="xsd:string">[a1; -2.8803 Hz, a2; 170.0509 Hz, a3; 7.0049 Hz]</scalar>
+      <scalar title="valency" dataType="xsd:string">0.97447</scalar>
+      <scalar title="numberOfValenceFreeElectrons" dataType="xsd:string">-0.09181</scalar>
+      <scalar title="sumOFBondIndices" dataType="xsd:string">0.97447</scalar>
+      <scalar title="mullikenCharge" dataType="xsd:string">0.88266</scalar>
+    </atom>
+    <atom id="a6" elementType="H" x3="0.92009146" y3="1.87544509" z3="0.0" formalCharge="0">
+      <scalar dataType="xsd:string">1</scalar>
+      <scalar title="JCH" dataType="xsd:string">[a1; -2.8671 Hz, a2; 7.0087 Hz, a3; 170.1043 Hz]</scalar>
+      <scalar title="valency" dataType="xsd:string">0.97448</scalar>
+      <scalar title="numberOfValenceFreeElectrons" dataType="xsd:string">-0.09183</scalar>
+      <scalar title="sumOFBondIndices" dataType="xsd:string">0.97448</scalar>
+      <scalar title="mullikenCharge" dataType="xsd:string">0.88265</scalar>
+    </atom>
+    <atom id="a7" elementType="H" x3="-0.93392106" y3="1.86838896" z3="0.0" formalCharge="0">
+      <scalar dataType="xsd:string">1</scalar>
+      <scalar title="JCH" dataType="xsd:string">[a1; -2.8989 Hz, a2; 6.9986 Hz, a3; 170.0235 Hz]</scalar>
+      <scalar title="valency" dataType="xsd:string">0.97447</scalar>
+      <scalar title="numberOfValenceFreeElectrons" dataType="xsd:string">-0.09181</scalar>
+      <scalar title="sumOFBondIndices" dataType="xsd:string">0.97447</scalar>
+      <scalar title="mullikenCharge" dataType="xsd:string">0.88266</scalar>
+    </atom>
+  </atomArray>
+  <bondArray>
+    <bond id="a1_a2" atomRefs2="a1 a2" order="D"/>
+    <bond id="a1_a3" atomRefs2="a1 a3" order="D"/>
+    <bond id="a2_a4" atomRefs2="a2 a4" order="S"/>
+    <bond id="a2_a5" atomRefs2="a2 a5" order="S"/>
+    <bond id="a3_a6" atomRefs2="a3 a6" order="S"/>
+    <bond id="a3_a7" atomRefs2="a3 a7" order="S"/>
+  </bondArray>
+</molecule>

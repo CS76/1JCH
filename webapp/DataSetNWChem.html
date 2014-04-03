@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>1JCH</title>
+<script src="JSmol.min.js"></script>
+<script src="d3.js"></script>
+<link href="css/style.css" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Marcellus'
+	rel='stylesheet' type='text/css'>
+<script src="JSmol.min.js"></script>
+</head>
+<body>
+	<div id="mainContainer" style="height: 100%; width: 100%;"
+		align="center">
+		<div id="dataSetDetailsContainer" style="height: 10%;">
+			Molecule ID : <select id="molList" style="width: 50%; margin: 20px"></select>
+			<input name="previous" type="button" onClick="previous()"
+				value="&lt;" /> <input name="next" type="button" onClick="next()"
+				value="&gt;" /> <a style="font-size: 13px"
+				href="javascript:Jmol.script(jmolApplet,'if (_fileType == &quot;Pdb&quot;){select *.CA;label %n%r}else{select *;label %a};select *;')">Label</a>
+		</div>
+		<div id="jsmolDescriptorContainer" style="height: 70%;">
+			<div id="jsmolContainer"
+				style="width: 30%; height: 100%; float: left">
+				<div id="jsmol"
+					style="width: 97%; height: 97%; margin: 4px; background-color: #FFF">
+					<script type="text/javascript">
+						var s = document.location.search;
+						var mydiv = document.getElementById("jsmol");
+						var curr_width = mydiv.style.width;
+						var curr_height = mydiv.style.height;
+						Jmol.debugCode = (s.indexOf("debugcode") >= 0);
+						jmol_isReady = function(applet) {
+							document.title = (applet._id + " is ready")
+							Jmol._getElement(applet, "appletdiv").style.border = "none"
+						}
+						var Info = {
+							width : curr_width,
+							height : curr_height,
+							color : "white",
+							serverURL : "http://chemapps.stolaf.edu/jmol/jsmol/php/jsmol.php",
+							use : "HTML5",
+							readyFunction : null,
+							// PubChem -- use $ for NCI
+							bondWidth : 4,
+							zoomScaling : 1.5,
+							pinchScaling : 2.0,
+							mouseDragFactor : 0.5,
+							touchDragFactor : 0.15,
+							multipleBondSpacing : 4,
+							spinRateX : 0.2,
+							spinRateY : 0.5,
+							spinFPS : 20,
+							spin : true,
+							debug : false
+						}
+						jmol = Jmol.getApplet("jmolApplet", Info);
+					</script>
+				</div>
+			</div>
+			<div id="descTableContianer"
+				style="width: 70%; height: 97%; float: left; overflow: auto; margin-top: 4px;">
+				<table width="100%" id="descriptorTable" border="0">
+					<tr align="center">
+						<th scope="col" width="15%">Atom ID</th>
+						<th scope="col" width="15%">Atomic symbol</th>
+						<th scope="col" width="15%">1JCH</th>
+						<th scope="col" width="55%">JCH</th>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div id="displayOptionsContainer" style="height: 20%;">
+			&nbsp;
+			<script>
+				Jmol.jmolButton("jmolApplet", "reset; zoom 120; spin off",
+						"original position");
+				Jmol.jmolButton("jmolApplet", "spin on;", "Spin on");
+				Jmol.jmolButton("jmolApplet", "spin off;", "off");
+			</script>
+		</div>
+	</div>
+</body>
+<script>
+	var json
+
+	function addList() {
+		d3.json("/1JCH/repo/NWChem/final.json", function(data) {
+			console.log(data);
+			for ( var i = 0; i < data.molecules.length; i++) {
+				json = data;
+				var select = document.getElementById("molList");
+				var option = document.createElement('option');
+				option.text = data.molecules[i].MolID;
+				option.value = i;
+				select.add(option, 0);
+			}
+		});
+	}
+	addList();
+
+	function load1JCHData(id) {
+		clearRows();
+		if (!document.getElementsByTagName)
+			return;
+		for ( var j = 0; j < json.molecules[id].AtomsList.length; j++) {
+			tabBody = document.getElementById("descriptorTable");
+			row = document.createElement("tr");
+			row.bgColor = "#F5F5F5";
+			cell1 = document.createElement("td");
+			cell2 = document.createElement("td");
+			cell3 = document.createElement("td");
+			cell4 = document.createElement("td");
+
+			cell1.align = 'center';
+			cell2.align = 'center';
+			cell3.align = 'center';
+			cell4.align = 'center';
+
+			textnode1 = document
+					.createTextNode(json.molecules[id].AtomsList[j].AtomID);
+			textnode2 = document.createTextNode("H");
+			textnode3 = document
+					.createTextNode(json.molecules[id].AtomsList[j]._1JCH);
+			textnode4 = document
+					.createTextNode(json.molecules[id].AtomsList[j].JCH);
+
+			cell1.appendChild(textnode1);
+			cell2.appendChild(textnode2);
+			cell3.appendChild(textnode3);
+			cell4.appendChild(textnode4);
+
+			row.appendChild(cell1);
+			row.appendChild(cell2);
+			row.appendChild(cell3);
+			row.appendChild(cell4);
+
+			tabBody.appendChild(row);
+		}
+	}
+
+	function loadMolecule(id) {
+		javascript: Jmol.loadFile(jmolApplet, '/1JCH/repo/NWChem/'
+				+ json.molecules[id].MolID + '.cml')
+		load1JCHData(id);
+	}
+
+	document.getElementById("molList").onchange = function() {
+		loadMolecule(this.value)
+	};
+
+	function clearRows() {
+		var elmtTable = document.getElementById('descriptorTable');
+		var tableRows = elmtTable.getElementsByTagName('tr');
+		var rowCount = tableRows.length;
+		for ( var x = rowCount - 1; x > 0; x--) {
+			elmtTable.removeChild(tableRows[x]);
+		}
+	}
+
+	var readyStateCheckInterval = setInterval(function() {
+		if (document.readyState === "complete") {
+			loadMolecule(0);
+			clearInterval(readyStateCheckInterval);
+		}
+	}, 2);
+
+	function previous() {
+		console.log("previous");
+		var molListSelect = document.getElementById("molList");
+		var cI = molListSelect.selectedIndex;
+		if (cI + 1 < 924) {
+			console.log(cI + 1);
+			molListSelect.selectedIndex = parseInt(cI, 10) + 1;
+			loadMolecule(molListSelect.value);
+		}
+
+	}
+
+	function next() {
+		console.log("next");
+		var molListSelect = document.getElementById("molList");
+		var cI = molListSelect.selectedIndex;
+		if (cI - 1 > -1) {
+			console.log(cI - 1);
+			molListSelect.selectedIndex = parseInt(cI, 10) - 1;
+			loadMolecule(molListSelect.value);
+		}
+
+	}
+</script>
+</html>
