@@ -12,16 +12,23 @@ head(SP3)
 p1 <- ggplot(SP3, aes(x=Experimental_1JCH, y=Observed...Predicted))+ xlab("Observed (Hz)") + ylab("Observed - Predicted (Hz)") + geom_point(shape=3,size=5)+scale_size(guide="none") +theme(legend.position = "none")+ 
   theme(axis.line = element_line(),
   panel.background = element_blank(),
-  axis.title=element_text(face="bold",size="16", color="black")) + 
+  axis.title=element_text(face="bold",size="16", color="black"),
+  text = element_text(colour="red",size=20),
+  axis.text.x=element_text(colour="black"),
+  axis.text.y=element_text(colour="black")) + 
   scale_y_continuous(limit = c(-5, +5)) + 
   geom_point()
-ggsave("obs-pred vs obs_SP3.tiff", dpi= 500);
+p1
+ggsave("obs-pred vs obs_SP3.tiff", dpi= 300);
 
 # Observed...Predicted_fit
 q1 <- ggplot(SP3, aes(x=Experimental_1JCH, y=Observed...Predicted_fit))+ xlab("Observed (Hz)") + ylab("Observed - Predicted (Hz)") + geom_point(shape=3,size=5)+scale_size(guide="none") +theme(legend.position = "none")+ 
   theme(axis.line = element_line(),
   panel.background = element_blank(),
-  axis.title=element_text(face="bold",size="16", color="black"))+ 
+  axis.title=element_text(face="bold",size="16", color="black"),
+  text = element_text(colour="red",size=20),
+  axis.text.x=element_text(colour="black"),
+  axis.text.y=element_text(colour="black"))+ 
   scale_y_continuous(limit = c(-5, +5))+ 
   geom_point()
 ggsave("obs-pred_fit vs obs_SP3.tiff", dpi= 500);
@@ -36,7 +43,10 @@ head(SP2)
 p2 <- ggplot(SP2, aes(x=Experimental_1JCH, y=Observed...Predicted))+ xlab("Observed (Hz)") + ylab("Observed - Predicted (Hz)") + geom_point(shape=3,size=5)+scale_size(guide="none") +theme(legend.position = "none")+ 
   theme(axis.line = element_line(),
   panel.background = element_blank(),
-  axis.title=element_text(face="bold",size="16", color="black"))+ 
+  axis.title=element_text(face="bold",size="16", color="black"),
+  text = element_text(colour="red",size=20),
+  axis.text.x=element_text(colour="black"),
+  axis.text.y=element_text(colour="black"))+ 
   scale_y_continuous(limit = c(-7.5, +6))+ 
   geom_point()
 ggsave("obs-pred vs obs_SP2.tiff", dpi= 500);
@@ -45,7 +55,10 @@ ggsave("obs-pred vs obs_SP2.tiff", dpi= 500);
 q2 <- ggplot(SP2, aes(x=Experimental_1JCH, y=Observed...Predicted_fit))+ xlab("Observed (Hz)") + ylab("Observed - Predicted (Hz)") + geom_point(shape=3,size=5)+scale_size(guide="none") +theme(legend.position = "none")+ 
   theme(axis.line = element_line(),
   panel.background = element_blank(),
-  axis.title=element_text(face="bold",size="16", color="black"))+ 
+  axis.title=element_text(face="bold",size="16", color="black"),
+  text = element_text(colour="red",size=20),
+  axis.text.x=element_text(colour="black"),
+  axis.text.y=element_text(colour="black"))+ 
   scale_y_continuous(limit = c(-7.5, +6))+ 
   geom_point()
 ggsave("obs-pred_fit vs obs_SP2.tiff", dpi= 500);
@@ -60,7 +73,10 @@ head(SP1)
 p3 <- ggplot(SP1, aes(x=Experimental_1JCH, y=Observed...Predicted))+ xlab("Observed (Hz)") + ylab("Observed - Predicted (Hz)") + geom_point(shape=3,size=5)+scale_size(guide="none") +theme(legend.position = "none")+ 
   theme(axis.line = element_line(),
   panel.background = element_blank(),
-  axis.title=element_text(face="bold",size="16", color="black"))+ 
+  axis.title=element_text(face="bold",size="16", color="black"),
+  text = element_text(colour="red",size=20),
+  axis.text.x=element_text(colour="black"),
+  axis.text.y=element_text(colour="black"))+ 
   scale_y_continuous(limit = c(-20, +10)) + 
   geom_point()
 ggsave("obs-pred vs obs_SP1.tiff", dpi= 500);
@@ -69,7 +85,10 @@ ggsave("obs-pred vs obs_SP1.tiff", dpi= 500);
 q3 <- ggplot(SP1, aes(x=Experimental_1JCH, y=Observed...Predicted_fit))+ xlab("Observed (Hz)") + ylab("Observed - Predicted (Hz)") + geom_point(shape=3,size=5)+scale_size(guide="none") +theme(legend.position = "none")+ 
   theme(axis.line = element_line(),
   panel.background = element_blank(),
-  axis.title=element_text(face="bold",size="16", color="black"))+ 
+  axis.title=element_text(face="bold",size="16", color="black"),
+  text = element_text(colour="red",size=20),
+  axis.text.x=element_text(colour="black"),
+  axis.text.y=element_text(colour="black"))+ 
   scale_y_continuous(limit = c(-20, +10))+ 
   geom_point()
 ggsave("obs-pred_fit vs obs_SP1.tiff", dpi= 500);
@@ -79,3 +98,4 @@ ggsave("obs-pred_fit vs obs_SP1.tiff", dpi= 500);
 png(file = "modelo1.png", width = 2272, height = 2392)
 grid.arrange(p1,q1,p2,q2,p3,q3, ncol = 2)
 dev.off()
+
