@@ -1,42 +1,51 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * This class assumes that the atom numbering in the NWCHEM output file 
+ * and the atom number in the structure file are same and writes the 
+ * mulliken charges to the corresponding atoms and saves the file.
  */
 package org.openscience.jch.nwchem;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import org.openscience.cdk.AtomContainerSet;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import org.openscience.cdk.exception.CDKException;
+import org.openscience.cdk.interfaces.IAtom;
 import org.openscience.cdk.interfaces.IAtomContainer;
-import org.openscience.cdk.interfaces.IAtomContainerSet;
-import org.openscience.cdk.qsar.descriptors.molecular.WeightDescriptor;
 import org.openscience.jch.utilities.ChemUtility;
 
 /**
- *
- * @author Chandrasekkhar < mailcs76[at]gmail.com / www.cs76.org>
+ * @author chandu
  */
 public class Sample {
 
-    public static void main(String[] args) throws FileNotFoundException, CDKException, IOException {
-        IAtomContainerSet molecules = ChemUtility.readIAtomContainersFromSDF("C:\\Users\\CS76\\Desktop\\168.sdf");
-        System.out.println(molecules.getAtomContainerCount());
-        WeightDescriptor wd = new WeightDescriptor();
-        int id = 1;
-        IAtomContainerSet moleculesNew = new AtomContainerSet();
-        for (IAtomContainer mol : molecules.atomContainers()) {
-            double molWt = Double.valueOf(wd.calculate(mol).getValue().toString());
-            if (molWt < 1000) {
-                mol.setID(id + "_napthaldehyde");
-                System.out.println(mol.getID());
-                moleculesNew.addAtomContainer(mol);
-            }
-            else{
-                System.out.println(molWt);
-            }
-            id++;
+    public static void main(String[] args) throws FileNotFoundException, IOException, CDKException {
+        List<IAtomContainer> molList = ChemUtility.readIAtomContainersFromCML("C:\\Users\\CS76\\Desktop\\mol.cml");
+        for (IAtomContainer mol : molList) {
+            setPropMap(mol);
+            break;
         }
-        NWChemInputGenerator.generateNWChemInput(moleculesNew, "C:\\Users\\CS76\\Desktop\\");
+    }
+
+    public static void setPropMap(IAtomContainer molecule) {
+        Map<String, Map<String, String>> propertiesMap = new HashMap<String, Map<String, String>>();
+        for (IAtom atom : molecule.atoms()) {
+            if (atom.getSymbol().equalsIgnoreCase("h")) {
+                IAtom cAtom = molecule.getConnectedAtomsList(atom).get(0);
+                if (cAtom.getSymbol().equalsIgnoreCase("c")) {
+                    getStringPropertyMap(atom);
+                    getStringPropertyMap(cAtom);
+                }
+            }
+        }
+    }
+
+    public static Map<String, String> getStringPropertyMap(IAtom atom) {
+        Map<Object, Object> mappedProp = atom.getProperties();
+        for (Object p : mappedProp.keySet()) {
+            System.out.println(p.getClass().toString());
+        }
+        return null;
     }
 }

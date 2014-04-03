@@ -45,7 +45,7 @@ for(i in 1:length(sp3$Mol_ID)){
 plot(coeffArray - (lm.fit)$coeff[2])
 text(coeffArray - (lm.fit)$coeff[2], labels = (1:140), pos = 4,cex=0.7)
 
-sp3_new<-sp3[-c(1,2,3,4,5,6,7),]
+sp3_new<-sp3[-c(1,2,137,138,139,140),]
 lm1.fit = lm(sp3_new$Experimental_1JCH~ sp3_new$Avg_NWChemPrediction)
 summary(lm1.fit)
 plot(lm1.fit) #  Residuals vs fitted plots / Normal Q-Q plot / Residuals vs Leverage plot

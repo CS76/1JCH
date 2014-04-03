@@ -27,14 +27,14 @@ import org.openscience.cdk.exception.CDKException;
 public class FileCopier {
 
     public static void main(String[] args) throws IOException, CDKException {
-        File folder = new File("C:\\Users\\CS76\\Desktop\\dataExtracted\\SP2_SP_extracted");
+        File folder = new File("C:\\Users\\CS76\\Desktop\\dataExtracted\\1jch\\SP2_SP_extracted");
         File[] listOfFiles = folder.listFiles();
         for (int i = 0; i < listOfFiles.length; i++) {
             if (!listOfFiles[i].getName().equalsIgnoreCase(".DS_Store")) {
                 File subFile = listOfFiles[i];
                 String fileName = subFile.getName();
-                File source = new File(subFile + "/" + fileName + "_NWChem_1JCH_mulliken.cml");
-                File destinationFolder = new File("C:\\Users\\CS76\\Desktop\\data\\SP2_SP\\" + fileName + "_NWChem_1JCH_mulliken.cml");
+                File source = new File(subFile + "/" + fileName + "_NWChem_1JCH_mulliken_CDK.cml");
+                File destinationFolder = new File("C:\\Users\\CS76\\Desktop\\data\\" + fileName + "_NWChem_1JCH_mulliken_CDK.cml");
                 GeneralUtility.copyFile(source, destinationFolder);
             }
         } 

@@ -15,7 +15,7 @@ import org.openscience.cdk.tools.manipulator.AtomContainerManipulator;
 public class CDKDescriptorCalculator {
 
     public static void main(String[] args) throws CloneNotSupportedException, FileNotFoundException, CDKException {
-        String sourceDirectory = "C:\\Users\\CS76\\Desktop\\dataExtracted\\mergedCMLfiles\\";
+        String sourceDirectory = "C:\\Users\\CS76\\Desktop\\dataExtracted\\1jch\\final\\";
         IAtomContainerSet molSet = new AtomContainerSet();
         File folder = new File(sourceDirectory);
         File[] listOfFiles = folder.listFiles();

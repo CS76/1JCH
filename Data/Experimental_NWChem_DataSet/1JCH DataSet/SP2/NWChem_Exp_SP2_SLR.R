@@ -1,10 +1,9 @@
-# import libraries
+# import librarieslibrary(StatDA)
 library(StatDA)
 library(chemometrics)
 library(car)
 library(MASS)
 library(gvlma)
-
 
 # Read the data from file in to a data frame
 sp2 = read.csv("SP2_SLR.csv",header=TRUE)
@@ -41,7 +40,7 @@ for(i in 1:length(sp2$Mol_ID)){
 plot(coeffArray - (lm.fit)$coeff[2])
 text(coeffArray - (lm.fit)$coeff[2], labels = (1:255), pos = 4,cex=0.7)
 
-sp2_new<-sp2[-c(1,2,3,4,20,181),]
+sp2_new<-sp2[-c(249,255),]
 lm1.fit = lm(sp2_new$Experimental_1JCH~ sp2_new$Avg_NWChemPrediction)
 summary(lm1.fit)
 plot(lm1.fit) #  Residuals vs fitted plots / Normal Q-Q plot / Residuals vs Leverage plot
@@ -117,3 +116,4 @@ for (j in 2:10){
 }
 
 k_cv
+

@@ -374,6 +374,15 @@ public class ChemUtility {
         return molecule;
     }
 
+    public static IAtomContainer readIAtomContainerFromCMLString(String cmlString) throws FileNotFoundException, CDKException, UnsupportedEncodingException {
+        IAtomContainer molecule = null;
+        InputStream stream = new ByteArrayInputStream(cmlString.getBytes("UTF-8"));
+        CMLReader CR = new CMLReader(stream);
+        IChemFile cfile = CR.read(new ChemFile());
+        molecule = ChemFileManipulator.getAllAtomContainers(cfile).get(0);
+        return molecule;
+    }
+
     /**
      *
      * @param filePath
@@ -408,6 +417,15 @@ public class ChemUtility {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static String getCMLString(IAtomContainer mol) throws IOException, CDKException {
+        StringWriter output = new StringWriter();
+        CMLWriter cmlwriter = new CMLWriter(output);
+        cmlwriter.write(mol);
+        cmlwriter.close();
+        String cmlcode = output.toString();
+        return cmlcode;
     }
 
     /**
@@ -653,10 +671,10 @@ public class ChemUtility {
 
         for (int j = 0; j < molecule.getAtomCount(); j++) {
             IAtom atm = molecule.getAtom(j);
-            for (String s: descMappedList.get(j)){
+            for (String s : descMappedList.get(j)) {
                 String[] descDetails = s.split("@");
-                atm.setProperty(descDetails[0],descDetails[1]);
-            }  
+                atm.setProperty(descDetails[0], descDetails[1]);
+            }
         }
         return molecule;
     }

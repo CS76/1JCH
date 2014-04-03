@@ -25,16 +25,16 @@ import org.openscience.jch.utilities.ChemUtility;
 public class JCHAppender {
 
     public static void main(String[] args) throws FileNotFoundException, CDKException, IOException {
-        File folder = new File("C:\\Users\\CS76\\Desktop\\SP2_1_extracted\\undone\\");
+        File folder = new File("C:\\Users\\CS76\\Desktop\\dataExtracted\\1jch\\final");
         File[] listOfFiles = folder.listFiles();
         for (int i = 0; i < listOfFiles.length; i++) {
             String fileName = listOfFiles[i].getName();
             System.out.println(fileName);
             if (!fileName.endsWith(".DS_Store")) {
-                String pathToCmlFile = "C:\\Users\\CS76\\Desktop\\SP2_1_extracted\\" + fileName + "\\" + fileName + "_NWChem_coord.cml";
-                String pathToExtractedJCHFile = "C:\\Users\\CS76\\Desktop\\SP2_1_extracted\\" + fileName + "\\extractedJCH.txt";
+                String pathToCmlFile = "C:\\Users\\CS76\\Desktop\\dataExtracted\\1jch\\final\\" + fileName + "\\" + fileName + "_NWChem_coord.cml";
+                String pathToExtractedJCHFile = "C:\\Users\\CS76\\Desktop\\dataExtracted\\1jch\\final\\" + fileName + "\\extractedJCH.txt";
                 IAtomContainer molecule = ChemUtility.readIAtomContainerFromCML(pathToCmlFile);
-                ChemUtility.writeToCmlFile(appendJCH(molecule, extractJCH(pathToExtractedJCHFile)), "C:\\Users\\CS76\\Desktop\\SP2_1_extracted\\" + fileName + "\\" + fileName + "_NWChem_1JCH.cml");
+                ChemUtility.writeToCmlFile(appendJCH(molecule, extractJCH(pathToExtractedJCHFile)), "C:\\Users\\CS76\\Desktop\\dataExtracted\\1jch\\final\\" + fileName + "\\" + fileName + "_NWChem_1JCH.cml");
             }
         }
     }
@@ -78,7 +78,7 @@ public class JCHAppender {
     public static String extract1JCH(String JCHproperty, IAtom hAtom, IAtomContainer molecule) {
         String JCH1 = "";
         String[] JCHValues = (hAtom.getID() + ":" +JCHproperty).replace("[", "").replace("]", "").split(":")[1].split(",");
-        System.out.println(JCHValues.length);
+       // System.out.println(JCHValues.length);
         for (String JCH_1 : JCHValues) {
             String cAtmID = JCH_1.split(";")[0];
             IAtom cAtm = molecule.getConnectedAtomsList(hAtom).get(0);

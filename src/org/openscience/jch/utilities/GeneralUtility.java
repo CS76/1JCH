@@ -504,6 +504,17 @@ public class GeneralUtility {
         }
         return fileNames;
     }
+    public static List<String> getAllFolderNamesInFolder(String folderPath) {
+        List<String> folderNames = new ArrayList<String>();
+        File folder = new File(folderPath);
+        File[] listOfFiles = folder.listFiles();
+        for (int i = 0; i < listOfFiles.length; i++) {
+            if (!listOfFiles[i].isFile()) {
+                folderNames.add(listOfFiles[i].getName());
+            }
+        }
+        return folderNames;
+    }
 
     public static List<String> getNonEmptyArrayList(String[] parentList) {
         List<String> list = new ArrayList<String>(Arrays.asList(parentList));
