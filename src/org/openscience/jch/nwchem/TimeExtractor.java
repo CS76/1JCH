@@ -10,7 +10,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,7 +23,7 @@ import org.openscience.jch.utilities.GeneralUtility;
 public class TimeExtractor {
 
     public static void main(String[] args) throws FileNotFoundException, IOException, CDKException {
-        String sourceFolderPath = "C:\\Users\\CS76\\Desktop\\dataExtracted\\SP2_SP_extracted\\";
+        String sourceFolderPath = "C:\\Users\\CS76\\Desktop\\dataExtracted\\1jch\\SP2_SP_extracted\\";
         String targetFolderPath = "C:\\Users\\CS76\\Desktop\\dataExtracted\\nwChem_GeoOpt_MPA\\extractedGeoOptMPAData\\SP2_SP\\";
         List<String> fileNames = GeneralUtility.getAllFolderNamesInFolder(sourceFolderPath);
         StringBuilder mainSB = new StringBuilder();

@@ -5,6 +5,12 @@ library(car)
 library(MASS)
 library(gvlma)
 
+# Read the data from file in to a data frame
+sp3_sd = read.csv("sd.csv",header=TRUE)
+summary(sp3_sd)
+
+sd(sp3_sd$Error) 
+sd(sp3_sd$Error_fit) 
 
 # Read the data from file in to a data frame
 sp3 = read.csv("SP3_SLR.csv",header=TRUE)
