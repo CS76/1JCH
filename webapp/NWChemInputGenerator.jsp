@@ -20,10 +20,9 @@
 	<div id="mainWrapper">
 		<div id="miniMenuBar">&nbsp;</div>
 		<div id="header">
-			<div id="globalTitle">Prediction of One Bond Coupling Constants
-				- 1JCH</div>
+			<div id="globalTitle"><a href="/1JCH">Prediction of One Bond Coupling Constants - 1JCH</a> </div>
 			<div id="localTitle">
-				<p>NWChem Input Generator</p>
+				<p>NWChem Input Generator <a style="float: right; padding-right: 10px;" href="/1JCH"><img alt="Home" src="images/home.png" height=" 20px;" width="20px;"></a><a style="float: right; padding-right: 10px;" href="/1JCH/PredictionInput.jsp"><img alt="Home" src="images/process.png" height=" 20px;" width="20px;"></a></p> 
 			</div>
 		</div>
 		<div id="dataContainer" style="height: 180%">
@@ -915,6 +914,8 @@
 						onClick="copyToClipboard()">Copy to Clipboard</button>
 					<button type="button" style="width: 50px"
 						onClick="openDisplayWindow()">view</button>
+					<button type="button"
+						onclick="location.href = 'WebController?initialSelector=NWChemInputGenerator';">New InputFile</button>
 					<a id="export" class="myButton" download="" href="#"></a>
 				</div>
 			</form>
@@ -928,7 +929,7 @@
 	<div id="dialog-form" title="Select Specific Tautomer"
 		style="font-size: 10px;"></div>
 	<div id="dialog" title="help" style="font-size: 10px;">
-		<p>bro i am here</p>
+		<p></p>
 	</div>
 </body>
 <script type="text/javascript">
@@ -1082,7 +1083,7 @@
 		return isDataAvailable(xmlHttp.responseText);
 	}
 	function getSDF(data) {
-		var query = data;
+		var query = data.replace("#","%23");
 		var url = "http://cactus.nci.nih.gov/chemical/structure/" + query
 				+ "/file?format=mol&get3d=True";
 		var xmlHttp = null;
@@ -1092,7 +1093,7 @@
 		return isDataAvailable(xmlHttp.responseText);
 	}
 	function getIPUAC(data) {
-		var query = data;
+		var query = data.replace("#","%23");;
 		var url = "http://cactus.nci.nih.gov/chemical/structure/" + query
 				+ "/iupac_name";
 		var xmlHttp = null;
@@ -1104,6 +1105,8 @@
 
 	function getTautomerData(data, query) {
 		var url;
+		var query = query.replace("#","%23");
+		
 		if (data === 'smiles') {
 			url = "http://cactus.nci.nih.gov/chemical/structure/tautomers:"
 					+ query + "/smiles";
@@ -1111,6 +1114,7 @@
 			url = "http://cactus.nci.nih.gov/chemical/structure/tautomers:"
 					+ query + "/smiles";
 		}
+		
 		var xmlHttp = null;
 		xmlHttp = new XMLHttpRequest();
 		xmlHttp.open("GET", url, false);
@@ -1225,8 +1229,6 @@
 				'width=450,height=450,scrollbars=no,resizable=yes');
 	}
 	function copyToClipboard(data) {
-
-		
 			var textToCopy = ""
 			if (document.getElementById("hiddenIpData").innerHTML !== "") {
 				textToCopy = document.getElementById("hiddenIpData").innerHTML;
@@ -1245,7 +1247,7 @@
 				window.navigator.msSaveOrOpenBlob(blobObject, fileName);
 			});
 		} else {
-			var name = fileName + ".txt";
+			var name = fileName + ".nw";
 			var url = "data:text/plain;charset=utf-8,"
 					+ encodeURIComponent(str);
 			$(anchorSelector).attr("href", url);

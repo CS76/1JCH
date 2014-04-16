@@ -12,9 +12,16 @@
 	<div id="mainWrapper">
 		<div id="miniMenuBar">&nbsp;</div>
 		<div id="header">
-			<div id="globalTitle">Prediction of One Bond Coupling Constants
-				- 1JCH</div>
-			<div id="localTitle">&nbsp;</div>
+			<div id="globalTitle">
+				<a href="/1JCH">Prediction of One Bond Coupling Constants - 1JCH</a>
+			</div>
+			<div id="localTitle">
+				&nbsp; <a style="float: right; padding-right: 10px;" href="/1JCH"><img
+					alt="Home" src="images/home.png" height=" 20px;" width="20px;"></a><a
+					style="float: right; padding-right: 10px;"
+					href="/1JCH/NWChemInputGenerator.jsp"><img alt="Home"
+					src="images/input.png" height=" 20px;" width="20px;"></a>
+			</div>
 		</div>
 		<div id="dataContainer" style="height: 84%;">
 			&nbsp;
@@ -35,7 +42,12 @@
 									<option value="1">PLSR</option>
 								</select><br /> <input type="submit" value="Upload File"
 									style="margin-left: 20px; margin-top: 10px" /> <br /> <a>${requestScope.fileUploadStatus}</a>
-								<p id="refreshWarning" style="padding-left: 10px; font-size: 14px;" ></p>
+								<p id="refreshWarning"
+									style="padding-left: 10px; font-size: 14px;">
+									<%=((request.getAttribute("errorMEssage") == null)
+					? ""
+					: request.getAttribute("errorMEssage"))%>
+								</p>
 							</form>
 						</div>
 					</td>
@@ -73,7 +85,7 @@
 		}
 
 		function changeOpDisplay(evt) {
-			
+
 			if (document.getElementById('fileUpload').files.length == 0) {
 				alert("Select a file to display its content");
 			} else {
@@ -87,21 +99,21 @@
 				}
 
 			}
-			
+
 		}
 
 		function validate() {
 			valid = true;
-			message = "Please <b style=\"color: #F00;\">dont refresh</b> while the page loads";
+			message = 'Please <b style="color: #F00;">dont refresh</b> while the page loads';
 			if (document.getElementById("fileUpload").value == '') {
 				// your validation error action
 				valid = false;
 				message = "<a style=\"color: #F00;\">Please select a NWChem log file to process</a>";
 			}
 			document.getElementById("refreshWarning").innerHTML = message;
-			return valid 
+			return valid
 		}
-		
+
 		function setCursorByID(id, cursorStyle) {
 			var elem;
 			if (document.getElementById && (elem = document.getElementById(id))) {

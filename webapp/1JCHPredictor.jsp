@@ -26,10 +26,21 @@
 	<div id="mainWrapper">
 		<div id="miniMenuBar">&nbsp;</div>
 		<div id="header">
-			<div id="globalTitle">Prediction of One Bond Coupling Constants
-				- 1JCH</div>
+			<div id="globalTitle">
+				<a href="/1JCH">Prediction of One Bond Coupling Constants - 1JCH</a>
+			</div>
 			<div id="localTitle">
-				<p>1JCH Predictor</p>
+				<p>
+					1JCH Predictor <a style="float: right; padding-right: 10px;"
+						href="/1JCH"><img alt="Home" src="images/home.png"
+						height=" 20px;" width="20px;"></a><a
+						style="float: right; padding-right: 10px;"
+						href="/1JCH/NWChemInputGenerator.jsp"><img alt="Home"
+						src="images/input.png" height=" 20px;" width="20px;"></a><a
+						style="float: right; padding-right: 10px;"
+						href="/1JCH/PredictionInput.jsp"><img alt="Home"
+						src="images/process.png" height=" 20px;" width="20px;"></a>
+				</p>
 			</div>
 		</div>
 		<div id="dataContainer"
@@ -67,8 +78,11 @@
 									style="width: 100%; height: 60%; font-family: 'Gafata', sans-serif;">
 									<div
 										style="background-color: #ccc; width: 100%; font-size: 14px;">
-										Tautomer Data -
-										<%=((predictionData.getMolecule() == null)? "": predictionData.getSMILES())%></div>
+										Tautomer Data - <a style="cursor:hand;"
+											onclick='loadMolecule(document.getElementById("molStructureData").value,jmolApplet0);'>
+											<%=((predictionData.getMolecule() == null)? "": predictionData.getSMILES())%>
+										</a>
+									</div>
 									<div id="tautomerDiv" style="width: 100%; height: 90%">
 										<%=((predictionData.getMolecule() == null)? "": predictionData.getSMILES())%>
 									</div>
@@ -167,11 +181,14 @@
 				<div id="title"
 					style="background-color: #CCC; padding-left: 10px; padding-top: 3px; height: 4%;">
 					<a><b>Predicted 1JCH</b></a>
-					<div style="float: right; padding-right:20px;">
-					<form> 
-					<input type="radio" name="sex" value="Predicted_1JCH" checked="checked" onclick='label1JCH(jmolApplet1,"jsmolScriptContainer1")'>Predicted_1JCH
-					<input type="radio" name="sex" value="Experimental_Fit_1JCH" onclick='label1JCH(jmolApplet1,"jsmolScriptContainer2")'>EXPERIMENTAL_FIT_1JCH
-					</form>
+					<div style="float: right; padding-right: 20px;">
+						<form>
+							<input type="radio" name="sex" value="Predicted_1JCH"
+								checked="checked"
+								onclick='label1JCH(jmolApplet1,"jsmolScriptContainer1")'>Predicted_1JCH
+							<input type="radio" name="sex" value="Experimental_Fit_1JCH"
+								onclick='label1JCH(jmolApplet1,"jsmolScriptContainer2")'>EXPERIMENTAL_FIT_1JCH
+						</form>
 					</div>
 				</div>
 				<div id="modelTable"
@@ -245,6 +262,28 @@
 						jmol = Jmol.getApplet("jmolApplet1", Info);
 					</script>
 				</div>
+				<div>
+					<div
+						style="float: left; margin: 10px; font-family: 'Gafata', sans-serif;">
+						<a style="margin-right: 20px;">Model 1</a><a
+							style="margin-right: 20px;">Model 2</a><a
+							style="margin-right: 20px;">Model 3</a><a
+							style="margin-right: 20px;">Model 4</a><a
+							style="margin-right: 20px;">Model 5</a><a
+							style="margin-right: 20px;">Model 6</a>
+					</div>
+					<div
+						style="float: right; margin: 10px; font-family: 'Gafata', sans-serif;">
+						<a id="exportPredictionSummary" style="padding-right: 10px;">Download
+							Summary</a> <a id="exportCML" style="padding-right: 10px;">XML</a> <a
+							id="exportSDF" style="padding-right: 10px;">SDF</a> <a
+							style="padding-right: 10px;"
+							href="javascript:Jmol.script(jmolApplet1,'write PNGJ jmol.png')">image</a>
+						<button type="button"
+							onclick="location.href = 'WebController?initialSelector=1JCHPrediction';">New
+							Prediction</button>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div id="jsmolScriptContainer1" style="display: none">
@@ -257,6 +296,11 @@
 								//		'select *;label %a;';
 								}
 		%>
+		</div>
+		<div id="jsmolScriptContainer3" style="display: none">
+			<%=((predictionData.getMolecule() == null)
+					? ""
+					: ChemUtilities.getCMLString(predictionData.getMolecule()))%>
 		</div>
 		<div id="jsmolScriptContainer2" style="display: none">
 			<% if (predictionData.getPropMap() != null) {
@@ -323,22 +367,26 @@
 								.getElementById("molStructureData").value,
 								jmolApplet1);
 						clearInterval(readyStateCheckInterval);
-						label1JCH(jmolApplet1,"jsmolScriptContainer1");
+						label1JCH(jmolApplet1, "jsmolScriptContainer1");
+						
+						createDownloadLink("#exportPredictionSummary","", "predSummary.txt","text");
+						createDownloadLink("#exportCML", document.getElementById("jsmolScriptContainer3").innerHTML, "mol.cml","xml");
+						createDownloadLink("#exportSDF", document.getElementById("molStructureData").innerHTML, "mol.sdf","sdf");
 						getTautomerData(document.getElementById("tautomerDiv").innerHTML);
 					}
 				}, 2);
 
-		function loadMolecule(molData, appid) {
+		function loadMolecule(molData, appid) { 
 			var s = 'load inline "' + molData + '"; ';
 			javascript: Jmol.script(appid, s);
 			var d = 'select *;label %a; reset; zoom -20; spin on;';
 			javascript: Jmol.script(jmolApplet0, d);
 		}
 
-		function label1JCH(appid,container) {
-			if (container === "jsmolScriptContainer1"){
+		function label1JCH(appid, container) {
+			if (container === "jsmolScriptContainer1") {
 				var d = document.getElementById("jsmolScriptContainer1").innerHTML;
-			}else{
+			} else {
 				var d = document.getElementById("jsmolScriptContainer2").innerHTML;
 			}
 			javascript: Jmol.script(appid, d);
@@ -346,8 +394,9 @@
 
 		function getTautomerData(data) {
 			var url;
+			var q = data.replace("#","%23");
 			url = "http://cactus.nci.nih.gov/chemical/structure/tautomers:"
-					+ data.trim() + "/smiles";
+					+ q.trim() + "/smiles";
 			var xmlHttp = null;
 			console.log(url);
 			xmlHttp = new XMLHttpRequest();
@@ -386,9 +435,36 @@
 		}
 
 		function loadSmiles() {
-			var smiles = '$' + document.getElementById("tautomerSmiles").value;
-			javascript: Jmol.loadFile(jmolApplet0, smiles);
+			var data = document.getElementById("tautomerSmiles").value;
+
+			var query = data.replace("#","%23");
+			var url = "http://cactus.nci.nih.gov/chemical/structure/" + query
+					+ "/file?format=mol&get3d=True";
+			var xmlHttp = null;
+			xmlHttp = new XMLHttpRequest();
+			xmlHttp.open("GET", url, false);
+			xmlHttp.send(null);
+
+			loadMolecule(isDataAvailable(xmlHttp.responseText),jmolApplet0);
 		}
+		
+		function createDownloadLink(anchorSelector, str, fileName, type ) {
+			var blobObject = null;
+			if (window.navigator.msSaveOrOpenBlob) {
+				var fileData = [ str ];
+				blobObject = new Blob(fileData);
+				$(anchorSelector).click(function() {
+					window.navigator.msSaveOrOpenBlob(blobObject, fileName);
+				});
+			} else {
+				var name = fileName;
+				var url = "data:"+type+"/plain;charset=utf-8,"
+						+ encodeURIComponent(str);
+				$(anchorSelector).attr("href", url);
+				$(anchorSelector).attr("download", name);
+			}
+		}
+
 	</script>
 </body>
 </html>

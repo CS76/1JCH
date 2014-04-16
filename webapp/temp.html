@@ -1,185 +1,371 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta charset="utf-8">
-<title>jQuery UI Dialog - Modal form</title>
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/jquery-1.9.1.js"></script>
-<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-<link rel="stylesheet" href="/resources/demos/style.css">
-<style>
-body {
-	font-size: 62.5%;
-}
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>INPACH SOLUTIONS</title>
+<link href="css/newCSS.css" rel="stylesheet" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Orbitron'
+	rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Abril+Fatface'
+	rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Kelly+Slab'
+	rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="css/bjqs.css">
+<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="css/component.css" />
+<script src="js/modernizr.custom.js"></script>
+<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script src="js/bjqs-1.3.min.js"></script>
+<link rel="stylesheet" href="css/style.css" type="text/css"
+	media="screen" />
+<link rel="stylesheet" href="css/firsteffect.css" type="text/css"
+	media="screen" />
+</head>
 
-label,input {
-	display: block;
-}
+<body>
+	<div id="header">
+		<div id="logoHolder">
+			<img src="images/logo1.png" width="229" height="60px"
+				style="padding: 4px; margin-left: 100px;" />
+			<div id="menubar"
+				style="float: right; padding-right: 100px; margin-top: 7px; font-family: 'Kelly Slab', cursive;">
+				<ul>
+					<li>Home</li>
+					<li>Services</li>
+					<li>Our Apps
+						<ul>
+							<li>Web Design</li>
+							<li>Web Development</li>
+							<li>Illustrations</li>
+						</ul>
+					</li>
+					<li>About US</li>
+					<li>Careers</li>
+					<li>Clients</li>
+					<li>Help & Support</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div id="contentWrapper">
+		<div id="homeImage" align="center">
+			<div id="slider">
+				<ul class="bjqs">
+					<li><p>Business owners across the globe run successful
+							e-stores . You can sell fashion, electronics, sporting goods,
+							even food.</p></li>
+					<li><p>Total control over your site’s design ::: Choose
+							from over 100 templates or create a custom-designed theme for
+							your store.</p></li>
+					<li><p>Stunning infographics, prints and apparel. This
+							simple custom template effectively showcases their unique works
+							of art.</p></li>
+					<li><p>This UK-based lifestyle and tech accessory company
+							uses a stunning and simple custom template to showcase their
+							products, complete with rich photography.</p></li>
+				</ul>
+			</div>
+		</div>
+		<div style="background-color: #063; height: 20px;">&nbsp;</div>
 
-input.text {
-	margin-bottom: 12px;
-	width: 95%;
-	padding: .4em;
-}
+		<div id="container1" align="center"
+			style="height: 300px; padding-top: 40px; background-image: url(images/brushed.png);">
+			<div id="content"
+				style="width: 80%; height: 300px; border-bottom: #000 2px dotted; padding-bottom: 20px;">
+				<div id="col1" style="height: 100%; width: 50%; float: left">
+					<img src="images/inpach.jpg" width="70%" height="70%"
+						style="margin-top: 8%" />
+				</div>
+				<div id="col2"
+					style="height: 100%; width: 50%; background-color: #0C3; float: left">&nbsp;</div>
+			</div>
+		</div>
 
-fieldset {
-	padding: 0;
-	border: 0;
-	margin-top: 25px;
-}
+		<div id="container2" align="center"
+			style="height: 280px; padding-top: 40px; background-image: url(images/brushed.png);">
+			<div id="content" style="width: 80%; height: 100%" align="center">
+				<div id="col1"
+					style="width: 32%; float: left; margin: 1%; height: 92%;">
+					<h2 style="margin: 0px;">Who we are?</h2>
+					<p style="padding-right: 10px; padding-left: 10px;">We are
+						Inpach Solutions, a innovative, professional and experienced web
+						development company. We are much Creative and Passionate work team
+						with a challenging spirit. We can turn your business ideas into
+						lively, creative websites with state of the art advanced features.
+					</p>
+				</div>
+				<div id="col1"
+					style="width: 31%; float: left; margin: 1%; height: 92%;">
+					<h2 style="margin: 0px;">What we do?</h2>
+					<p style="padding-right: 10px; padding-left: 10px;">Our design
+						and innovative team offers a range of services from product
+						development (Web and Mobile application, Desktop & Mobile web
+						designing, eCommerce) to maintainence at the best competitive
+						affordable prices with high standards. We range our services from
+						small to medium scale companies.</p>
+				</div>
+				<div id="col1"
+					style="width: 31%; float: left; margin: 1%; height: 92%;">
+					<h2 style="margin: 0px;">Why we?</h2>
+					<p style="padding-right: 10px; padding-left: 10px;">Our
+						dedicated research and development team with innovative ideas
+						provide outsanding solutions to your enterprise. We provide you
+						the highest standards. And so our happiest customers make us go
+						ahead to give them a much better experience and outcome day by
+						day.</p>
+				</div>
 
-h1 {
-	font-size: 1.2em;
-	margin: .6em 0;
-}
+			</div>
+		</div>
 
-div#users-contain {
-	width: 350px;
-	margin: 20px 0;
-}
+		<div id="container3" align="center" style="height: 650px;">
+			<div id="content"
+				style="width: 100%; background-color: #F5F5F5; height: 100%; padding-top: 10px; border-top: #333 1px solid; border-bottom: #333 1px solid;">
+				<div class="fourIconWrapper" style="width: 500px; height: 110px;">
+					<div class="icon" id="desktop" style="float: left; margin: 10px;">
+						<img src="images/desktop.png" width="100" height="100" />
+					</div>
+					<div class="icon" id="sphone" style="float: left; margin: 10px;">
+						<img src="images/sphone.png" width="100" height="100" />
+					</div>
+					<div class="icon" id="stats" style="float: left; margin: 10px;">
+						<img src="images/stats.png" width="100" height="100" />
+					</div>
+					<div class="icon" id="grid" style="float: left; margin: 10px;">
+						<img src="images/grid.png" width="100" height="100" />
+					</div>
+				</div>
+				<div style="width: 80%; margin: 10px; height: 350px;">
+					<h1>Our Unique Features !</h1>
+					<p style="text-align: justify; padding: 20px;">&emsp; &emsp;
+						&emsp;We believe that a highly essential factor for an business
+						either online or offline is building an attractive and
+						professional website which express the business offerings to the
+						client in a smart way. It should be easy to use and navigate by
+						the clients and which will run efficiently to ensure proper
+						communication and delivery of services and products. We provide
+						professional services and hosting that will create an attractive
+						and successful website. We will also assist you with any
+						problematic issues or questions you might have, and provide an
+						ongoing service after your site has been developed and hosted
+						online. This will make sure that your website can be managed and
+						upgraded with new features or services if necessary.</p>
+					<p style="padding-bottom: 20px; border-bottom: #333 dashed 2px;">
+						It’s not often that you come across a beautifully designed website
+						that’s also technically sound. We design our websites to be
+						exceptional. Through clever design and ease-of-use, we give your
+						users a reason to explore your entire website from start to
+						finish.</p>
 
-div#users-contain table {
-	margin: 1em 0;
-	border-collapse: collapse;
-	width: 100%;
-}
+					<h2 style="border-bottom: #333 dashed 2px; padding-bottom: 30px;">"Innovation
+						is the process of turning ideas into manufacturable and marketable
+						form."</h2>
+					<p style="float: right">— Watts Humprey</p>
 
-div#users-contain table td,div#users-contain table th {
-	border: 1px solid #eee;
-	padding: .6em 10px;
-	text-align: left;
-}
+				</div>
+			</div>
 
-.ui-dialog .ui-state-error {
-	padding: .3em;
-}
+		</div>
+		<div id="container4" align="center"
+			style="height: 510px; background-image: url(images/stardust.png); padding-top: 10px">
+			<div id="content" style="width: 100%; height: 100%" align="center">
+				<div id="services" style="width: 60%; height: 80%;">
+					<ul class="bjqs">
+						<li><img src="images/1.png" width="854" height="506" /></li>
+						<li><img src="images/2.png" width="854" height="506" /></li>
+						<li><img src="images/3.png" width="854" height="506" /></li>
+						<li><img src="images/4.png" width="854" height="506" /></li>
+						<li><img src="images/5.png" width="854" height="506" /></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div style="background-color: #FFF; height: 30px;">&nbsp;</div>
+		<div id="container7" align="center" style="height: 520px;">
+			<div id="content"
+				style="width: 100%; background-color: #DFF2FF; height: 100%; border-top: #09F 1px solid; border-bottom: #09F 1px solid;"
+				align="center">
+				<h2>Some cool stuff we made</h2>
+				<div id="stuff" style="width: 80%; height: 90%; padding-left: 35px;">
 
-.validateTips {
-	border: 1px solid transparent;
-	padding: 0.3em;
-}
-</style>
-<script>
-	$(function() {
-		var name = $("#name"), email = $("#email"), password = $("#password"), allFields = $(
-				[]).add(name).add(email).add(password), tips = $(".validateTips");
-		function updateTips(t) {
-			tips.text(t).addClass("ui-state-highlight");
-			setTimeout(function() {
-				tips.removeClass("ui-state-highlight", 1500);
-			}, 500);
-		}
-		function checkLength(o, n, min, max) {
-			if (o.val().length > max || o.val().length < min) {
-				o.addClass("ui-state-error");
-				updateTips("Length of " + n + " must be between " + min
-						+ " and " + max + ".");
-				return false;
-			} else {
-				return true;
-			}
-		}
-		function checkRegexp(o, regexp, n) {
-			if (!(regexp.test(o.val()))) {
-				o.addClass("ui-state-error");
-				updateTips(n);
-				return false;
-			} else {
-				return true;
-			}
-}
-$( "#dialog-form" ).dialog({
-							autoOpen : false,
-							height : 300,
-							width : 350,
-							modal : true,
-							buttons : {
-								"Create an account" : function() {
-									var bValid = true;
-									allFields.removeClass("ui-state-error");
-									bValid = bValid
-											&& checkLength(name, "username", 3,
-													16);
-									bValid = bValid
-											&& checkLength(email, "email", 6,
-													80);
-									bValid = bValid
-											&& checkLength(password,
-													"password", 5, 16);
-									bValid = bValid
-											&& checkRegexp(name,
-													/^[a-z]([0-9a-z_])+$/i,
-													"Username may consist of a-z, 0-9, underscores, begin with a letter.");
-									// From jquery.validate.js (by joern), contributed by Scott Gonzalez: http://projects.scottsplayground.com/email_address_validation/
-									bValid = bValid
-											&& checkRegexp(
-													email,
-													/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i,
-													"eg. ui@jquery.com");
-									bValid = bValid
-											&& checkRegexp(password,
-													/^([0-9a-zA-Z])+$/,
-													"Password field only allow : a-z 0-9");
-									if (bValid) {
-										$("#users tbody").append(
-												"<tr>" + "<td>" + name.val()
-														+ "</td>" + "<td>"
-														+ email.val() + "</td>"
-														+ "<td>"
-														+ password.val()
-														+ "</td>" + "</tr>");
-										$(this).dialog("close");
-									}
-								},
-								Cancel : function() {
-									$(this).dialog("close");
-								}
-							},
-							close : function() {
-								allFields.val("").removeClass("ui-state-error");
-							}
-						});
-		$("#create-user").button().click(function() {
-			$("#dialog-form").dialog("open");
+					<div class="view effect"
+						style="width: 26%; height: 40%; background-color: #090; float: left; margin: 15px;">
+						<img src="images/sites/1.png" width="100%" height="100%" />
+						<div class="mask"></div>
+						<div class="content">
+							<a href="#" class="info" title="Full Image">Full Image</a>
+						</div>
+					</div>
+					<div class="view effect"
+						style="width: 26%; height: 40%; background-color: #090; float: left; margin: 15px;">
+						<img src="images/sites/2.png" width="100%" height="100%" />
+						<div class="mask"></div>
+						<div class="content">
+							<a href="#" class="info" title="Full Image">Full Image</a>
+						</div>
+					</div>
+					<div class="view effect"
+						style="width: 26%; height: 40%; background-color: #090; float: left; margin: 15px;">
+						<img src="images/sites/3.png" width="100%" height="100%" />
+						<div class="mask"></div>
+						<div class="content">
+							<a href="#" class="info" title="Full Image">Full Image</a>
+						</div>
+					</div>
+					<div class="view effect"
+						style="width: 26%; height: 40%; background-color: #090; float: left; margin: 15px;">
+						<img src="images/sites/3.png" width="100%" height="100%" />
+						<div class="mask"></div>
+						<div class="content">
+							<a href="#" class="info" title="Full Image">Full Image</a>
+						</div>
+					</div>
+					<div class="view effect"
+						style="width: 26%; height: 40%; background-color: #090; float: left; margin: 15px;">
+						<img src="images/sites/1.png" width="100%" height="100%" />
+						<div class="mask"></div>
+						<div class="content">
+							<a href="#" class="info" title="Full Image">Full Image</a>
+						</div>
+					</div>
+					<div class="view effect"
+						style="width: 26%; height: 40%; background-color: #090; float: left; margin: 15px;">
+						<img src="images/sites/2.png" width="100%" height="100%" />
+						<div class="mask"></div>
+						<div class="content">
+							<a href="#" class="info" title="Full Image">Full Image</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="container6" align="center"
+			style="height: 350px; background-image: url(images/stardust.png)">
+			<div id="content"
+				style="width: 80%; padding-top: 30px; height: 100%;" align="center">
+				<div class="wrapper" id="testimonials">
+					<ul class="stage clearfix">
+						<li class="scene">
+							<div class="movie" onclick="return true">
+								<div class="poster"></div>
+								<div class="info">
+									<header> </header>
+									<p>I am only 48 hours into this e-commerce experiment but I
+										am seriously happy about running our store on inpach
+										solutions. Powerful features and easy to set up, running an
+										online store shouldn't be this much fun!</p>
+								</div>
+							</div>
+						</li>
+
+						<li class="scene">
+							<div class="movie" onclick="return true">
+								<div class="poster"></div>
+								<div class="info">
+									<header> </header>
+									<p>IS is one of those tools that every entrepreneur should
+										be using. With this easy to use ecommerce solution,
+										entrepreneurs save time and money, so they can focus on other
+										aspects of their business.</p>
+								</div>
+							</div>
+						</li>
+
+						<li class="scene">
+							<div class="movie" onclick="return true">
+								<div class="poster"></div>
+								<div class="info">
+									<header> </header>
+									<p>Compared to other developers out there, IS listened
+										carefully to our needs and delivered a fantastic website
+										within a very short timeframe. It was a pleasure to work with
+										IS, and I will definitely recommend IS to anyone who needs
+										website development services!</p>
+								</div>
+							</div>
+						</li>
+
+					</ul>
+				</div>
+				<!-- /wrapper -->
+			</div>
+		</div>
+
+		<div id="container6" align="center" style="height: 300px;">
+			<div id="content"
+				style="width: 80%; padding-top: 30px; height: 100%;" align="center">
+				<h1
+					style="margin: 0px; font-family: 'Orbitron', sans-serif; font-size: 22px"
+					align="left">Our Technologies</h1>
+				<div id="logoContainer"
+					style="width: 91%; height: 100%; margin-top: 10px; padding-left: 90px;">
+					<div id="logo1"
+						style="width: 8%; height: 30%; float: left; margin-left: 5px; margin-right: 10px;">
+						<img src="images/tech/1.png" width="100" height="100" />
+					</div>
+					<div id="logo1"
+						style="width: 8%; height: 30%; float: left; margin-left: 5px; margin-right: 10px;">
+						<img src="images/tech/2.png" width="100" height="100" />
+					</div>
+					<div id="logo1"
+						style="width: 8%; height: 30%; float: left; margin-left: 5px; margin-right: 10px;">
+						<img src="images/tech/3.png" width="100" height="100" />
+					</div>
+					<div id="logo1"
+						style="width: 8%; height: 30%; float: left; margin-left: 5px; margin-right: 10px;">
+						<img src="images/tech/4.png" width="100" height="100" />
+					</div>
+					<div id="logo1"
+						style="width: 8%; height: 30%; float: left; margin-left: 5px; margin-right: 10px;">
+						<img src="images/tech/5.png" width="100" height="100" />
+					</div>
+					<div id="logo1"
+						style="width: 8%; height: 30%; float: left; margin-left: 5px; margin-right: 10px;">
+						<img src="images/tech/6.png" width="100" height="100" />
+					</div>
+					<div id="logo1"
+						style="width: 8%; height: 30%; float: left; margin-left: 5px; margin-right: 10px;">
+						<img src="images/tech/7.png" width="100" height="100" />
+					</div>
+					<div id="logo1"
+						style="width: 8%; height: 30%; float: left; margin-left: 5px; margin-right: 10px;">
+						<img src="images/tech/8.png" width="100" height="100" />
+					</div>
+					<div id="logo1"
+						style="width: 8%; height: 30%; float: left; margin-left: 5px; margin-right: 10px;">
+						<img src="images/tech/9.png" width="100" height="100" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+	<div id="footer" style="background-image: url(images/stardust.png)">&nbsp;</div>
+</body>
+<script class="secret-source">
+	jQuery(document).ready(function($) {
+
+		$('#slider').bjqs({
+			height : 150,
+			width : 650,
+			responsive : true
 		});
+		$('#services').bjqs({
+			height : 500,
+			width : 650,
+			responsive : true
+		});
+
 	});
 </script>
-</head>
-<body>
-	<div id="dialog-form" title="Create new user">
-		<p class="validateTips">All form fields are required.</p>
-		<form>
-			<fieldset>
-				<label for="name">Name</label> <input type="text" name="name"
-					id="name" class="text ui-widget-content ui-corner-all"> <label
-					for="email">Email</label> <input type="text" name="email"
-					id="email" value="" class="text ui-widget-content ui-corner-all">
-				<label for="password">Password</label> <input type="password"
-					name="password" id="password" value=""
-					class="text ui-widget-content ui-corner-all">
-			</fieldset>
-		</form>
-	</div>
-	<div id="users-contain" class="ui-widget">
-		<h1>Existing Users:</h1>
-		<table id="users" class="ui-widget ui-widget-content">
-			<thead>
-				<tr class="ui-widget-header ">
-					<th>Name</th>
-					<th>Email</th>
-					<th>Password</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>John Doe</td>
-					<td>john.doe@example.com</td>
-					<td>johndoe1</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-	<button id="create-user">Create new user</button>
-</body>
+<script>
+	window.onresize = function(event) {
+		var w = window.innerWidth;
+		if (w < 1200) {
+			$("#menubar").css("display", "none");
+		} else {
+			$("#menubar").css("display", "");
+		}
+	};
+</script>
 </html>

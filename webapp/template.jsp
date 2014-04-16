@@ -14,8 +14,7 @@
 	<div id="mainWrapper">
 		<div id="miniMenuBar">&nbsp;</div>
 		<div id="header">
-			<div id="globalTitle">Prediction of One Bond Coupling Constants
-				- 1JCH</div>
+			<div id="globalTitle"><a href="/1JCH">Prediction of One Bond Coupling Constants - 1JCH</a> </div>
 			<div id="localTitle">
 				<p>Data Viewer</p>
 			</div>
