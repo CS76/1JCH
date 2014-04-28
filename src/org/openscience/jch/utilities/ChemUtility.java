@@ -50,7 +50,6 @@ import org.openscience.cdk.io.SDFWriter;
 import org.openscience.cdk.io.iterator.IteratingSDFReader;
 import org.openscience.cdk.qsar.DescriptorEngine;
 import org.openscience.cdk.qsar.DescriptorValue;
-import org.openscience.cdk.qsar.result.IDescriptorResult;
 import org.openscience.cdk.ringsearch.SSSRFinder;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;
 import org.openscience.cdk.smiles.SmilesGenerator;

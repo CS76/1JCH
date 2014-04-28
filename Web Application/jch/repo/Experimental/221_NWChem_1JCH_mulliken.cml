@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<molecule id="a10" xmlns="http://www.xml-cml.org/schema">
+  <atomArray>
+    <atom id="a1" elementType="S" x3="-0.30100614" y3="0.536611" z3="0.0" formalCharge="0">
+      <scalar title="valency" dataType="xsd:string">3.10897</scalar>
+      <scalar title="numberOfValenceFreeElectrons" dataType="xsd:string">12.06086</scalar>
+      <scalar title="sumOFBondIndices" dataType="xsd:string">3.10897</scalar>
+      <scalar title="mullikenCharge" dataType="xsd:string">15.16983</scalar>
+    </atom>
+    <atom id="a2" elementType="O" x3="-1.62466163" y3="-0.2020282" z3="0.0" formalCharge="0">
+      <scalar dataType="xsd:string">8</scalar>
+      <scalar title="valency" dataType="xsd:string">1.60741</scalar>
+      <scalar title="numberOfValenceFreeElectrons" dataType="xsd:string">7.08842</scalar>
+      <scalar title="sumOFBondIndices" dataType="xsd:string">1.60741</scalar>
+      <scalar title="mullikenCharge" dataType="xsd:string">8.69583</scalar>
+    </atom>
+    <atom id="a3" elementType="C" x3="0.70130314" y3="-0.1730942" z3="1.37046027" formalCharge="0">
+      <scalar dataType="xsd:string">6</scalar>
+      <scalar title="valency" dataType="xsd:string">3.80397</scalar>
+      <scalar title="numberOfValenceFreeElectrons" dataType="xsd:string">2.69613</scalar>
+      <scalar title="sumOFBondIndices" dataType="xsd:string">3.80397</scalar>
+      <scalar title="mullikenCharge" dataType="xsd:string">6.5001</scalar>
+    </atom>
+    <atom id="a4" elementType="C" x3="0.70130314" y3="-0.1730942" z3="-1.37046027" formalCharge="0">
+      <scalar dataType="xsd:string">6</scalar>
+      <scalar title="valency" dataType="xsd:string">3.80397</scalar>
+      <scalar title="numberOfValenceFreeElectrons" dataType="xsd:string">2.69613</scalar>
+      <scalar title="sumOFBondIndices" dataType="xsd:string">3.80397</scalar>
+      <scalar title="mullikenCharge" dataType="xsd:string">6.5001</scalar>
+    </atom>
+    <atom id="a5" elementType="H" x3="1.71244759" y3="0.23605407" z3="1.34305341" formalCharge="0">
+      <scalar dataType="xsd:string">1</scalar>
+      <scalar title="JCH" dataType="xsd:string">[a3; 134.8367 Hz, a4; -0.1009 Hz]</scalar>
+      <scalar title="valency" dataType="xsd:string">0.96234</scalar>
+      <scalar title="numberOfValenceFreeElectrons" dataType="xsd:string">-0.08799</scalar>
+      <scalar title="sumOFBondIndices" dataType="xsd:string">0.96234</scalar>
+      <scalar title="mullikenCharge" dataType="xsd:string">0.87435</scalar>
+    </atom>
+    <atom id="a6" elementType="H" x3="0.20623583" y3="0.11569997" z3="2.29680576" formalCharge="0">
+      <scalar dataType="xsd:string">1</scalar>
+      <scalar title="JCH" dataType="xsd:string">[a3; 141.3156 Hz, a4; 8.5691 Hz]</scalar>
+      <scalar title="valency" dataType="xsd:string">0.95953</scalar>
+      <scalar title="numberOfValenceFreeElectrons" dataType="xsd:string">-0.11706</scalar>
+      <scalar title="sumOFBondIndices" dataType="xsd:string">0.95953</scalar>
+      <scalar title="mullikenCharge" dataType="xsd:string">0.84247</scalar>
+    </atom>
+    <atom id="a7" elementType="H" x3="0.70842822" y3="-1.25939305" z3="1.27676845" formalCharge="0">
+      <scalar dataType="xsd:string">1</scalar>
+      <scalar title="JCH" dataType="xsd:string">[a3; 142.3492 Hz, a4; 4.7758 Hz]</scalar>
+      <scalar title="valency" dataType="xsd:string">0.95891</scalar>
+      <scalar title="numberOfValenceFreeElectrons" dataType="xsd:string">-0.10867</scalar>
+      <scalar title="sumOFBondIndices" dataType="xsd:string">0.95891</scalar>
+      <scalar title="mullikenCharge" dataType="xsd:string">0.85024</scalar>
+    </atom>
+    <atom id="a8" elementType="H" x3="1.71244759" y3="0.23605407" z3="-1.34305341" formalCharge="0">
+      <scalar dataType="xsd:string">1</scalar>
+      <scalar title="JCH" dataType="xsd:string">[a3; -0.1009 Hz, a4; 134.8367 Hz]</scalar>
+      <scalar title="valency" dataType="xsd:string">0.96234</scalar>
+      <scalar title="numberOfValenceFreeElectrons" dataType="xsd:string">-0.08799</scalar>
+      <scalar title="sumOFBondIndices" dataType="xsd:string">0.96234</scalar>
+      <scalar title="mullikenCharge" dataType="xsd:string">0.87435</scalar>
+    </atom>
+    <atom id="a9" elementType="H" x3="0.20623583" y3="0.11569997" z3="-2.29680576" formalCharge="0">
+      <scalar dataType="xsd:string">1</scalar>
+      <scalar title="JCH" dataType="xsd:string">[a3; 8.5691 Hz, a4; 141.3156 Hz]</scalar>
+      <scalar title="valency" dataType="xsd:string">0.95953</scalar>
+      <scalar title="numberOfValenceFreeElectrons" dataType="xsd:string">-0.11706</scalar>
+      <scalar title="sumOFBondIndices" dataType="xsd:string">0.95953</scalar>
+      <scalar title="mullikenCharge" dataType="xsd:string">0.84247</scalar>
+    </atom>
+    <atom id="a10" elementType="H" x3="0.70842822" y3="-1.25939305" z3="-1.27676845" formalCharge="0">
+      <scalar dataType="xsd:string">1</scalar>
+      <scalar title="JCH" dataType="xsd:string">[a3; 4.7758 Hz, a4; 142.3492 Hz]</scalar>
+      <scalar title="valency" dataType="xsd:string">0.95891</scalar>
+      <scalar title="numberOfValenceFreeElectrons" dataType="xsd:string">-0.10867</scalar>
+      <scalar title="sumOFBondIndices" dataType="xsd:string">0.95891</scalar>
+      <scalar title="mullikenCharge" dataType="xsd:string">0.85024</scalar>
+    </atom>
+  </atomArray>
+  <bondArray>
+    <bond id="a1_a2" atomRefs2="a1 a2" order="S"/>
+    <bond id="a1_a3" atomRefs2="a1 a3" order="S"/>
+    <bond id="a1_a4" atomRefs2="a1 a4" order="S"/>
+    <bond id="a3_a5" atomRefs2="a3 a5" order="S"/>
+    <bond id="a3_a6" atomRefs2="a3 a6" order="S"/>
+    <bond id="a3_a7" atomRefs2="a3 a7" order="S"/>
+    <bond id="a4_a8" atomRefs2="a4 a8" order="S"/>
+    <bond id="a4_a9" atomRefs2="a4 a9" order="S"/>
+    <bond id="a4_a10" atomRefs2="a4 a10" order="S"/>
+  </bondArray>
+</molecule>

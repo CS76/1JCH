@@ -1,0 +1,656 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<molecule id="MolID_85" xmlns="http://www.xml-cml.org/schema">
+  <atomArray>
+    <atom id="a1" elementType="S" x3="0.9304979" y3="4.77732031" z3="-0.16185298" formalCharge="0" hydrogenCount="0">
+      <scalar title="valency" dataType="xsd:string">2.09475</scalar>
+      <scalar title="numberOfValenceFreeElectrons" dataType="xsd:string">2.09475</scalar>
+      <scalar title="sumOFBondIndices" dataType="xsd:string">13.96824</scalar>
+      <scalar title="mullikenCharge" dataType="xsd:string">16.06298</scalar>
+      <scalar title="AlphaSpin_S" dataType="xsd:string">2.90553</scalar>
+      <scalar title="AlphaSpin_P" dataType="xsd:string">0.04355</scalar>
+      <scalar title="AlphaSpin_D" dataType="xsd:string">5.08242</scalar>
+      <scalar title="BetaSpin_S" dataType="xsd:string">2.90553</scalar>
+      <scalar title="BetaSpin_P" dataType="xsd:string">5.08242</scalar>
+      <scalar title="BetaSpin_D" dataType="xsd:string">0.04355</scalar>
+      <scalar title="TotalSpinPopulation_S" dataType="xsd:string">5.81105</scalar>
+      <scalar title="TotalSpinPopulation_P" dataType="xsd:string">10.16483</scalar>
+      <scalar title="TotalSpinPopulation_D" dataType="xsd:string">0.0871</scalar>
+      <scalar title="LargeBondIndices" dataType="xsd:string">0.0</scalar>
+      <scalar title="strained" dataType="xsd:string">false</scalar>
+      <scalar title="isAttachedToHetero" dataType="xsd:string">false</scalar>
+      <scalar title="aromatic" dataType="xsd:string">false</scalar>
+      <scalar title="hybridization" dataType="xsd:string">SP2</scalar>
+      <scalar title="AtomDegreeDescriptor" dataType="xsd:string">1</scalar>
+      <scalar title="EffectiveAtomPolarizabilityDescriptor" dataType="xsd:string">8.32871875</scalar>
+      <scalar title="PartialPiChargeDescriptor" dataType="xsd:string">-0.8563883375484096</scalar>
+      <scalar title="PartialSigmaChargeDescriptor" dataType="xsd:string">-0.0309904307948035</scalar>
+      <scalar title="PiElectronegativityDescriptor" dataType="xsd:string">7.478856421023937</scalar>
+      <scalar title="SigmaElectronegativityDescriptor" dataType="xsd:string">9.858594919650919</scalar>
+    </atom>
+    <atom id="a2" elementType="C" x3="0.30474799" y3="3.25399675" z3="-0.23525156" formalCharge="0" hydrogenCount="0">
+      <scalar dataType="xsd:string">6</scalar>
+      <scalar title="valency" dataType="xsd:string">4.15143</scalar>
+      <scalar title="numberOfValenceFreeElectrons" dataType="xsd:string">4.15143</scalar>
+      <scalar title="sumOFBondIndices" dataType="xsd:string">2.12577</scalar>
+      <scalar title="mullikenCharge" dataType="xsd:string">6.2772</scalar>
+      <scalar title="AlphaSpin_S" dataType="xsd:string">1.60897</scalar>
+      <scalar title="AlphaSpin_P" dataType="xsd:string">0.06688</scalar>
+      <scalar title="AlphaSpin_D" dataType="xsd:string">1.46276</scalar>
+      <scalar title="BetaSpin_S" dataType="xsd:string">1.60897</scalar>
+      <scalar title="BetaSpin_P" dataType="xsd:string">1.46276</scalar>
+      <scalar title="BetaSpin_D" dataType="xsd:string">0.06688</scalar>
+      <scalar title="TotalSpinPopulation_S" dataType="xsd:string">3.21794</scalar>
+      <scalar title="TotalSpinPopulation_P" dataType="xsd:string">2.92551</scalar>
+      <scalar title="TotalSpinPopulation_D" dataType="xsd:string">0.13375</scalar>
+      <scalar title="LargeBondIndices" dataType="xsd:string">0.0</scalar>
+      <scalar title="strained" dataType="xsd:string">false</scalar>
+      <scalar title="isAttachedToHetero" dataType="xsd:string">true</scalar>
+      <scalar title="aromatic" dataType="xsd:string">false</scalar>
+      <scalar title="hybridization" dataType="xsd:string">SP2</scalar>
+      <scalar title="AtomDegreeDescriptor" dataType="xsd:string">3</scalar>
+      <scalar title="EffectiveAtomPolarizabilityDescriptor" dataType="xsd:string">11.765437499999999</scalar>
+      <scalar title="PartialPiChargeDescriptor" dataType="xsd:string">0.0</scalar>
+      <scalar title="PartialSigmaChargeDescriptor" dataType="xsd:string">0.10629416179714238</scalar>
+      <scalar title="PiElectronegativityDescriptor" dataType="xsd:string">6.844831693785724</scalar>
+      <scalar title="SigmaElectronegativityDescriptor" dataType="xsd:string">9.799676336889068</scalar>
+    </atom>
+    <atom id="a3" elementType="S" x3="-1.39015081" y3="2.84976185" z3="-0.59581609" formalCharge="0" hydrogenCount="0">
+      <scalar dataType="xsd:string">16</scalar>
+      <scalar title="valency" dataType="xsd:string">2.3419</scalar>
+      <scalar title="numberOfValenceFreeElectrons" dataType="xsd:string">2.3419</scalar>
+      <scalar title="sumOFBondIndices" dataType="xsd:string">13.33663</scalar>
+      <scalar title="mullikenCharge" dataType="xsd:string">15.67853</scalar>
+      <scalar title="AlphaSpin_S" dataType="xsd:string">2.89092</scalar>
+      <scalar title="AlphaSpin_P" dataType="xsd:string">0.05921</scalar>
+      <scalar title="AlphaSpin_D" dataType="xsd:string">4.88914</scalar>
+      <scalar title="BetaSpin_S" dataType="xsd:string">2.89092</scalar>
+      <scalar title="BetaSpin_P" dataType="xsd:string">4.88914</scalar>
+      <scalar title="BetaSpin_D" dataType="xsd:string">0.05921</scalar>
+      <scalar title="TotalSpinPopulation_S" dataType="xsd:string">5.78183</scalar>
+      <scalar title="TotalSpinPopulation_P" dataType="xsd:string">9.77828</scalar>
+      <scalar title="TotalSpinPopulation_D" dataType="xsd:string">0.11841</scalar>
+      <scalar title="LargeBondIndices" dataType="xsd:string">0.0</scalar>
+      <scalar title="strained" dataType="xsd:string">false</scalar>
+      <scalar title="isAttachedToHetero" dataType="xsd:string">false</scalar>
+      <scalar title="aromatic" dataType="xsd:string">false</scalar>
+      <scalar title="hybridization" dataType="xsd:string">PLANAR3</scalar>
+      <scalar title="AtomDegreeDescriptor" dataType="xsd:string">2</scalar>
+      <scalar title="EffectiveAtomPolarizabilityDescriptor" dataType="xsd:string">10.1726875</scalar>
+      <scalar title="PartialPiChargeDescriptor" dataType="xsd:string">0.5699392299861188</scalar>
+      <scalar title="PartialSigmaChargeDescriptor" dataType="xsd:string">-0.02581808120496595</scalar>
+      <scalar title="PiElectronegativityDescriptor" dataType="xsd:string">6.336037054704386</scalar>
+      <scalar title="SigmaElectronegativityDescriptor" dataType="xsd:string">9.90153358841875</scalar>
+    </atom>
+    <atom id="a4" elementType="C" x3="-1.08742441" y3="1.06602104" z3="-0.45248094" formalCharge="0" hydrogenCount="0">
+      <scalar dataType="xsd:string">6</scalar>
+      <scalar title="valency" dataType="xsd:string">4.02034</scalar>
+      <scalar title="numberOfValenceFreeElectrons" dataType="xsd:string">4.02034</scalar>
+      <scalar title="sumOFBondIndices" dataType="xsd:string">1.83963</scalar>
+      <scalar title="mullikenCharge" dataType="xsd:string">5.85997</scalar>
+      <scalar title="AlphaSpin_S" dataType="xsd:string">1.56719</scalar>
+      <scalar title="AlphaSpin_P" dataType="xsd:string">0.06777</scalar>
+      <scalar title="AlphaSpin_D" dataType="xsd:string">1.29502</scalar>
+      <scalar title="BetaSpin_S" dataType="xsd:string">1.56719</scalar>
+      <scalar title="BetaSpin_P" dataType="xsd:string">1.29502</scalar>
+      <scalar title="BetaSpin_D" dataType="xsd:string">0.06777</scalar>
+      <scalar title="TotalSpinPopulation_S" dataType="xsd:string">3.13439</scalar>
+      <scalar title="TotalSpinPopulation_P" dataType="xsd:string">2.59004</scalar>
+      <scalar title="TotalSpinPopulation_D" dataType="xsd:string">0.13555</scalar>
+      <scalar title="LargeBondIndices" dataType="xsd:string">0.0</scalar>
+      <scalar title="strained" dataType="xsd:string">false</scalar>
+      <scalar title="isAttachedToHetero" dataType="xsd:string">true</scalar>
+      <scalar title="aromatic" dataType="xsd:string">false</scalar>
+      <scalar title="hybridization" dataType="xsd:string">SP2</scalar>
+      <scalar title="AtomDegreeDescriptor" dataType="xsd:string">3</scalar>
+      <scalar title="EffectiveAtomPolarizabilityDescriptor" dataType="xsd:string">10.414125</scalar>
+      <scalar title="PartialPiChargeDescriptor" dataType="xsd:string">0.0</scalar>
+      <scalar title="PartialSigmaChargeDescriptor" dataType="xsd:string">0.23631894258142183</scalar>
+      <scalar title="PiElectronegativityDescriptor" dataType="xsd:string">7.9623517013589105</scalar>
+      <scalar title="SigmaElectronegativityDescriptor" dataType="xsd:string">11.078836382436071</scalar>
+    </atom>
+    <atom id="a5" elementType="O" x3="-1.96529868" y3="0.24611141" z3="-0.613927" formalCharge="0" hydrogenCount="0">
+      <scalar dataType="xsd:string">8</scalar>
+      <scalar title="valency" dataType="xsd:string">2.10344</scalar>
+      <scalar title="numberOfValenceFreeElectrons" dataType="xsd:string">2.10344</scalar>
+      <scalar title="sumOFBondIndices" dataType="xsd:string">6.30751</scalar>
+      <scalar title="mullikenCharge" dataType="xsd:string">8.41095</scalar>
+      <scalar title="AlphaSpin_S" dataType="xsd:string">1.90902</scalar>
+      <scalar title="AlphaSpin_P" dataType="xsd:string">0.02941</scalar>
+      <scalar title="AlphaSpin_D" dataType="xsd:string">2.26704</scalar>
+      <scalar title="BetaSpin_S" dataType="xsd:string">1.90902</scalar>
+      <scalar title="BetaSpin_P" dataType="xsd:string">2.26704</scalar>
+      <scalar title="BetaSpin_D" dataType="xsd:string">0.02941</scalar>
+      <scalar title="TotalSpinPopulation_S" dataType="xsd:string">3.81805</scalar>
+      <scalar title="TotalSpinPopulation_P" dataType="xsd:string">4.53408</scalar>
+      <scalar title="TotalSpinPopulation_D" dataType="xsd:string">0.05882</scalar>
+      <scalar title="LargeBondIndices" dataType="xsd:string">0.0</scalar>
+      <scalar title="strained" dataType="xsd:string">false</scalar>
+      <scalar title="isAttachedToHetero" dataType="xsd:string">false</scalar>
+      <scalar title="aromatic" dataType="xsd:string">false</scalar>
+      <scalar title="hybridization" dataType="xsd:string">SP2</scalar>
+      <scalar title="AtomDegreeDescriptor" dataType="xsd:string">1</scalar>
+      <scalar title="EffectiveAtomPolarizabilityDescriptor" dataType="xsd:string">6.1280624999999995</scalar>
+      <scalar title="PartialPiChargeDescriptor" dataType="xsd:string">-0.09655169989116803</scalar>
+      <scalar title="PartialSigmaChargeDescriptor" dataType="xsd:string">-0.2791556877394777</scalar>
+      <scalar title="PiElectronegativityDescriptor" dataType="xsd:string">8.258320746943186</scalar>
+      <scalar title="SigmaElectronegativityDescriptor" dataType="xsd:string">13.268866264949782</scalar>
+    </atom>
+    <atom id="a6" elementType="C" x3="0.3426949" y3="0.85278528" z3="-0.12366985" formalCharge="0" hydrogenCount="0">
+      <scalar dataType="xsd:string">6</scalar>
+      <scalar title="valency" dataType="xsd:string">3.66451</scalar>
+      <scalar title="numberOfValenceFreeElectrons" dataType="xsd:string">3.66451</scalar>
+      <scalar title="sumOFBondIndices" dataType="xsd:string">2.13892</scalar>
+      <scalar title="mullikenCharge" dataType="xsd:string">5.80343</scalar>
+      <scalar title="AlphaSpin_S" dataType="xsd:string">1.54253</scalar>
+      <scalar title="AlphaSpin_P" dataType="xsd:string">0.04519</scalar>
+      <scalar title="AlphaSpin_D" dataType="xsd:string">1.314</scalar>
+      <scalar title="BetaSpin_S" dataType="xsd:string">1.54253</scalar>
+      <scalar title="BetaSpin_P" dataType="xsd:string">1.314</scalar>
+      <scalar title="BetaSpin_D" dataType="xsd:string">0.04519</scalar>
+      <scalar title="TotalSpinPopulation_S" dataType="xsd:string">3.08505</scalar>
+      <scalar title="TotalSpinPopulation_P" dataType="xsd:string">2.628</scalar>
+      <scalar title="TotalSpinPopulation_D" dataType="xsd:string">0.09037</scalar>
+      <scalar title="LargeBondIndices" dataType="xsd:string">0.0</scalar>
+      <scalar title="strained" dataType="xsd:string">false</scalar>
+      <scalar title="isAttachedToHetero" dataType="xsd:string">true</scalar>
+      <scalar title="aromatic" dataType="xsd:string">false</scalar>
+      <scalar title="hybridization" dataType="xsd:string">SP2</scalar>
+      <scalar title="AtomDegreeDescriptor" dataType="xsd:string">3</scalar>
+      <scalar title="EffectiveAtomPolarizabilityDescriptor" dataType="xsd:string">11.005749999999999</scalar>
+      <scalar title="PartialPiChargeDescriptor" dataType="xsd:string">0.0</scalar>
+      <scalar title="PartialSigmaChargeDescriptor" dataType="xsd:string">0.07562880300073077</scalar>
+      <scalar title="PiElectronegativityDescriptor" dataType="xsd:string">6.590832656531843</scalar>
+      <scalar title="SigmaElectronegativityDescriptor" dataType="xsd:string">9.50295974876934</scalar>
+    </atom>
+    <atom id="a7" elementType="C" x3="1.05377675" y3="-0.28958723" z3="0.08468729" formalCharge="0" hydrogenCount="1">
+      <scalar dataType="xsd:string">6</scalar>
+      <scalar title="valency" dataType="xsd:string">3.88512</scalar>
+      <scalar title="numberOfValenceFreeElectrons" dataType="xsd:string">3.88512</scalar>
+      <scalar title="sumOFBondIndices" dataType="xsd:string">2.22844</scalar>
+      <scalar title="mullikenCharge" dataType="xsd:string">6.11356</scalar>
+      <scalar title="AlphaSpin_S" dataType="xsd:string">1.61354</scalar>
+      <scalar title="AlphaSpin_P" dataType="xsd:string">0.02802</scalar>
+      <scalar title="AlphaSpin_D" dataType="xsd:string">1.41522</scalar>
+      <scalar title="BetaSpin_S" dataType="xsd:string">1.61354</scalar>
+      <scalar title="BetaSpin_P" dataType="xsd:string">1.41522</scalar>
+      <scalar title="BetaSpin_D" dataType="xsd:string">0.02802</scalar>
+      <scalar title="TotalSpinPopulation_S" dataType="xsd:string">3.22708</scalar>
+      <scalar title="TotalSpinPopulation_P" dataType="xsd:string">2.83044</scalar>
+      <scalar title="TotalSpinPopulation_D" dataType="xsd:string">0.05604</scalar>
+      <scalar title="LargeBondIndices" dataType="xsd:string">0.0</scalar>
+      <scalar title="strained" dataType="xsd:string">false</scalar>
+      <scalar title="isAttachedToHetero" dataType="xsd:string">false</scalar>
+      <scalar title="aromatic" dataType="xsd:string">false</scalar>
+      <scalar title="hybridization" dataType="xsd:string">SP2</scalar>
+      <scalar title="AtomDegreeDescriptor" dataType="xsd:string">2</scalar>
+      <scalar title="EffectiveAtomPolarizabilityDescriptor" dataType="xsd:string">10.1575</scalar>
+      <scalar title="PartialPiChargeDescriptor" dataType="xsd:string">-0.07072553321469516</scalar>
+      <scalar title="PartialSigmaChargeDescriptor" dataType="xsd:string">-0.031973913831758634</scalar>
+      <scalar title="PiElectronegativityDescriptor" dataType="xsd:string">5.728430185775653</scalar>
+      <scalar title="SigmaElectronegativityDescriptor" dataType="xsd:string">8.49279175947272</scalar>
+    </atom>
+    <atom id="a8" elementType="C" x3="0.76505269" y3="-1.71274256" z3="0.08164636" formalCharge="0" hydrogenCount="0">
+      <scalar dataType="xsd:string">6</scalar>
+      <scalar title="valency" dataType="xsd:string">3.68846</scalar>
+      <scalar title="numberOfValenceFreeElectrons" dataType="xsd:string">3.68846</scalar>
+      <scalar title="sumOFBondIndices" dataType="xsd:string">2.12771</scalar>
+      <scalar title="mullikenCharge" dataType="xsd:string">5.81617</scalar>
+      <scalar title="AlphaSpin_S" dataType="xsd:string">1.5543</scalar>
+      <scalar title="AlphaSpin_P" dataType="xsd:string">0.0419</scalar>
+      <scalar title="AlphaSpin_D" dataType="xsd:string">1.31189</scalar>
+      <scalar title="BetaSpin_S" dataType="xsd:string">1.5543</scalar>
+      <scalar title="BetaSpin_P" dataType="xsd:string">1.31189</scalar>
+      <scalar title="BetaSpin_D" dataType="xsd:string">0.0419</scalar>
+      <scalar title="TotalSpinPopulation_S" dataType="xsd:string">3.10859</scalar>
+      <scalar title="TotalSpinPopulation_P" dataType="xsd:string">2.62377</scalar>
+      <scalar title="TotalSpinPopulation_D" dataType="xsd:string">0.0838</scalar>
+      <scalar title="LargeBondIndices" dataType="xsd:string">0.0</scalar>
+      <scalar title="strained" dataType="xsd:string">false</scalar>
+      <scalar title="isAttachedToHetero" dataType="xsd:string">false</scalar>
+      <scalar title="aromatic" dataType="xsd:string">true</scalar>
+      <scalar title="hybridization" dataType="xsd:string">SP2</scalar>
+      <scalar title="AtomDegreeDescriptor" dataType="xsd:string">3</scalar>
+      <scalar title="EffectiveAtomPolarizabilityDescriptor" dataType="xsd:string">10.358500000000001</scalar>
+      <scalar title="PartialPiChargeDescriptor" dataType="xsd:string">0.0</scalar>
+      <scalar title="PartialSigmaChargeDescriptor" dataType="xsd:string">-0.021155705882461538</scalar>
+      <scalar title="PiElectronegativityDescriptor" dataType="xsd:string">5.813103526301368</scalar>
+      <scalar title="SigmaElectronegativityDescriptor" dataType="xsd:string">8.595143494420793</scalar>
+      <scalar dictRef="cdk:aromaticAtom"/>
+    </atom>
+    <atom id="a9" elementType="C" x3="1.85668231" y3="-2.56132688" z3="0.36437919" formalCharge="0" hydrogenCount="1">
+      <scalar dataType="xsd:string">6</scalar>
+      <scalar title="valency" dataType="xsd:string">3.88835</scalar>
+      <scalar title="numberOfValenceFreeElectrons" dataType="xsd:string">3.88835</scalar>
+      <scalar title="sumOFBondIndices" dataType="xsd:string">2.26781</scalar>
+      <scalar title="mullikenCharge" dataType="xsd:string">6.15617</scalar>
+      <scalar title="AlphaSpin_S" dataType="xsd:string">1.59873</scalar>
+      <scalar title="AlphaSpin_P" dataType="xsd:string">0.02602</scalar>
+      <scalar title="AlphaSpin_D" dataType="xsd:string">1.45333</scalar>
+      <scalar title="BetaSpin_S" dataType="xsd:string">1.59873</scalar>
+      <scalar title="BetaSpin_P" dataType="xsd:string">1.45333</scalar>
+      <scalar title="BetaSpin_D" dataType="xsd:string">0.02602</scalar>
+      <scalar title="TotalSpinPopulation_S" dataType="xsd:string">3.19747</scalar>
+      <scalar title="TotalSpinPopulation_P" dataType="xsd:string">2.90666</scalar>
+      <scalar title="TotalSpinPopulation_D" dataType="xsd:string">0.05204</scalar>
+      <scalar title="LargeBondIndices" dataType="xsd:string">0.0</scalar>
+      <scalar title="strained" dataType="xsd:string">false</scalar>
+      <scalar title="isAttachedToHetero" dataType="xsd:string">false</scalar>
+      <scalar title="aromatic" dataType="xsd:string">true</scalar>
+      <scalar title="hybridization" dataType="xsd:string">SP2</scalar>
+      <scalar title="AtomDegreeDescriptor" dataType="xsd:string">2</scalar>
+      <scalar title="EffectiveAtomPolarizabilityDescriptor" dataType="xsd:string">8.604437500000001</scalar>
+      <scalar title="PartialPiChargeDescriptor" dataType="xsd:string">-0.08387573202683718</scalar>
+      <scalar title="PartialSigmaChargeDescriptor" dataType="xsd:string">-0.05456327702020654</scalar>
+      <scalar title="PiElectronegativityDescriptor" dataType="xsd:string">5.553088886556179</scalar>
+      <scalar title="SigmaElectronegativityDescriptor" dataType="xsd:string">8.287601655989667</scalar>
+      <scalar dictRef="cdk:aromaticAtom"/>
+    </atom>
+    <atom id="a10" elementType="C" x3="1.69561661" y3="-3.93959044" z3="0.3885199" formalCharge="0" hydrogenCount="1">
+      <scalar dataType="xsd:string">6</scalar>
+      <scalar title="valency" dataType="xsd:string">3.9408</scalar>
+      <scalar title="numberOfValenceFreeElectrons" dataType="xsd:string">3.9408</scalar>
+      <scalar title="sumOFBondIndices" dataType="xsd:string">2.18337</scalar>
+      <scalar title="mullikenCharge" dataType="xsd:string">6.12417</scalar>
+      <scalar title="AlphaSpin_S" dataType="xsd:string">1.60051</scalar>
+      <scalar title="AlphaSpin_P" dataType="xsd:string">0.02693</scalar>
+      <scalar title="AlphaSpin_D" dataType="xsd:string">1.43465</scalar>
+      <scalar title="BetaSpin_S" dataType="xsd:string">1.60051</scalar>
+      <scalar title="BetaSpin_P" dataType="xsd:string">1.43465</scalar>
+      <scalar title="BetaSpin_D" dataType="xsd:string">0.02693</scalar>
+      <scalar title="TotalSpinPopulation_S" dataType="xsd:string">3.20101</scalar>
+      <scalar title="TotalSpinPopulation_P" dataType="xsd:string">2.8693</scalar>
+      <scalar title="TotalSpinPopulation_D" dataType="xsd:string">0.05386</scalar>
+      <scalar title="LargeBondIndices" dataType="xsd:string">0.0</scalar>
+      <scalar title="strained" dataType="xsd:string">false</scalar>
+      <scalar title="isAttachedToHetero" dataType="xsd:string">false</scalar>
+      <scalar title="aromatic" dataType="xsd:string">true</scalar>
+      <scalar title="hybridization" dataType="xsd:string">SP2</scalar>
+      <scalar title="AtomDegreeDescriptor" dataType="xsd:string">2</scalar>
+      <scalar title="EffectiveAtomPolarizabilityDescriptor" dataType="xsd:string">7.814125000000001</scalar>
+      <scalar title="PartialPiChargeDescriptor" dataType="xsd:string">0.0</scalar>
+      <scalar title="PartialSigmaChargeDescriptor" dataType="xsd:string">-0.058927640152649646</scalar>
+      <scalar title="PiElectronegativityDescriptor" dataType="xsd:string">5.519440399130971</scalar>
+      <scalar title="SigmaElectronegativityDescriptor" dataType="xsd:string">8.247468164297132</scalar>
+      <scalar dictRef="cdk:aromaticAtom"/>
+    </atom>
+    <atom id="a11" elementType="C" x3="0.45501294" y3="-4.51150356" z3="0.13442995" formalCharge="0" hydrogenCount="1">
+      <scalar dataType="xsd:string">6</scalar>
+      <scalar title="valency" dataType="xsd:string">3.85665</scalar>
+      <scalar title="numberOfValenceFreeElectrons" dataType="xsd:string">3.85665</scalar>
+      <scalar title="sumOFBondIndices" dataType="xsd:string">2.28405</scalar>
+      <scalar title="mullikenCharge" dataType="xsd:string">6.1407</scalar>
+      <scalar title="AlphaSpin_S" dataType="xsd:string">1.59763</scalar>
+      <scalar title="AlphaSpin_P" dataType="xsd:string">0.02569</scalar>
+      <scalar title="AlphaSpin_D" dataType="xsd:string">1.44704</scalar>
+      <scalar title="BetaSpin_S" dataType="xsd:string">1.59763</scalar>
+      <scalar title="BetaSpin_P" dataType="xsd:string">1.44704</scalar>
+      <scalar title="BetaSpin_D" dataType="xsd:string">0.02569</scalar>
+      <scalar title="TotalSpinPopulation_S" dataType="xsd:string">3.19526</scalar>
+      <scalar title="TotalSpinPopulation_P" dataType="xsd:string">2.89407</scalar>
+      <scalar title="TotalSpinPopulation_D" dataType="xsd:string">0.05137</scalar>
+      <scalar title="LargeBondIndices" dataType="xsd:string">0.0</scalar>
+      <scalar title="strained" dataType="xsd:string">false</scalar>
+      <scalar title="isAttachedToHetero" dataType="xsd:string">false</scalar>
+      <scalar title="aromatic" dataType="xsd:string">true</scalar>
+      <scalar title="hybridization" dataType="xsd:string">SP2</scalar>
+      <scalar title="AtomDegreeDescriptor" dataType="xsd:string">2</scalar>
+      <scalar title="EffectiveAtomPolarizabilityDescriptor" dataType="xsd:string">7.5116875</scalar>
+      <scalar title="PartialPiChargeDescriptor" dataType="xsd:string">-0.08418811729098644</scalar>
+      <scalar title="PartialSigmaChargeDescriptor" dataType="xsd:string">-0.03196987560252381</scalar>
+      <scalar title="PiElectronegativityDescriptor" dataType="xsd:string">5.7284617079873055</scalar>
+      <scalar title="SigmaElectronegativityDescriptor" dataType="xsd:string">8.494200619161573</scalar>
+      <scalar dictRef="cdk:aromaticAtom"/>
+    </atom>
+    <atom id="a12" elementType="C" x3="-0.63203992" y3="-3.681147" z3="-0.14667283" formalCharge="0" hydrogenCount="0">
+      <scalar dataType="xsd:string">6</scalar>
+      <scalar title="valency" dataType="xsd:string">3.87443</scalar>
+      <scalar title="numberOfValenceFreeElectrons" dataType="xsd:string">3.87443</scalar>
+      <scalar title="sumOFBondIndices" dataType="xsd:string">1.85977</scalar>
+      <scalar title="mullikenCharge" dataType="xsd:string">5.7342</scalar>
+      <scalar title="AlphaSpin_S" dataType="xsd:string">1.53807</scalar>
+      <scalar title="AlphaSpin_P" dataType="xsd:string">0.05425</scalar>
+      <scalar title="AlphaSpin_D" dataType="xsd:string">1.27478</scalar>
+      <scalar title="BetaSpin_S" dataType="xsd:string">1.53807</scalar>
+      <scalar title="BetaSpin_P" dataType="xsd:string">1.27478</scalar>
+      <scalar title="BetaSpin_D" dataType="xsd:string">0.05425</scalar>
+      <scalar title="TotalSpinPopulation_S" dataType="xsd:string">3.07614</scalar>
+      <scalar title="TotalSpinPopulation_P" dataType="xsd:string">2.54957</scalar>
+      <scalar title="TotalSpinPopulation_D" dataType="xsd:string">0.10849</scalar>
+      <scalar title="LargeBondIndices" dataType="xsd:string">0.0</scalar>
+      <scalar title="strained" dataType="xsd:string">false</scalar>
+      <scalar title="isAttachedToHetero" dataType="xsd:string">true</scalar>
+      <scalar title="aromatic" dataType="xsd:string">true</scalar>
+      <scalar title="hybridization" dataType="xsd:string">SP2</scalar>
+      <scalar title="AtomDegreeDescriptor" dataType="xsd:string">3</scalar>
+      <scalar title="EffectiveAtomPolarizabilityDescriptor" dataType="xsd:string">8.173</scalar>
+      <scalar title="PartialPiChargeDescriptor" dataType="xsd:string">0.0</scalar>
+      <scalar title="PartialSigmaChargeDescriptor" dataType="xsd:string">0.07247334830415463</scalar>
+      <scalar title="PiElectronegativityDescriptor" dataType="xsd:string">6.564903281307912</scalar>
+      <scalar title="SigmaElectronegativityDescriptor" dataType="xsd:string">9.479739661847754</scalar>
+      <scalar dictRef="cdk:aromaticAtom"/>
+    </atom>
+    <atom id="a13" elementType="C" x3="-0.48758409" y3="-2.29948549" z3="-0.17475211" formalCharge="0" hydrogenCount="1">
+      <scalar dataType="xsd:string">6</scalar>
+      <scalar title="valency" dataType="xsd:string">3.92155</scalar>
+      <scalar title="numberOfValenceFreeElectrons" dataType="xsd:string">3.92155</scalar>
+      <scalar title="sumOFBondIndices" dataType="xsd:string">2.29799</scalar>
+      <scalar title="mullikenCharge" dataType="xsd:string">6.21955</scalar>
+      <scalar title="AlphaSpin_S" dataType="xsd:string">1.60062</scalar>
+      <scalar title="AlphaSpin_P" dataType="xsd:string">0.02498</scalar>
+      <scalar title="AlphaSpin_D" dataType="xsd:string">1.48418</scalar>
+      <scalar title="BetaSpin_S" dataType="xsd:string">1.60062</scalar>
+      <scalar title="BetaSpin_P" dataType="xsd:string">1.48418</scalar>
+      <scalar title="BetaSpin_D" dataType="xsd:string">0.02498</scalar>
+      <scalar title="TotalSpinPopulation_S" dataType="xsd:string">3.20123</scalar>
+      <scalar title="TotalSpinPopulation_P" dataType="xsd:string">2.96835</scalar>
+      <scalar title="TotalSpinPopulation_D" dataType="xsd:string">0.04996</scalar>
+      <scalar title="LargeBondIndices" dataType="xsd:string">0.0</scalar>
+      <scalar title="strained" dataType="xsd:string">false</scalar>
+      <scalar title="isAttachedToHetero" dataType="xsd:string">false</scalar>
+      <scalar title="aromatic" dataType="xsd:string">true</scalar>
+      <scalar title="hybridization" dataType="xsd:string">SP2</scalar>
+      <scalar title="AtomDegreeDescriptor" dataType="xsd:string">2</scalar>
+      <scalar title="EffectiveAtomPolarizabilityDescriptor" dataType="xsd:string">8.789875</scalar>
+      <scalar title="PartialPiChargeDescriptor" dataType="xsd:string">-0.06685680322412477</scalar>
+      <scalar title="PartialSigmaChargeDescriptor" dataType="xsd:string">-0.024740060334375254</scalar>
+      <scalar title="PiElectronegativityDescriptor" dataType="xsd:string">5.784998738483981</scalar>
+      <scalar title="SigmaElectronegativityDescriptor" dataType="xsd:string">8.560398012135876</scalar>
+      <scalar dictRef="cdk:aromaticAtom"/>
+    </atom>
+    <atom id="a14" elementType="O" x3="-1.83432233" y3="-4.28990371" z3="-0.39090929" formalCharge="0" hydrogenCount="1">
+      <scalar dataType="xsd:string">8</scalar>
+      <scalar title="valency" dataType="xsd:string">2.06074</scalar>
+      <scalar title="numberOfValenceFreeElectrons" dataType="xsd:string">2.06074</scalar>
+      <scalar title="sumOFBondIndices" dataType="xsd:string">6.36847</scalar>
+      <scalar title="mullikenCharge" dataType="xsd:string">8.42921</scalar>
+      <scalar title="AlphaSpin_S" dataType="xsd:string">1.85899</scalar>
+      <scalar title="AlphaSpin_P" dataType="xsd:string">0.03336</scalar>
+      <scalar title="AlphaSpin_D" dataType="xsd:string">2.32226</scalar>
+      <scalar title="BetaSpin_S" dataType="xsd:string">1.85899</scalar>
+      <scalar title="BetaSpin_P" dataType="xsd:string">2.32226</scalar>
+      <scalar title="BetaSpin_D" dataType="xsd:string">0.03336</scalar>
+      <scalar title="TotalSpinPopulation_S" dataType="xsd:string">3.71798</scalar>
+      <scalar title="TotalSpinPopulation_P" dataType="xsd:string">4.64451</scalar>
+      <scalar title="TotalSpinPopulation_D" dataType="xsd:string">0.06672</scalar>
+      <scalar title="LargeBondIndices" dataType="xsd:string">0.0</scalar>
+      <scalar title="strained" dataType="xsd:string">false</scalar>
+      <scalar title="isAttachedToHetero" dataType="xsd:string">false</scalar>
+      <scalar title="aromatic" dataType="xsd:string">false</scalar>
+      <scalar title="hybridization" dataType="xsd:string">SP3</scalar>
+      <scalar title="AtomDegreeDescriptor" dataType="xsd:string">1</scalar>
+      <scalar title="EffectiveAtomPolarizabilityDescriptor" dataType="xsd:string">5.39975</scalar>
+      <scalar title="PartialPiChargeDescriptor" dataType="xsd:string">0.10958908600170297</scalar>
+      <scalar title="PartialSigmaChargeDescriptor" dataType="xsd:string">-0.36037896495431315</scalar>
+      <scalar title="PiElectronegativityDescriptor" dataType="xsd:string">3.480436516187901</scalar>
+      <scalar title="SigmaElectronegativityDescriptor" dataType="xsd:string">9.71116079987513</scalar>
+    </atom>
+    <atom id="a15" elementType="N" x3="0.98862725" y3="2.09830362" z3="-0.0323562" formalCharge="0" hydrogenCount="1">
+      <scalar dataType="xsd:string">7</scalar>
+      <scalar title="valency" dataType="xsd:string">3.34646</scalar>
+      <scalar title="numberOfValenceFreeElectrons" dataType="xsd:string">3.34646</scalar>
+      <scalar title="sumOFBondIndices" dataType="xsd:string">3.92599</scalar>
+      <scalar title="mullikenCharge" dataType="xsd:string">7.27246</scalar>
+      <scalar title="AlphaSpin_S" dataType="xsd:string">1.69859</scalar>
+      <scalar title="AlphaSpin_P" dataType="xsd:string">0.03241</scalar>
+      <scalar title="AlphaSpin_D" dataType="xsd:string">1.90522</scalar>
+      <scalar title="BetaSpin_S" dataType="xsd:string">1.69859</scalar>
+      <scalar title="BetaSpin_P" dataType="xsd:string">1.90522</scalar>
+      <scalar title="BetaSpin_D" dataType="xsd:string">0.03241</scalar>
+      <scalar title="TotalSpinPopulation_S" dataType="xsd:string">3.39718</scalar>
+      <scalar title="TotalSpinPopulation_P" dataType="xsd:string">3.81045</scalar>
+      <scalar title="TotalSpinPopulation_D" dataType="xsd:string">0.06482</scalar>
+      <scalar title="LargeBondIndices" dataType="xsd:string">0.0</scalar>
+      <scalar title="strained" dataType="xsd:string">false</scalar>
+      <scalar title="isAttachedToHetero" dataType="xsd:string">false</scalar>
+      <scalar title="aromatic" dataType="xsd:string">false</scalar>
+      <scalar title="hybridization" dataType="xsd:string">SP2</scalar>
+      <scalar title="AtomDegreeDescriptor" dataType="xsd:string">2</scalar>
+      <scalar title="EffectiveAtomPolarizabilityDescriptor" dataType="xsd:string">10.183875</scalar>
+      <scalar title="PartialPiChargeDescriptor" dataType="xsd:string">0.4529418202611898</scalar>
+      <scalar title="PartialSigmaChargeDescriptor" dataType="xsd:string">-0.2430596792120279</scalar>
+      <scalar title="PiElectronegativityDescriptor" dataType="xsd:string">2.089763220606696</scalar>
+      <scalar title="SigmaElectronegativityDescriptor" dataType="xsd:string">8.989937473018749</scalar>
+    </atom>
+    <atom id="a16" elementType="H" x3="2.10048685" y3="-0.09540609" z3="0.31075979" formalCharge="0" hydrogenCount="0">
+      <scalar dataType="xsd:string">1</scalar>
+      <scalar title="JCH" dataType="xsd:string">[a2; 0.3272 Hz, a4; 11.5901 Hz, a6; -4.8072 Hz, a7; 144.1568 Hz, a8; -1.6465 Hz, a9; 7.0532 Hz, a10; -0.0104 Hz, a11; 0.2487 Hz, a12; 0.9145 Hz, a13; 8.0467 Hz]</scalar>
+      <scalar title="valency" dataType="xsd:string">0.97849</scalar>
+      <scalar title="numberOfValenceFreeElectrons" dataType="xsd:string">0.97849</scalar>
+      <scalar title="sumOFBondIndices" dataType="xsd:string">-0.06654</scalar>
+      <scalar title="mullikenCharge" dataType="xsd:string">0.91195</scalar>
+      <scalar title="AlphaSpin_S" dataType="xsd:string">0.44194</scalar>
+      <scalar title="AlphaSpin_P" dataType="xsd:string">0.0</scalar>
+      <scalar title="AlphaSpin_D" dataType="xsd:string">0.01404</scalar>
+      <scalar title="BetaSpin_S" dataType="xsd:string">0.44194</scalar>
+      <scalar title="BetaSpin_P" dataType="xsd:string">0.01404</scalar>
+      <scalar title="BetaSpin_D" dataType="xsd:string">0.0</scalar>
+      <scalar title="TotalSpinPopulation_S" dataType="xsd:string">0.88388</scalar>
+      <scalar title="TotalSpinPopulation_P" dataType="xsd:string">0.02807</scalar>
+      <scalar title="TotalSpinPopulation_D" dataType="xsd:string">0.0</scalar>
+      <scalar title="LargeBondIndices" dataType="xsd:string">0.97499</scalar>
+      <scalar title="strained" dataType="xsd:string">false</scalar>
+      <scalar title="isAttachedToHetero" dataType="xsd:string">false</scalar>
+      <scalar title="aromatic" dataType="xsd:string">false</scalar>
+      <scalar title="angles" dataType="xsd:string">-15.894879565243826:0.0:0.0:0.0:</scalar>
+      <scalar title="hybridization" dataType="xsd:string">S</scalar>
+      <scalar title="AtomDegreeDescriptor" dataType="xsd:string">1</scalar>
+      <scalar title="EffectiveAtomPolarizabilityDescriptor" dataType="xsd:string">5.957250000000001</scalar>
+      <scalar title="PartialPiChargeDescriptor" dataType="xsd:string">0.0</scalar>
+      <scalar title="PartialSigmaChargeDescriptor" dataType="xsd:string">0.06441189534286879</scalar>
+      <scalar title="PiElectronegativityDescriptor" dataType="xsd:string">0.0</scalar>
+      <scalar title="SigmaElectronegativityDescriptor" dataType="xsd:string">7.567379387280789</scalar>
+      <scalar title="1JCH" dataType="xsd:string">144.1568</scalar>
+    </atom>
+    <atom id="a17" elementType="H" x3="2.83062185" y3="-2.13129081" z3="0.56448547" formalCharge="0" hydrogenCount="0">
+      <scalar dataType="xsd:string">1</scalar>
+      <scalar title="JCH" dataType="xsd:string">[a2; 0.0694 Hz, a4; 0.3247 Hz, a6; -0.3506 Hz, a7; 7.5724 Hz, a8; 1.4925 Hz, a9; 160.3434 Hz, a10; 1.6744 Hz, a11; 7.7970 Hz, a12; -1.1866 Hz, a13; 5.4410 Hz]</scalar>
+      <scalar title="valency" dataType="xsd:string">0.98155</scalar>
+      <scalar title="numberOfValenceFreeElectrons" dataType="xsd:string">0.98155</scalar>
+      <scalar title="sumOFBondIndices" dataType="xsd:string">-0.07494</scalar>
+      <scalar title="mullikenCharge" dataType="xsd:string">0.90661</scalar>
+      <scalar title="AlphaSpin_S" dataType="xsd:string">0.43914</scalar>
+      <scalar title="AlphaSpin_P" dataType="xsd:string">0.0</scalar>
+      <scalar title="AlphaSpin_D" dataType="xsd:string">0.01416</scalar>
+      <scalar title="BetaSpin_S" dataType="xsd:string">0.43914</scalar>
+      <scalar title="BetaSpin_P" dataType="xsd:string">0.01416</scalar>
+      <scalar title="BetaSpin_D" dataType="xsd:string">0.0</scalar>
+      <scalar title="TotalSpinPopulation_S" dataType="xsd:string">0.87829</scalar>
+      <scalar title="TotalSpinPopulation_P" dataType="xsd:string">0.02832</scalar>
+      <scalar title="TotalSpinPopulation_D" dataType="xsd:string">0.0</scalar>
+      <scalar title="LargeBondIndices" dataType="xsd:string">0.98513</scalar>
+      <scalar title="strained" dataType="xsd:string">false</scalar>
+      <scalar title="isAttachedToHetero" dataType="xsd:string">false</scalar>
+      <scalar title="aromatic" dataType="xsd:string">false</scalar>
+      <scalar title="angles" dataType="xsd:string">-0.720602996824951:0.0:0.0:0.0:</scalar>
+      <scalar title="hybridization" dataType="xsd:string">S</scalar>
+      <scalar title="AtomDegreeDescriptor" dataType="xsd:string">1</scalar>
+      <scalar title="EffectiveAtomPolarizabilityDescriptor" dataType="xsd:string">5.1807187500000005</scalar>
+      <scalar title="PartialPiChargeDescriptor" dataType="xsd:string">0.0</scalar>
+      <scalar title="PartialSigmaChargeDescriptor" dataType="xsd:string">0.06263147218579983</scalar>
+      <scalar title="PiElectronegativityDescriptor" dataType="xsd:string">0.0</scalar>
+      <scalar title="SigmaElectronegativityDescriptor" dataType="xsd:string">7.55686423823678</scalar>
+      <scalar title="1JCH" dataType="xsd:string">160.3434</scalar>
+    </atom>
+    <atom id="a18" elementType="H" x3="2.54356981" y3="-4.57701607" z3="0.60726013" formalCharge="0" hydrogenCount="0">
+      <scalar dataType="xsd:string">1</scalar>
+      <scalar title="JCH" dataType="xsd:string">[a2; -0.0132 Hz, a4; -0.1406 Hz, a6; 0.5992 Hz, a7; 0.2210 Hz, a8; 8.6754 Hz, a9; 1.9944 Hz, a10; 160.6666 Hz, a11; 1.8464 Hz, a12; 9.7086 Hz, a13; -1.3511 Hz]</scalar>
+      <scalar title="valency" dataType="xsd:string">0.97339</scalar>
+      <scalar title="numberOfValenceFreeElectrons" dataType="xsd:string">0.97339</scalar>
+      <scalar title="sumOFBondIndices" dataType="xsd:string">-0.08171</scalar>
+      <scalar title="mullikenCharge" dataType="xsd:string">0.89168</scalar>
+      <scalar title="AlphaSpin_S" dataType="xsd:string">0.43192</scalar>
+      <scalar title="AlphaSpin_P" dataType="xsd:string">0.0</scalar>
+      <scalar title="AlphaSpin_D" dataType="xsd:string">0.01392</scalar>
+      <scalar title="BetaSpin_S" dataType="xsd:string">0.43192</scalar>
+      <scalar title="BetaSpin_P" dataType="xsd:string">0.01392</scalar>
+      <scalar title="BetaSpin_D" dataType="xsd:string">0.0</scalar>
+      <scalar title="TotalSpinPopulation_S" dataType="xsd:string">0.86383</scalar>
+      <scalar title="TotalSpinPopulation_P" dataType="xsd:string">0.02785</scalar>
+      <scalar title="TotalSpinPopulation_D" dataType="xsd:string">0.0</scalar>
+      <scalar title="LargeBondIndices" dataType="xsd:string">0.97359</scalar>
+      <scalar title="strained" dataType="xsd:string">false</scalar>
+      <scalar title="isAttachedToHetero" dataType="xsd:string">false</scalar>
+      <scalar title="aromatic" dataType="xsd:string">false</scalar>
+      <scalar title="angles" dataType="xsd:string">-0.6095579941106877:0.0:0.0:0.0:</scalar>
+      <scalar title="hybridization" dataType="xsd:string">S</scalar>
+      <scalar title="AtomDegreeDescriptor" dataType="xsd:string">1</scalar>
+      <scalar title="EffectiveAtomPolarizabilityDescriptor" dataType="xsd:string">4.7855625</scalar>
+      <scalar title="PartialPiChargeDescriptor" dataType="xsd:string">0.0</scalar>
+      <scalar title="PartialSigmaChargeDescriptor" dataType="xsd:string">0.06212541131061196</scalar>
+      <scalar title="PiElectronegativityDescriptor" dataType="xsd:string">0.0</scalar>
+      <scalar title="SigmaElectronegativityDescriptor" dataType="xsd:string">7.553830950655626</scalar>
+      <scalar title="1JCH" dataType="xsd:string">160.6666</scalar>
+    </atom>
+    <atom id="a19" elementType="H" x3="0.31152533" y3="-5.58424736" z3="0.14939077" formalCharge="0" hydrogenCount="0">
+      <scalar dataType="xsd:string">1</scalar>
+      <scalar title="JCH" dataType="xsd:string">[a2; 0.0328 Hz, a4; 0.2291 Hz, a6; -0.6543 Hz, a7; 0.9666 Hz, a8; -1.0595 Hz, a9; 7.7262 Hz, a10; 0.8544 Hz, a11; 163.3738 Hz, a12; -2.9651 Hz, a13; 4.2459 Hz]</scalar>
+      <scalar title="valency" dataType="xsd:string">0.97893</scalar>
+      <scalar title="numberOfValenceFreeElectrons" dataType="xsd:string">0.97893</scalar>
+      <scalar title="sumOFBondIndices" dataType="xsd:string">-0.10186</scalar>
+      <scalar title="mullikenCharge" dataType="xsd:string">0.87707</scalar>
+      <scalar title="AlphaSpin_S" dataType="xsd:string">0.42445</scalar>
+      <scalar title="AlphaSpin_P" dataType="xsd:string">0.0</scalar>
+      <scalar title="AlphaSpin_D" dataType="xsd:string">0.01408</scalar>
+      <scalar title="BetaSpin_S" dataType="xsd:string">0.42445</scalar>
+      <scalar title="BetaSpin_P" dataType="xsd:string">0.01408</scalar>
+      <scalar title="BetaSpin_D" dataType="xsd:string">0.0</scalar>
+      <scalar title="TotalSpinPopulation_S" dataType="xsd:string">0.84891</scalar>
+      <scalar title="TotalSpinPopulation_P" dataType="xsd:string">0.02816</scalar>
+      <scalar title="TotalSpinPopulation_D" dataType="xsd:string">0.0</scalar>
+      <scalar title="LargeBondIndices" dataType="xsd:string">0.97941</scalar>
+      <scalar title="strained" dataType="xsd:string">false</scalar>
+      <scalar title="isAttachedToHetero" dataType="xsd:string">false</scalar>
+      <scalar title="aromatic" dataType="xsd:string">false</scalar>
+      <scalar title="angles" dataType="xsd:string">0.8517208150850308:0.0:0.0:0.0:</scalar>
+      <scalar title="hybridization" dataType="xsd:string">S</scalar>
+      <scalar title="AtomDegreeDescriptor" dataType="xsd:string">1</scalar>
+      <scalar title="EffectiveAtomPolarizabilityDescriptor" dataType="xsd:string">4.63434375</scalar>
+      <scalar title="PartialPiChargeDescriptor" dataType="xsd:string">0.0</scalar>
+      <scalar title="PartialSigmaChargeDescriptor" dataType="xsd:string">0.06468144101592943</scalar>
+      <scalar title="PiElectronegativityDescriptor" dataType="xsd:string">0.0</scalar>
+      <scalar title="SigmaElectronegativityDescriptor" dataType="xsd:string">7.569042587419408</scalar>
+      <scalar title="1JCH" dataType="xsd:string">163.3738</scalar>
+    </atom>
+    <atom id="a20" elementType="H" x3="-1.33828704" y3="-1.67078271" z3="-0.39345653" formalCharge="0" hydrogenCount="0">
+      <scalar dataType="xsd:string">1</scalar>
+      <scalar title="JCH" dataType="xsd:string">[a2; 0.0686 Hz, a4; -0.0351 Hz, a6; -0.5373 Hz, a7; 4.7786 Hz, a8; -1.0230 Hz, a9; 6.4832 Hz, a10; -0.3057 Hz, a11; 4.5348 Hz, a12; -2.4805 Hz, a13; 163.2895 Hz]</scalar>
+      <scalar title="valency" dataType="xsd:string">0.98705</scalar>
+      <scalar title="numberOfValenceFreeElectrons" dataType="xsd:string">0.98705</scalar>
+      <scalar title="sumOFBondIndices" dataType="xsd:string">-0.11419</scalar>
+      <scalar title="mullikenCharge" dataType="xsd:string">0.87287</scalar>
+      <scalar title="AlphaSpin_S" dataType="xsd:string">0.41962</scalar>
+      <scalar title="AlphaSpin_P" dataType="xsd:string">0.0</scalar>
+      <scalar title="AlphaSpin_D" dataType="xsd:string">0.01681</scalar>
+      <scalar title="BetaSpin_S" dataType="xsd:string">0.41962</scalar>
+      <scalar title="BetaSpin_P" dataType="xsd:string">0.01681</scalar>
+      <scalar title="BetaSpin_D" dataType="xsd:string">0.0</scalar>
+      <scalar title="TotalSpinPopulation_S" dataType="xsd:string">0.83924</scalar>
+      <scalar title="TotalSpinPopulation_P" dataType="xsd:string">0.03363</scalar>
+      <scalar title="TotalSpinPopulation_D" dataType="xsd:string">0.0</scalar>
+      <scalar title="LargeBondIndices" dataType="xsd:string">0.97204</scalar>
+      <scalar title="strained" dataType="xsd:string">false</scalar>
+      <scalar title="isAttachedToHetero" dataType="xsd:string">false</scalar>
+      <scalar title="aromatic" dataType="xsd:string">false</scalar>
+      <scalar title="angles" dataType="xsd:string">-0.23953682661232278:0.0:0.0:0.0:</scalar>
+      <scalar title="hybridization" dataType="xsd:string">S</scalar>
+      <scalar title="AtomDegreeDescriptor" dataType="xsd:string">1</scalar>
+      <scalar title="EffectiveAtomPolarizabilityDescriptor" dataType="xsd:string">5.2734375</scalar>
+      <scalar title="PartialPiChargeDescriptor" dataType="xsd:string">0.0</scalar>
+      <scalar title="PartialSigmaChargeDescriptor" dataType="xsd:string">0.06529604530271846</scalar>
+      <scalar title="PiElectronegativityDescriptor" dataType="xsd:string">0.0</scalar>
+      <scalar title="SigmaElectronegativityDescriptor" dataType="xsd:string">7.572682675227716</scalar>
+      <scalar title="1JCH" dataType="xsd:string">163.2895</scalar>
+    </atom>
+    <atom id="a21" elementType="H" x3="-2.50729449" y3="-3.61957804" z3="-0.57034747" formalCharge="0" hydrogenCount="0">
+      <scalar dataType="xsd:string">1</scalar>
+      <scalar title="JCH" dataType="xsd:string">[a2; -0.0126 Hz, a4; 0.0128 Hz, a6; 0.0062 Hz, a7; 0.0325 Hz, a8; -0.0684 Hz, a9; -0.3974 Hz, a10; 1.5877 Hz, a11; 9.3987 Hz, a12; -3.2763 Hz, a13; 2.1206 Hz]</scalar>
+      <scalar title="valency" dataType="xsd:string">0.92789</scalar>
+      <scalar title="numberOfValenceFreeElectrons" dataType="xsd:string">0.92789</scalar>
+      <scalar title="sumOFBondIndices" dataType="xsd:string">-0.23947</scalar>
+      <scalar title="mullikenCharge" dataType="xsd:string">0.68842</scalar>
+      <scalar title="AlphaSpin_S" dataType="xsd:string">0.31726</scalar>
+      <scalar title="AlphaSpin_P" dataType="xsd:string">0.0</scalar>
+      <scalar title="AlphaSpin_D" dataType="xsd:string">0.02695</scalar>
+      <scalar title="BetaSpin_S" dataType="xsd:string">0.31726</scalar>
+      <scalar title="BetaSpin_P" dataType="xsd:string">0.02695</scalar>
+      <scalar title="BetaSpin_D" dataType="xsd:string">0.0</scalar>
+      <scalar title="TotalSpinPopulation_S" dataType="xsd:string">0.63452</scalar>
+      <scalar title="TotalSpinPopulation_P" dataType="xsd:string">0.0539</scalar>
+      <scalar title="TotalSpinPopulation_D" dataType="xsd:string">0.0</scalar>
+      <scalar title="LargeBondIndices" dataType="xsd:string">0.90433</scalar>
+      <scalar title="strained" dataType="xsd:string">false</scalar>
+      <scalar title="aromatic" dataType="xsd:string">false</scalar>
+      <scalar title="hybridization" dataType="xsd:string">S</scalar>
+      <scalar title="AtomDegreeDescriptor" dataType="xsd:string">1</scalar>
+      <scalar title="EffectiveAtomPolarizabilityDescriptor" dataType="xsd:string">3.2253750000000005</scalar>
+      <scalar title="PartialPiChargeDescriptor" dataType="xsd:string">0.0</scalar>
+      <scalar title="PartialSigmaChargeDescriptor" dataType="xsd:string">0.21778636839944115</scalar>
+      <scalar title="PiElectronegativityDescriptor" dataType="xsd:string">0.0</scalar>
+      <scalar title="SigmaElectronegativityDescriptor" dataType="xsd:string">8.499590581156648</scalar>
+    </atom>
+    <atom id="a22" elementType="H" x3="1.97468479" y3="2.16756556" z3="0.18290019" formalCharge="0" hydrogenCount="0">
+      <scalar dataType="xsd:string">1</scalar>
+      <scalar title="JCH" dataType="xsd:string">[a2; 3.3126 Hz, a4; 10.7602 Hz, a6; 6.9871 Hz, a7; 1.3844 Hz, a8; -0.0296 Hz, a9; -0.0340 Hz, a10; 0.0388 Hz, a11; -0.1020 Hz, a12; 0.0193 Hz, a13; -0.0853 Hz]</scalar>
+      <scalar title="valency" dataType="xsd:string">0.95116</scalar>
+      <scalar title="numberOfValenceFreeElectrons" dataType="xsd:string">0.95116</scalar>
+      <scalar title="sumOFBondIndices" dataType="xsd:string">-0.19899</scalar>
+      <scalar title="mullikenCharge" dataType="xsd:string">0.75217</scalar>
+      <scalar title="AlphaSpin_S" dataType="xsd:string">0.35359</scalar>
+      <scalar title="AlphaSpin_P" dataType="xsd:string">0.0</scalar>
+      <scalar title="AlphaSpin_D" dataType="xsd:string">0.0225</scalar>
+      <scalar title="BetaSpin_S" dataType="xsd:string">0.35359</scalar>
+      <scalar title="BetaSpin_P" dataType="xsd:string">0.0225</scalar>
+      <scalar title="BetaSpin_D" dataType="xsd:string">0.0</scalar>
+      <scalar title="TotalSpinPopulation_S" dataType="xsd:string">0.70717</scalar>
+      <scalar title="TotalSpinPopulation_P" dataType="xsd:string">0.045</scalar>
+      <scalar title="TotalSpinPopulation_D" dataType="xsd:string">0.0</scalar>
+      <scalar title="LargeBondIndices" dataType="xsd:string">0.90266</scalar>
+      <scalar title="strained" dataType="xsd:string">false</scalar>
+      <scalar title="aromatic" dataType="xsd:string">false</scalar>
+      <scalar title="hybridization" dataType="xsd:string">S</scalar>
+      <scalar title="AtomDegreeDescriptor" dataType="xsd:string">1</scalar>
+      <scalar title="EffectiveAtomPolarizabilityDescriptor" dataType="xsd:string">5.832437499999999</scalar>
+      <scalar title="PartialPiChargeDescriptor" dataType="xsd:string">0.0</scalar>
+      <scalar title="PartialSigmaChargeDescriptor" dataType="xsd:string">0.13508542748874436</scalar>
+      <scalar title="PiElectronegativityDescriptor" dataType="xsd:string">0.0</scalar>
+      <scalar title="SigmaElectronegativityDescriptor" dataType="xsd:string">8.000362810047612</scalar>
+    </atom>
+  </atomArray>
+  <bondArray>
+    <bond id="a1_a2" atomRefs2="a1 a2" order="D"/>
+    <bond id="a2_a3" atomRefs2="a2 a3" order="S"/>
+    <bond id="a2_a15" atomRefs2="a2 a15" order="S"/>
+    <bond id="a3_a4" atomRefs2="a3 a4" order="S"/>
+    <bond id="a4_a5" atomRefs2="a4 a5" order="D"/>
+    <bond id="a4_a6" atomRefs2="a4 a6" order="S"/>
+    <bond id="a6_a7" atomRefs2="a6 a7" order="D"/>
+    <bond id="a6_a15" atomRefs2="a6 a15" order="S"/>
+    <bond id="a7_a8" atomRefs2="a7 a8" order="S"/>
+    <bond id="a7_a16" atomRefs2="a7 a16" order="S"/>
+    <bond id="a8_a9" atomRefs2="a8 a9" order="S">
+      <bondType dictRef="cdk:aromaticBond"/>
+    </bond>
+    <bond id="a8_a13" atomRefs2="a8 a13" order="D">
+      <bondType dictRef="cdk:aromaticBond"/>
+    </bond>
+    <bond id="a9_a10" atomRefs2="a9 a10" order="D">
+      <bondType dictRef="cdk:aromaticBond"/>
+    </bond>
+    <bond id="a9_a17" atomRefs2="a9 a17" order="S"/>
+    <bond id="a10_a11" atomRefs2="a10 a11" order="S">
+      <bondType dictRef="cdk:aromaticBond"/>
+    </bond>
+    <bond id="a10_a18" atomRefs2="a10 a18" order="S"/>
+    <bond id="a11_a12" atomRefs2="a11 a12" order="D">
+      <bondType dictRef="cdk:aromaticBond"/>
+    </bond>
+    <bond id="a11_a19" atomRefs2="a11 a19" order="S"/>
+    <bond id="a12_a13" atomRefs2="a12 a13" order="S">
+      <bondType dictRef="cdk:aromaticBond"/>
+    </bond>
+    <bond id="a12_a14" atomRefs2="a12 a14" order="S"/>
+    <bond id="a13_a20" atomRefs2="a13 a20" order="S"/>
+    <bond id="a14_a21" atomRefs2="a14 a21" order="S"/>
+    <bond id="a15_a22" atomRefs2="a15 a22" order="S"/>
+  </bondArray>
+</molecule>

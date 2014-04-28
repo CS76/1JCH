@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>jch</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
+  <context-param>
+    <description>Location to store uploaded file</description>
+    <param-name>file-upload</param-name>
+    <param-value>\data\</param-value>
+  </context-param>
+  <servlet>
+    <description></description>
+    <display-name>1JCH Prediction</display-name>
+    <servlet-name>PredictionHandler</servlet-name>
+    <servlet-class>org.openscience.jch.servlet.PredictionHandler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PredictionHandler</servlet-name>
+    <url-pattern>/PredictionHandler</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>NWChemInput Generator</display-name>
+    <servlet-name>NWChemInputHandler</servlet-name>
+    <servlet-class>org.openscience.jch.servlet.NWChemInputHandler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NWChemInputHandler</servlet-name>
+    <url-pattern>/NWChemInputHandler</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Web Controller</display-name>
+    <servlet-name>WebController</servlet-name>
+    <servlet-class>org.openscience.jch.servlet.WebController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>WebController</servlet-name>
+    <url-pattern>/WebController</url-pattern>
+  </servlet-mapping>
+</web-app>

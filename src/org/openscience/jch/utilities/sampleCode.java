@@ -24,6 +24,7 @@ import org.openscience.cdk.AtomContainerSet;
 import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IAtomContainerSet;
+import org.xmlcml.cml.converters.compchem.nwchem.log.NWChemLog2XMLConverter;
 
 /**
  *
@@ -43,8 +44,12 @@ public class sampleCode {
                 molSet.addAtomContainer(mol);
             }
         }
+        NWChemLog2XMLConverter nwcc = new NWChemLog2XMLConverter();
+        
+        
         System.out.println(molSet.getAtomContainerCount());
         //ChemUtility.mergeCML("C:\\Users\\CS76\\Desktop\\data\\", "C:\\Users\\CS76\\Desktop\\all_NWChem_1JCH_mulliken_CDK.cml");
         ChemUtility.writeToCmlFile(molSet, "C:\\Users\\CS76\\Desktop\\newS.cml");
+        
     }
 }
